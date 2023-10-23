@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SPL_MAIN\\BANKSOLID\\BANKSOLID.csproj": {}
+    "D:\\Academics\\3rd Semester\\BankSolid SPL 1 Main\\BANKSOLID-MAIN\\BANKSOLID.csproj": {}
   },
   "projects": {
-    "D:\\SPL_MAIN\\BANKSOLID\\BANKSOLID.csproj": {
+    "D:\\Academics\\3rd Semester\\BankSolid SPL 1 Main\\BANKSOLID-MAIN\\BANKSOLID.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SPL_MAIN\\BANKSOLID\\BANKSOLID.csproj",
+        "projectUniqueName": "D:\\Academics\\3rd Semester\\BankSolid SPL 1 Main\\BANKSOLID-MAIN\\BANKSOLID.csproj",
         "projectName": "BANKSOLID",
-        "projectPath": "D:\\SPL_MAIN\\BANKSOLID\\BANKSOLID.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "D:\\SPL_MAIN\\BANKSOLID\\obj\\",
+        "projectPath": "D:\\Academics\\3rd Semester\\BankSolid SPL 1 Main\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+        "packagesPath": "C:\\Users\\Kashshaf Labib\\.nuget\\packages\\",
+        "outputPath": "D:\\Academics\\3rd Semester\\BankSolid SPL 1 Main\\BANKSOLID-MAIN\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kashshaf Labib\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
