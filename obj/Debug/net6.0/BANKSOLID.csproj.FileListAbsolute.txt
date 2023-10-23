@@ -1,0 +1,15 @@
+E:\SPL-MAIN\BANKSOLID-MAIN\bin\Debug\net6.0\BANKSOLID.exe
+E:\SPL-MAIN\BANKSOLID-MAIN\bin\Debug\net6.0\BANKSOLID.deps.json
+E:\SPL-MAIN\BANKSOLID-MAIN\bin\Debug\net6.0\BANKSOLID.runtimeconfig.json
+E:\SPL-MAIN\BANKSOLID-MAIN\bin\Debug\net6.0\BANKSOLID.dll
+E:\SPL-MAIN\BANKSOLID-MAIN\bin\Debug\net6.0\BANKSOLID.pdb
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.csproj.AssemblyReference.cache
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.GeneratedMSBuildEditorConfig.editorconfig
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.AssemblyInfoInputs.cache
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.AssemblyInfo.cs
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.csproj.CoreCompileInputs.cache
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.dll
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\refint\BANKSOLID.dll
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.pdb
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\BANKSOLID.genruntimeconfig.cache
+E:\SPL-MAIN\BANKSOLID-MAIN\obj\Debug\net6.0\ref\BANKSOLID.dll
