@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "eowDp/w94s655QQN7PO0dql7r6yPRNsruYz1r0ibKshA57eCM6f/w2eB0d61sqLB9ktAztgV2hJUjW9BT9U9ug==",
+  "dgSpecHash": "ar3EnM+phzPfvKJR9Tdk4W1DRlcg+/25QbXBhDVlyXxXdpdm8xLRd4ofu0GaFlBqexSV6l9jl2XCWnD5t76GyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\SANI\\Desktop\\SPL 1 BankSolid Main\\BANKSOLID-MAIN\\BANKSOLID.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\SPL-MAIN\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hp\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.configuration.configurationmanager\\7.0.0\\system.configuration.configurationmanager.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.data.oledb\\7.0.0\\system.data.oledb.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.diagnostics.performancecounter\\7.0.0\\system.diagnostics.performancecounter.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.security.cryptography.protecteddata\\7.0.0\\system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.security.permissions\\7.0.0\\system.security.permissions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

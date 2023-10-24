@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\SANI\\Desktop\\SPL 1 BankSolid Main\\BANKSOLID-MAIN\\BANKSOLID.csproj": {}
+    "D:\\SPL-MAIN\\BANKSOLID-MAIN\\BANKSOLID.csproj": {}
   },
   "projects": {
-    "C:\\Users\\SANI\\Desktop\\SPL 1 BankSolid Main\\BANKSOLID-MAIN\\BANKSOLID.csproj": {
+    "D:\\SPL-MAIN\\BANKSOLID-MAIN\\BANKSOLID.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\SANI\\Desktop\\SPL 1 BankSolid Main\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+        "projectUniqueName": "D:\\SPL-MAIN\\BANKSOLID-MAIN\\BANKSOLID.csproj",
         "projectName": "BANKSOLID",
-        "projectPath": "C:\\Users\\SANI\\Desktop\\SPL 1 BankSolid Main\\BANKSOLID-MAIN\\BANKSOLID.csproj",
-        "packagesPath": "C:\\Users\\SANI\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\SANI\\Desktop\\SPL 1 BankSolid Main\\BANKSOLID-MAIN\\obj\\",
+        "projectPath": "D:\\SPL-MAIN\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "D:\\SPL-MAIN\\BANKSOLID-MAIN\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\SANI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Data.OleDb": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -55,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
