@@ -12,8 +12,8 @@ namespace BANKSOLID
         double interestRate { get; set; }
 
         double leastPayment { get; set; }
-        double totalPayableAmount(DateOnly date);
+        void AddInterest();
 
-        double makePayment(DateOnly paymentDate, double payment);
+        void makePayment(double payment);
     }
 }

@@ -10,11 +10,26 @@ namespace BANKSOLID
     {
         public int loan_id { get; set; }
 
-        public double loan_amount { get; set; }
+        public double loan_amount
+        {
+            get { return loan_amount; }
+            set
+            {
+                if (value < 5000)
+                {
+                    throw new LoanException("Minimum loan amount is 5000");
+                }
+                else
+                {
+                    loan_amount = value;
+                }
+            }
+        }
 
-        public DateOnly starting_date { get; set; }
 
-        public DateOnly last_payment_date { get; set; }
+        public Date starting_date { get; set; }
+
+        public Date last_payment_date { get; set; }
 
         public double remaining_loan_amount { get; set; }
 

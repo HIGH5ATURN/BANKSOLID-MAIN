@@ -12,5 +12,20 @@ namespace BANKSOLID
         {
             loanType.getLoanDetails();
         }
+
+
+
+        public void addInterest(ILoanInterest loantype)
+        {
+            loantype.AddInterest();
+        }
+
+
+        public void makePayment(ILoanInterest loantype, double amount)
+        {
+            loantype.makePayment(amount);
+        }
+
+
     }
 }

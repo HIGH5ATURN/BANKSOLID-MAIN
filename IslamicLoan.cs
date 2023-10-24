@@ -8,7 +8,7 @@ namespace BANKSOLID
 {
     internal class IslamicLoan : Loan ,ILoan
     {
-        public IslamicLoan( int loan_id, double loan_amount, DateOnly starting_date)
+        public IslamicLoan( int loan_id, double loan_amount, Date starting_date)
         {
             this.loan_id = loan_id;
             this.loan_amount = loan_amount;
@@ -20,7 +20,7 @@ namespace BANKSOLID
         {
             Console.WriteLine();
             Console.WriteLine("Loan Details");
-            Console.WriteLine("Loan Type: Home Loan");
+            Console.WriteLine("Loan Type: Islamic Loan");
             Console.WriteLine("Loan ID: " + loan_id);
             Console.WriteLine("Principle Amount: " + loan_amount);
             Console.WriteLine("Loan taken on: " + starting_date);
@@ -28,14 +28,11 @@ namespace BANKSOLID
             Console.WriteLine();
         }
      
-        public double totalPayableAmount(DateOnly date,double profitFromBusiness)
+        public double makePayment(double profitFromBusiness)
         {
 
-            return loan_amount+.2 * profitFromBusiness;
+            return ( loan_amount + (.2 * profitFromBusiness) ) ;
         }
-        public double makePayment(DateOnly paymentDate, double payment)
-        {
-            return 0.0;
-        }
+
     }
 }
