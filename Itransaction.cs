@@ -10,7 +10,7 @@ namespace BANKSOLID
     {
         public void Deposit(double amount);
 
-        public double Withdraw(double amount);
+        public double Withdraw(double amount,Date withdraw_date);
 
         public void Transfer(Account account, double Amount);
     }

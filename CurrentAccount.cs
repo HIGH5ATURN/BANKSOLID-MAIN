@@ -7,14 +7,21 @@ using System.Transactions;
 
 namespace BANKSOLID
 {
-    public class CurrentAccount:Account,Itransaction
+    public class CurrentAccount:Account,Itransaction,Iinterest
     {
-        public CurrentAccount(int AccountNumber, String AccountHolderName, Double Balance)
+
+        public double InterestRate { get; set; } = 0.02;
+
+        public Date LastInterestDate { get; set; }
+        public CurrentAccount(int AccountNumber, String AccountHolderName, Double Balance,Date OpeningDate)
         {
             this.AccountNumber = AccountNumber;
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
+            this.OpeningDate = OpeningDate;
         }
+
+       
 
         public void Deposit(double amount)
         {
@@ -44,7 +51,7 @@ namespace BANKSOLID
             }
         }
 
-        public double Withdraw(double amount)
+        public double Withdraw(double amount, Date withdraw_date)
         {
             if (Balance - amount >= 1000)
             {
@@ -57,6 +64,26 @@ namespace BANKSOLID
             }
 
             return Balance;
+        }
+
+
+        //invoke this method when the program starts
+        public void AddInterest()
+        {
+            Date currentDate = Date.Now;
+
+            if (currentDate.Month > LastInterestDate.Month || currentDate.Year > LastInterestDate.Year)
+            {
+                int monthsPassed = currentDate.MonthsBetween(LastInterestDate);
+
+                for (int i = 0; i < monthsPassed; i++)
+                {
+                    Balance += Balance * (InterestRate);
+                }
+                LastInterestDate = currentDate;
+                
+            }
+
         }
     }
 }
