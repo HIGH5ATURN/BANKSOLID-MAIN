@@ -22,8 +22,9 @@ namespace BANKSOLID
 
             customer = new Customer(username, NID, password);
             
-            //now add this customer to our database-->PENDING
-            
+            Database db = new Database();
+
+            db.SaveCustomerToDb(customer);
             
             Console.WriteLine("created customer successfully!");
         }
