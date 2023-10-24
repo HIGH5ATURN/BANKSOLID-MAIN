@@ -8,6 +8,7 @@ namespace BANKSOLID
 {
     public class Customer
     {
+        
         public string Name { get; set; }
         public int NID { get; set; }
 
