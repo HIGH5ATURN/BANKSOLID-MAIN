@@ -1,79 +1,60 @@
-﻿namespace BANKSOLID
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace BANKSOLID
 {
     internal class Program
     {
+       
+
+      
         static void Main(string[] args)
         {
-            
-            void AdminOrCustomerPrint()
+             UserInterface ui = new UserInterface();
+            Console.WriteLine("Welcome to the Bank Management System!");
+
+            while (true)
             {
-                Console.WriteLine("-----Welcome to BANKSOLID-----");
-                Console.WriteLine("If you are Admin type 1.");
-                Console.WriteLine("If you are a Customer type 2.");
+                Console.WriteLine("1]> Admin Panel");
+                Console.WriteLine("2]> Customer Panel");
+                Console.WriteLine("3]> Create a Customer");
+                Console.WriteLine("4]> Exit");
+                Console.Write("Please select an option: ");
 
-            }
+                int option;
+                option=stringUtils.ConvertToInt(Console.ReadLine());
 
-           
-
-            while(true)
-            {
-                AdminOrCustomerPrint();
-                char chr = Console.ReadLine()[0];
-
-                if(chr=='1')
-                {
-
-                }
-                else if(chr=='2')
-                {
-                    Console.WriteLine("Please Give Your Credentials!");
-                    Console.Write("USERNAME : ");
-                    string username = Console.ReadLine();
-                    Console.Write("PASSWORD : ");
-                    string password = Console.ReadLine();
-
-                    //if password valid enter in the below loop
-                    while(true)
+                    switch (option)
                     {
-                        Console.WriteLine("write 0 to go back to previous page!");
-
-                        chr = Console.ReadLine()[0];
-
-                        
-                        if (chr=='0')
-                        {
+                        case 1:
+                            Console.Clear();
+                            Console.WriteLine("You are in the Admin Panel");
+                            ui.AdminPanel();
+                            // Implement Admin Panel UI
                             break;
-                        }
-
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("You are in the Customer Panel");
+                            ui.CustomerPanel();
+                            // Implement Customer Panel UI
+                            break;
+                        case 3:
+                            Console.Clear();
+                             ui.CreatingCustomer() ;
+                            // Implement Create Customer UI
+                            break;
+                        case 4:
+                            Console.WriteLine("Exiting...");
+                            return;
+                        default:
+                            Console.WriteLine("Invalid option. Please select a valid option.");
+                            break;
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Not a valid input!");
-                }
+
+
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                Console.Clear();
             }
-            //while(true)
-            //{
-            //    Console.Clear();
-            //    Console.WriteLine("WELCOME TO BANK-SOLID!");
-            //    Console.WriteLine("If you are ADMIN type 1.");
-            //    Console.WriteLine("If you are a Customer type 2");
-
-            //    char chr = Console.ReadLine()[0];
-
-            //    if(chr=='1')
-            //    {
-
-            //    }
-            //    else if(chr==2)
-            //    {
-            //        Console.WriteLine("Please give your UserName and Password to Log in!");
-
-            //        string username = Console.ReadLine();
-            //        string password = Console.ReadLine();
-
-            //    }
-            //}
         }
     }
 }
