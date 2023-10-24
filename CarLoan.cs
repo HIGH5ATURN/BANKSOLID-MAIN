@@ -25,17 +25,45 @@ namespace BANKSOLID
         public double leastPayment { get; set; } = 2000;
 
 
-        public double totalPayableAmount(DateOnly date)
+        public void AddInterest()
         {
-            return 0.0;
+            Date currentDate = Date.Now;
+
+            if (currentDate.Month > last_payment_date.Month || currentDate.Year > last_payment_date.Year)
+            {
+                int monthsPassed = currentDate.MonthsBetween(last_payment_date);
+
+                for (int i = 0; i < monthsPassed; i++)
+                {
+                    loan_amount += loan_amount * (interestRate);
+                }
+                last_payment_date = currentDate;
+
+            }
+
         }
 
-        public double makePayment(DateOnly paymentDate, double payment)
+
+        public void makePayment(double payment)
         {
-            return 0.0;
+            if (payment > loan_amount)
+            {
+                throw new LoanException("Payment is greater than Loan amount itself!");
+            }
+            if (payment < leastPayment && loan_amount >= leastPayment)
+            {
+                throw new LoanException("Least payment of loan has to be 1000 bdt");
+            }
+            else
+            {
+                loan_amount -= payment;
+
+                last_payment_date = Date.Now;
+            }
+
         }
 
-        public CarLoan(int loan_id, double loan_amount, DateOnly starting_date)
+        public CarLoan(int loan_id, double loan_amount, Date starting_date)
         {
             this.loan_id = loan_id;
             this.loan_amount = loan_amount;
