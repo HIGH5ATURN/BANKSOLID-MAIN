@@ -82,5 +82,16 @@ namespace BANKSOLID
                 return 31;
             }
         }
+
+        public static Date Now
+        {
+            get
+            {
+                DateTime currentTime = DateTime.Now;
+                return new Date(currentTime.Year, currentTime.Month, currentTime.Day);
+            }
+        }
+
+
     }
 }
