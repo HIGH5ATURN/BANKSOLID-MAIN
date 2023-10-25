@@ -26,7 +26,7 @@ namespace BANKSOLID
             Database db = new Database();
 
             db.SaveCustomerToDb(customer);
-            
+            db.LoadCustomerToBankList();
             Console.WriteLine("created customer successfully!");
         }
 

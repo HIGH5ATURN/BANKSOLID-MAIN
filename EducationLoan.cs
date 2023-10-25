@@ -24,7 +24,7 @@ namespace BANKSOLID
 
         public double leastPayment { get; set; } = 1000;
 
-        private Date lastInterestDate { get; set; }
+        public Date lastInterestDate { get; set; }
 
         public void AddInterest()
         {
