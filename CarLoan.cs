@@ -24,20 +24,20 @@ namespace BANKSOLID
 
         public double leastPayment { get; set; } = 2000;
 
-
+        private Date lastInterestDate { get; set; }
         public void AddInterest()
         {
             Date currentDate = Date.Now;
 
-            if (currentDate.Month > last_payment_date.Month || currentDate.Year > last_payment_date.Year)
+            if (currentDate.Month > lastInterestDate.Month || currentDate.Year > lastInterestDate.Year)
             {
-                int monthsPassed = currentDate.MonthsBetween(last_payment_date);
+                int monthsPassed = currentDate.MonthsBetween(lastInterestDate);
 
                 for (int i = 0; i < monthsPassed; i++)
                 {
                     loan_amount += loan_amount * (interestRate);
                 }
-                last_payment_date = currentDate;
+                lastInterestDate = currentDate;
 
             }
 
