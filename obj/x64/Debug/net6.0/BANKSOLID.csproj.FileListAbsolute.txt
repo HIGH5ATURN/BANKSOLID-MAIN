@@ -58,3 +58,33 @@ E:\SPL-main\BANKSOLID-MAIN\obj\x64\Debug\net6.0\refint\BANKSOLID.dll
 E:\SPL-main\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.pdb
 E:\SPL-main\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.genruntimeconfig.cache
 E:\SPL-main\BANKSOLID-MAIN\obj\x64\Debug\net6.0\ref\BANKSOLID.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\BANKSOLID.exe
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\BANKSOLID.deps.json
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\BANKSOLID.runtimeconfig.json
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\BANKSOLID.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\BANKSOLID.pdb
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\System.Data.OleDb.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\System.Drawing.Common.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\System.Security.Permissions.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\System.Windows.Extensions.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\New folder (2)\BANKSOLID-MAIN\bin\x64\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.csproj.AssemblyReference.cache
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.GeneratedMSBuildEditorConfig.editorconfig
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.AssemblyInfoInputs.cache
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.AssemblyInfo.cs
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.csproj.CoreCompileInputs.cache
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.csproj.CopyComplete
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.dll
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\refint\BANKSOLID.dll
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.pdb
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\BANKSOLID.genruntimeconfig.cache
+D:\New folder (2)\BANKSOLID-MAIN\obj\x64\Debug\net6.0\ref\BANKSOLID.dll

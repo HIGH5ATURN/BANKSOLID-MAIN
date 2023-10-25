@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\SPL-main\\BANKSOLID-MAIN\\BANKSOLID.csproj": {}
+    "D:\\New folder (2)\\BANKSOLID-MAIN\\BANKSOLID.csproj": {}
   },
   "projects": {
-    "E:\\SPL-main\\BANKSOLID-MAIN\\BANKSOLID.csproj": {
+    "D:\\New folder (2)\\BANKSOLID-MAIN\\BANKSOLID.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SPL-main\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+        "projectUniqueName": "D:\\New folder (2)\\BANKSOLID-MAIN\\BANKSOLID.csproj",
         "projectName": "BANKSOLID",
-        "projectPath": "E:\\SPL-main\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+        "projectPath": "D:\\New folder (2)\\BANKSOLID-MAIN\\BANKSOLID.csproj",
         "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "E:\\SPL-main\\BANKSOLID-MAIN\\obj\\",
+        "outputPath": "D:\\New folder (2)\\BANKSOLID-MAIN\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
