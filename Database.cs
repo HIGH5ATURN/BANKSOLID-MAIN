@@ -11,7 +11,7 @@ namespace BANKSOLID
 
         OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
         OleDbCommand cmd;
-        OleDbDataAdapter dataAdapter;
+       
         public void SaveCustomerToDb(Customer customer)
         {
             conn.Open();
@@ -24,6 +24,41 @@ namespace BANKSOLID
             cmd.ExecuteNonQuery();
             conn.Close();
 
+        }
+
+        public void LoadCustomerToBankList()
+        {
+            Bank.CustomerList.Clear();
+            try
+            {
+                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                conn.Open ();
+                string sql = "Select * from Customer";
+
+                cmd = new OleDbCommand (sql, conn);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while(reader.Read())
+                {
+                   int nid  = stringUtils.ConvertToInt(reader["_NID"].ToString());
+
+                    string name = reader["_uname"].ToString();
+
+                    string password = reader["_pass"].ToString();
+                   
+
+                    Customer temp = new Customer(name, nid, password);
+
+                    Bank.CustomerList.Add(temp);
+                }
+
+                conn.Close ();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

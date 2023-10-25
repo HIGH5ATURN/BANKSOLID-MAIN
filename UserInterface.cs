@@ -8,6 +8,7 @@ namespace BANKSOLID
 {
     public class UserInterface
     {
+       
         Customer customer;
         public void CreatingCustomer()
         {
@@ -39,7 +40,19 @@ namespace BANKSOLID
             Console.WriteLine("Enter Password: ");
             string password = Console.ReadLine();
 
-            if(customer.Name==username && password==customer.password)
+            bool loggedIn = false;
+
+            for(int i=0;i<Bank.CustomerList.Count;i++)
+            {
+                if (username == Bank.CustomerList[i].Name && password == Bank.CustomerList[i].password)
+                {
+                    loggedIn = true; break;
+                }
+            }
+
+
+
+            if (loggedIn)
             {
                 Console.WriteLine("Logged In successfully!");
             }
@@ -53,6 +66,13 @@ namespace BANKSOLID
         public void AdminPanel()
         {
             Console.WriteLine("Under Construction!");
+        }
+
+        public void EnviromentSetup()
+        {
+            Database database = new Database();
+
+            database.LoadCustomerToBankList();
         }
     }
 }

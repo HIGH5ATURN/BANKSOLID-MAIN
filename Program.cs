@@ -11,7 +11,9 @@ namespace BANKSOLID
         {
              UserInterface ui = new UserInterface();
             Console.WriteLine("Welcome to the Bank Management System!");
+            ui.EnviromentSetup();
 
+           
             while (true)
             {
                 Console.WriteLine("1]> Admin Panel");
