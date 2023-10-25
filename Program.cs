@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BANKSOLID
 {
@@ -9,21 +10,22 @@ namespace BANKSOLID
       
         static void Main(string[] args)
         {
+            try { 
              UserInterface ui = new UserInterface();
             Console.WriteLine("Welcome to the Bank Management System!");
             ui.EnviromentSetup();
 
-           
-            while (true)
-            {
-                Console.WriteLine("1]> Admin Panel");
-                Console.WriteLine("2]> Customer Panel");
-                Console.WriteLine("3]> Create a Customer");
-                Console.WriteLine("4]> Exit");
-                Console.Write("Please select an option: ");
 
-                int option;
-                option=stringUtils.ConvertToInt(Console.ReadLine());
+                while (true)
+                {
+                    Console.WriteLine("1]> Admin Panel\n");
+                    Console.WriteLine("2]> Customer Panel\n");
+                    Console.WriteLine("3]> Register As a Customer!\n");
+                    Console.WriteLine("4]> Exit\n");
+                    Console.Write("Please select an option: ");
+
+                    int option;
+                    option = stringUtils.ConvertToInt(Console.ReadLine());
 
                     switch (option)
                     {
@@ -41,7 +43,7 @@ namespace BANKSOLID
                             break;
                         case 3:
                             Console.Clear();
-                             ui.CreatingCustomer() ;
+                            ui.CreatingCustomer();
                             // Implement Create Customer UI
                             break;
                         case 4:
@@ -52,12 +54,18 @@ namespace BANKSOLID
                             Console.WriteLine("Invalid option. Please select a valid option.");
                             break;
 
+                    }
+
+
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
-
-
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
-                Console.Clear();
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
