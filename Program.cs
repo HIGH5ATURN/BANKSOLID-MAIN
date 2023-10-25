@@ -48,9 +48,11 @@ namespace BANKSOLID
                             Console.WriteLine("Exiting...");
                             return;
                         default:
+                            Console.Clear();
                             Console.WriteLine("Invalid option. Please select a valid option.");
                             break;
-                    }
+
+                }
 
 
                 Console.WriteLine("Press any key to continue...");

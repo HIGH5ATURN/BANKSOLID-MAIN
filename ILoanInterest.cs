@@ -8,7 +8,7 @@ namespace BANKSOLID
 {
     public interface ILoanInterest
     {
-
+        Date lastInterestDate { get; set; }
         double interestRate { get; set; }
 
         double leastPayment { get; set; }
