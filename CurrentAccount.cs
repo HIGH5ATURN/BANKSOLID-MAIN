@@ -13,9 +13,10 @@ namespace BANKSOLID
         public double InterestRate { get; set; } = 0.02;
 
         public Date LastInterestDate { get; set; }
-        public CurrentAccount(int AccountNumber, String AccountHolderName, Double Balance,Date OpeningDate)
+        public CurrentAccount(int AccountNumber,int AccountHolderNID, String AccountHolderName, Double Balance,Date OpeningDate): base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
             this.AccountNumber = AccountNumber;
+            this.AccountHolderNID = AccountHolderNID;
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
             this.OpeningDate = OpeningDate;
@@ -84,6 +85,11 @@ namespace BANKSOLID
                 
             }
 
+        }
+
+        public override String GetAccountType()
+        {
+           return " TYPE ::: CURRENT ACCOUNT. ";
         }
     }
 }

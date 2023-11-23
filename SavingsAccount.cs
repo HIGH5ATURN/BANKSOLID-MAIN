@@ -13,16 +13,31 @@ namespace BANKSOLID
         public Date LastInterestDate { get; set; }
 
         private int withdrawalCount = 0;
-        public Date LastWithdrawDate;
+        public Date LastWithdrawDate { get; set; }
 
-        public SavingsAccount(int AccountNumber, String AccountHolderName, Double Balance, Date OpeningDate)
+        public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate)  : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
             this.AccountNumber = AccountNumber;
+            this.AccountHolderNID = AccountHolderNID;
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
             this.OpeningDate = OpeningDate;
             LastWithdrawDate = OpeningDate;
+            LastInterestDate = OpeningDate;
         }
+
+        public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate,Date LastInterestDate,Date LastWithdrawDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        {
+            this.AccountNumber = AccountNumber;
+            this.AccountHolderNID = AccountHolderNID;
+            this.AccountHolderName = AccountHolderName;
+            this.Balance = Balance;
+            this.OpeningDate = OpeningDate;
+            this.LastInterestDate = LastInterestDate;
+            this.LastWithdrawDate = LastWithdrawDate;
+        }
+
+
         public void Deposit(double amount)
         {
             if (amount >= 0)
@@ -93,6 +108,11 @@ namespace BANKSOLID
                 LastInterestDate = currentDate;
 
             }
+        }
+
+        public override String GetAccountType()
+        {
+            return " TYPE ::: SAVINGS ACCOUNT. ";
         }
     }
 }

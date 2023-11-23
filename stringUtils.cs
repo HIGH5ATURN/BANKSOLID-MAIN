@@ -81,5 +81,62 @@ namespace BANKSOLID
 
             return isNegative ? -result : result;
         }
+
+
+        public static String ConvertDateToString(Date date)
+        {
+            int year = date.Year;
+
+            int month = date.Month;
+
+            int day = date.Day;
+
+            String str_Date= year+"-"+month+"-"+day;
+
+
+            return str_Date;
+        }
+
+
+
+        public static Date ConvertToDate(string dateString)
+        {
+            String data = "";
+
+            int cnt = 0;
+            int year = 0;
+            int month = 0;
+
+            int day = 0;
+            for (int i = 0; i < dateString.Length; i++)
+            {
+
+                if (dateString[i] == '-')
+                {
+                    if (cnt == 0)
+                    {
+                        year = ConvertToInt(data); cnt++;
+                        //Console.WriteLine(year);
+                    }
+                    else if (cnt == 1)
+                    {
+                        month = ConvertToInt(data); cnt++;
+                        //Console.WriteLine(month);
+                    }
+
+                    data = "";
+                }
+                else
+                {
+                    data += dateString[i];
+                }
+                //Console.WriteLine(data);
+            }
+
+            day = ConvertToInt(data);
+
+            Console.WriteLine(day);
+            return new Date(year, month, day);
+        }
     }
 }
