@@ -14,11 +14,14 @@ namespace BANKSOLID
 
         public string password { get; set; }
 
+        public vector<Account> accounts { get; set; }
+
         public Customer(string name, int nID, string password)
         {
             Name = name;
             NID = nID;
             this.password = password;
+            accounts = new vector<Account>();
         }
         public void ChangePassword(string password)
         {

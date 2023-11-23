@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace BANKSOLID
 {
-    internal class IslamicAccount : Account,Itransaction
+    public class IslamicAccount : Account,Itransaction
     {
         public int withdrawalLimit { get; set; } = 5;
         private int withdrawalCount = 0;
         public Date LastWithdrawDate;
 
 
-        public IslamicAccount(int AccountNumber, String AccountHolderName, Double Balance, Date OpeningDate) { 
+        public IslamicAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        { 
             this.AccountNumber = AccountNumber;
+            this.AccountHolderNID = AccountHolderNID;
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
             this.OpeningDate = OpeningDate;
@@ -72,6 +74,11 @@ namespace BANKSOLID
                 }
             }
             return Balance;
+        }
+
+        public override String GetAccountType()
+        {
+            return " TYPE ::: ISLAMIC ACCOUNT. ";
         }
 
     }

@@ -25,23 +25,27 @@ namespace BANKSOLID
         {
             if (count == capacity)
             {
-
-                capacity *= 2;
-                T[] newItems = new T[capacity];
-
-                //Array.Copy(items, newItems, count);
-
-                for (int i = 0; i < count; i++)
-                {
-                    newItems[i] = items[i];
-                }
-
-                items = newItems;
+                resize();
             }
             items[count] = item;
             count++;
         }
+        
+        private void resize()
+        {
 
+            capacity *= 2;
+            T[] newItems = new T[capacity];
+
+            //Array.Copy(items, newItems, count);
+
+            for (int i = 0; i < count; i++)
+            {
+                newItems[i] = items[i];
+            }
+
+            items = newItems;
+        }
         public T this[int index]
         {
             get
@@ -79,6 +83,11 @@ namespace BANKSOLID
             count = 0;
             capacity = 4;
 
+        }
+
+        public bool IsEmpty()
+        {
+            return count == 0;
         }
     }
 }
