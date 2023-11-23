@@ -134,8 +134,7 @@ namespace BANKSOLID
             }
 
             day = ConvertToInt(data);
-
-            Console.WriteLine(day);
+ 
             return new Date(year, month, day);
         }
     }

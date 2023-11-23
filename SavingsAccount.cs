@@ -112,7 +112,7 @@ namespace BANKSOLID
 
         public override String GetAccountType()
         {
-            return " TYPE ::: SAVINGS ACCOUNT. ";
+            return " Savings ";
         }
     }
 }

@@ -44,10 +44,10 @@ namespace BANKSOLID
             {
                 Console.WriteLine("Please Log In!");
 
-                Console.WriteLine("Enter UserName: ");
+                Console.Write("Enter NID: ");
                 int nid = stringUtils.ConvertToInt(Console.ReadLine());
 
-                Console.WriteLine("Enter Password: ");
+                Console.Write("Enter Password: ");
                 string password = Console.ReadLine();
 
                 bool loggedIn = false;
@@ -67,7 +67,7 @@ namespace BANKSOLID
                 {
                     Console.WriteLine("Logged In successfully!");
                     Console.Clear();
-
+                    Bank.LoadAccountListForRespectiveCustomer(customer);
                     CustomerPersonalUI(customer);
                 }
                 else
@@ -110,48 +110,68 @@ namespace BANKSOLID
                     Console.WriteLine("Press (1) to open Savings Account!");
                     Console.WriteLine("Press (2) to open Current Account!");
                     Console.WriteLine("Press (3) to open Islamic Account!");
-
+                    Console.WriteLine("Press (4) to exit!");
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
 
                     if (key == 1)
                     {
-                        Console.WriteLine("Please Fill out the Following Information:");
-
-                        Console.WriteLine("Please Enter your desired Account Number:");
-
-                        int ac_no  = stringUtils.ConvertToInt(Console.ReadLine());
-
-                        while (!ISUniqueAcNo(ac_no)) 
-                        {
-
-                            ac_no = stringUtils.ConvertToInt(Console.ReadLine());
-
-                        }
-                        Console.Write("Now State initial Deposit amount : ");
-
-                        double Balance = stringUtils.ConvertToInt(Console.ReadLine());
-
-                        SavingsAccount savingsAc = new SavingsAccount(ac_no, customer.NID, customer.Name, Balance, Date.Now);
-
-                        customer.accounts.Add(savingsAc);
-
-                        //NOW ADD THIS TO ACCOUNT TABLE AND SAVINGS ACCOUNT TABLE
-                        Database db = new Database();
-
-                        db.SaveAccountToDb(savingsAc);
-
-                        db.SaveSavingsAccounttoDb(savingsAc);
-
+                       
+                        CreateSavingsAccount(customer);
+                       
+                    }
+                    else if(key==4)
+                    {
+                        Console.Clear();
+                        return;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Your Accounts are:");
+                    ShowAccountData(customer);
 
-                    for(int i=0;i<customer.accounts.Count;i++)
+                    Console.WriteLine("Press (1) to deposit money in your Bank Account!");
+
+
+                    int key = stringUtils.ConvertToInt(Console.ReadLine());
+
+                    if(key == 1)
                     {
-                        Console.WriteLine("Account no: " + customer.accounts[i].AccountNumber+" Account type: " + customer.accounts[i].GetAccountType());
+                        Console.Write("Give Account Number: ");
+
+                        int ac_no = stringUtils.ConvertToInt(Console.ReadLine());
+
+                        Console.Write("Give deposit Amount: ");
+
+
+                        double amount = stringUtils.ConvertToDouble(Console.ReadLine());
+
+
+                        for(int i=0;i<customer.savingsAccounts.Count;i++)
+                        {
+                            if (ac_no == customer.savingsAccounts[i].AccountNumber)
+                            {
+
+                            }
+                        }
+
+                        for (int i = 0; i < customer.currentAccounts.Count; i++)
+                        {
+                            if (ac_no == customer.currentAccounts[i].AccountNumber)
+                            {
+
+                            }
+                        }
+
+
+                        for (int i = 0; i < customer.islamicAccounts.Count; i++)
+                        {
+                            if (ac_no == customer.islamicAccounts[i].AccountNumber)
+                            {
+
+                            }
+                        }
                     }
+
                 }
             }
             catch(Exception ex)
@@ -160,7 +180,76 @@ namespace BANKSOLID
             }
 
         }
-        
+        public void ShowAccountData(Customer customer)
+        {
+
+            Console.WriteLine("Your Accounts are:");
+
+            for (int i = 0; i < customer.savingsAccounts.Count; i++)
+            {
+                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("Account Number: " + customer.savingsAccounts[i].AccountNumber);
+                Console.WriteLine("Account Balance: " + customer.savingsAccounts[i].Balance);
+                Console.WriteLine("Account Type: " + customer.savingsAccounts[i].GetAccountType());
+                Console.WriteLine("-----------------------------------------");
+            }
+
+            Console.WriteLine();
+            for (int i = 0; i < customer.currentAccounts.Count; i++)
+            {
+                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("Account Number: " + customer.currentAccounts[i].AccountNumber);
+                Console.WriteLine("Account Balance: " + customer.currentAccounts[i].Balance);
+                Console.WriteLine("Account Type: " + customer.currentAccounts[i].GetAccountType());
+                Console.WriteLine("-----------------------------------------");
+            }
+            Console.WriteLine();
+            for (int i = 0; i < customer.islamicAccounts.Count; i++)
+            {
+                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("Account Number: " + customer.islamicAccounts[i].AccountNumber);
+                Console.WriteLine("Account Balance: " + customer.islamicAccounts[i].Balance);
+                Console.WriteLine("Account Type: " + customer.islamicAccounts[i].GetAccountType());
+                Console.WriteLine("-----------------------------------------");
+            }
+            Console.WriteLine();
+        }
+
+        public void CreateSavingsAccount(Customer customer)
+        {
+            Console.WriteLine("Please Fill out the Following Information:");
+
+            Console.WriteLine("Please Enter your desired Account Number:");
+
+            int ac_no = stringUtils.ConvertToInt(Console.ReadLine());
+
+            while (!ISUniqueAcNo(ac_no))
+            {
+
+                ac_no = stringUtils.ConvertToInt(Console.ReadLine());
+
+            }
+            Console.Write("Now State initial Deposit amount : ");
+
+            double Balance = stringUtils.ConvertToInt(Console.ReadLine());
+
+            SavingsAccount savingsAc = new SavingsAccount(ac_no, customer.NID, customer.Name, Balance, Date.Now);
+
+            customer.savingsAccounts.Add(savingsAc);
+            customer.accounts.Add(savingsAc);
+            //NOW ADD THIS TO ACCOUNT TABLE AND SAVINGS ACCOUNT TABLE
+            Database db = new Database();
+
+            db.SaveAccountToDb(savingsAc);
+
+            db.SaveSavingsAccounttoDb(savingsAc);
+
+            db.LoadAccountToList();
+            db.LoadSavingsAccountToList();
+            Bank.LoadAccountListForRespectiveCustomer(customer);
+            
+        }
+
 
         public void AdminPanel()
         {
@@ -172,6 +261,9 @@ namespace BANKSOLID
             Database database = new Database();
 
             database.LoadCustomerToBankList();
+            database.LoadAccountToList();
+            database.LoadSavingsAccountToList();
+
         }
     }
 }
