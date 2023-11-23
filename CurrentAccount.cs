@@ -89,7 +89,7 @@ namespace BANKSOLID
 
         public override String GetAccountType()
         {
-           return " TYPE ::: CURRENT ACCOUNT. ";
+           return " Current ";
         }
     }
 }

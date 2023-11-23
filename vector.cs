@@ -89,5 +89,13 @@ namespace BANKSOLID
         {
             return count == 0;
         }
+
+        public void AddAll(vector<T> vector)
+        {
+            for(int i=0;i<vector.Count;i++)
+            {
+                Add(vector[i]);
+            }
+        }
     }
 }

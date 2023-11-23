@@ -204,5 +204,10 @@ namespace BANKSOLID
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public void DepositUpdateOnSavingsTable(int ac_no, double Balance)
+        {
+
+        }
     }
 }

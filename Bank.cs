@@ -17,5 +17,50 @@ namespace BANKSOLID
         public static vector<CurrentAccount> CurrentAccountList = new vector<CurrentAccount>();
 
         public static vector<IslamicAccount> IslamicAccountList = new vector<IslamicAccount>();
+
+        public static void LoadAccountListForRespectiveCustomer(Customer customer)
+        {
+            customer.savingsAccounts.Clear();
+            customer.currentAccounts.Clear();
+            customer.islamicAccounts.Clear();
+            customer.accounts.Clear();
+
+
+            for(int i=0;i< SavingsAccountList.Count;i++)
+            {
+                if (SavingsAccountList[i].AccountHolderNID==customer.NID)
+                {
+                    customer.savingsAccounts.Add(SavingsAccountList[i]);
+                }
+            }
+
+            for (int i = 0; i < CurrentAccountList.Count; i++)
+            {
+                if (CurrentAccountList[i].AccountHolderNID == customer.NID)
+                {
+                    customer.currentAccounts.Add(CurrentAccountList[i]);
+                }
+            }
+
+
+            for (int i = 0; i < IslamicAccountList.Count; i++)
+            {
+                if (IslamicAccountList[i].AccountHolderNID == customer.NID)
+                {
+                    customer.islamicAccounts.Add(IslamicAccountList[i]);
+                }
+            }
+
+            
+            for(int i=0;i<AllAccountList.Count;i++)
+            {
+                if (AllAccountList[i].AccountHolderNID == customer.NID)
+                {
+                    customer.accounts.Add(AllAccountList[i]);
+                }
+            }
+
+
+        }
     }
 }
