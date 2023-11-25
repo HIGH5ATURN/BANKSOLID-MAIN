@@ -41,7 +41,7 @@ namespace BANKSOLID
             {
                 conn.Open();
 
-                string sql = "Insert into Accounts(_AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date) values" + "(@acno,@name,@nid,@balance,@date)";
+                string sql = "Insert into Accounts(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date) values" + "(@acno,@name,@nid,@balance,@date)";
                 cmd = new OleDbCommand(sql, conn);
 
                 cmd.Parameters.AddWithValue("@acno", account.AccountNumber);
@@ -79,7 +79,7 @@ namespace BANKSOLID
 
                 while (reader.Read())
                 {
-                    int ac_no = stringUtils.ConvertToInt(reader["_AccountNumber"].ToString());
+                    int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
 
                     string name = reader["_AccountHolderName"].ToString();
 
@@ -107,7 +107,7 @@ namespace BANKSOLID
             {
                 conn.Open();
 
-                string sql = "Insert into SavingsAccount(_AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate,_LastWithdrawDate) values" + "(@acno,@name,@nid,@balance,@date,@lastInterestDate,@lastWithdrawDate)";
+                string sql = "Insert into SavingsAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate,_LastWithdrawDate) values" + "(@acno,@name,@nid,@balance,@date,@lastInterestDate,@lastWithdrawDate)";
                 cmd = new OleDbCommand(sql, conn);
 
                 cmd.Parameters.AddWithValue("@acno", savingsAccount.AccountNumber);
@@ -144,7 +144,7 @@ namespace BANKSOLID
 
                 while (reader.Read())
                 {
-                    int ac_no = stringUtils.ConvertToInt(reader["_AccountNumber"].ToString());
+                    int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
 
                     string name = reader["_AccountHolderName"].ToString();
 
@@ -205,9 +205,42 @@ namespace BANKSOLID
             }
         }
 
-        public void DepositUpdateOnSavingsTable(int ac_no, double Balance)
+        public void TransactionUpdateOnSavingsTable(int ac_no, double amount)
         {
+           
+                string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
 
+                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+
+                        string updateQuery = "UPDATE SavingsAccount SET _Balance = ? WHERE AccountNumber = ?";
+
+                        using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@Balance", amount);
+                            command.Parameters.AddWithValue("@AccountNumber", ac_no);
+
+                            int rowsAffected = command.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                Console.WriteLine("Update successful!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Account not found or no update needed.");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+                }
+            
         }
     }
 }
