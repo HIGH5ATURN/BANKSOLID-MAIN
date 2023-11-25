@@ -134,7 +134,8 @@ namespace BANKSOLID
 
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
 
-                    if(key == 1)
+                    bool updated=false;
+                    if (key == 1)
                     {
                         Console.Write("Give Account Number: ");
 
@@ -146,10 +147,20 @@ namespace BANKSOLID
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
 
 
-                        for(int i=0;i<customer.savingsAccounts.Count;i++)
+                        for (int i = 0; i < customer.savingsAccounts.Count; i++)
                         {
                             if (ac_no == customer.savingsAccounts[i].AccountNumber)
                             {
+
+                                updated = true;
+                                Database db = new Database();
+                                amount += customer.savingsAccounts[i].Balance;
+
+                                db.TransactionUpdateOnSavingsTable(ac_no, amount);
+                              
+                                db.LoadAccountToList();
+                                db.LoadSavingsAccountToList();
+                                Bank.LoadAccountListForRespectiveCustomer(customer);
 
                             }
                         }
@@ -169,6 +180,11 @@ namespace BANKSOLID
                             {
 
                             }
+                        }
+
+                        if (!updated)
+                        {
+                            Console.WriteLine("Incorrect Account Number! Please try Again!");
                         }
                     }
 
@@ -231,7 +247,7 @@ namespace BANKSOLID
             }
             Console.Write("Now State initial Deposit amount : ");
 
-            double Balance = stringUtils.ConvertToInt(Console.ReadLine());
+            double Balance = stringUtils.ConvertToDouble(Console.ReadLine());
 
             SavingsAccount savingsAc = new SavingsAccount(ac_no, customer.NID, customer.Name, Balance, Date.Now);
 
