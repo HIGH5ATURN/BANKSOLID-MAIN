@@ -51,6 +51,15 @@ namespace BANKSOLID
             }
         }
 
+        public void setWithdrawalCount(int cnt)
+        {
+            withdrawalCount = cnt;
+        }
+
+        public int getWithdrawCount()
+        {
+            return withdrawalCount;
+        }
         public void Transfer(Account account, double Amount)
         {
             if (Balance - Amount >= 1000)
