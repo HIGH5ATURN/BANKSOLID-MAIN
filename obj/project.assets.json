@@ -442,11 +442,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Hp\\Desktop\\BANKSOLID\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+      "projectUniqueName": "C:\\Users\\Hp\\Desktop\\Bansolid\\BANKSOLID-MAIN\\BANKSOLID.csproj",
       "projectName": "BANKSOLID",
-      "projectPath": "C:\\Users\\Hp\\Desktop\\BANKSOLID\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+      "projectPath": "C:\\Users\\Hp\\Desktop\\Bansolid\\BANKSOLID-MAIN\\BANKSOLID.csproj",
       "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Hp\\Desktop\\BANKSOLID\\BANKSOLID-MAIN\\obj\\",
+      "outputPath": "C:\\Users\\Hp\\Desktop\\Bansolid\\BANKSOLID-MAIN\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -107,7 +107,7 @@ namespace BANKSOLID
             {
                 conn.Open();
 
-                string sql = "Insert into SavingsAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate,_LastWithdrawDate) values" + "(@acno,@name,@nid,@balance,@date,@lastInterestDate,@lastWithdrawDate)";
+                string sql = "Insert into SavingsAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate,_LastWithdrawDate,_withdrawCount) values" + "(@acno,@name,@nid,@balance,@date,@lastInterestDate,@lastWithdrawDate,@withdrawCount)";
                 cmd = new OleDbCommand(sql, conn);
 
                 cmd.Parameters.AddWithValue("@acno", savingsAccount.AccountNumber);
@@ -117,7 +117,7 @@ namespace BANKSOLID
                 cmd.Parameters.AddWithValue("@date", stringUtils.ConvertDateToString(savingsAccount.OpeningDate));
                 cmd.Parameters.AddWithValue("@lastInterestDate", stringUtils.ConvertDateToString(savingsAccount.LastInterestDate));
                 cmd.Parameters.AddWithValue("@lastWithdrawDate", stringUtils.ConvertDateToString(savingsAccount.LastWithdrawDate));
-
+                cmd.Parameters.AddWithValue("@withdrawCount", 0);
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
@@ -159,6 +159,7 @@ namespace BANKSOLID
                     Date LastWithdrawDate = stringUtils.ConvertToDate(reader["_LastWithdrawDate"].ToString());
 
                     SavingsAccount savingsAc = new SavingsAccount(ac_no, nid, name, Balance, date,last_interest_date,LastWithdrawDate);
+                    savingsAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
 
                     Bank.SavingsAccountList.Add(savingsAc);
                 }
@@ -205,7 +206,48 @@ namespace BANKSOLID
             }
         }
 
-        public void TransactionUpdateOnSavingsTable(int ac_no, double amount)
+        public void TransactionUpdateOnSavingsTable(SavingsAccount s_account)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE SavingsAccount SET _Balance = ?,_withdrawCount= ? ,_LastWithdrawDate= ? WHERE AccountNumber = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Balance", s_account.Balance);
+
+                        command.Parameters.AddWithValue("@withdrawCount", s_account.getWithdrawCount());
+                       
+
+                        command.Parameters.AddWithValue("@LastWithdrawDate", stringUtils.ConvertDateToString(s_account.LastWithdrawDate));
+
+                        command.Parameters.AddWithValue("@AccountNumber", s_account.AccountNumber);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Operation Done Successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Account not found or no update needed.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
+        public void DepositOnSavingsTable(SavingsAccount s_account)
         {
            
                 string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
@@ -216,18 +258,19 @@ namespace BANKSOLID
                     {
                         connection.Open();
 
-                        string updateQuery = "UPDATE SavingsAccount SET _Balance = ? WHERE AccountNumber = ?";
+                        string updateQuery = "UPDATE SavingsAccount SET _Balance = ?,_withdrawCount= ? WHERE AccountNumber = ?";
 
                         using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
                         {
-                            command.Parameters.AddWithValue("@Balance", amount);
-                            command.Parameters.AddWithValue("@AccountNumber", ac_no);
+                            command.Parameters.AddWithValue("@Balance", s_account.Balance);
+                            command.Parameters.AddWithValue("@withdrawCount",s_account.getWithdrawCount());
+                            command.Parameters.AddWithValue("@AccountNumber", s_account.AccountNumber);
 
                             int rowsAffected = command.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
-                                Console.WriteLine("Update successful!");
+                                Console.WriteLine("Operation Done Successfully!");
                             }
                             else
                             {
