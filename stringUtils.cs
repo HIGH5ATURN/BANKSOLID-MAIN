@@ -101,41 +101,50 @@ namespace BANKSOLID
 
         public static Date ConvertToDate(string dateString)
         {
-            String data = "";
-
-            int cnt = 0;
-            int year = 0;
-            int month = 0;
-
-            int day = 0;
-            for (int i = 0; i < dateString.Length; i++)
+            try
             {
+                String data = "";
 
-                if (dateString[i] == '-')
-                {
-                    if (cnt == 0)
-                    {
-                        year = ConvertToInt(data); cnt++;
-                        //Console.WriteLine(year);
-                    }
-                    else if (cnt == 1)
-                    {
-                        month = ConvertToInt(data); cnt++;
-                        //Console.WriteLine(month);
-                    }
+                int cnt = 0;
+                int year = 0;
+                int month = 0;
 
-                    data = "";
-                }
-                else
+                int day = 0;
+                for (int i = 0; i < dateString.Length; i++)
                 {
-                    data += dateString[i];
+
+                    if (dateString[i] == '-')
+                    {
+                        if (cnt == 0)
+                        {
+                            year = ConvertToInt(data); cnt++;
+                            //Console.WriteLine(year);
+                        }
+                        else if (cnt == 1)
+                        {
+                            month = ConvertToInt(data); cnt++;
+                            //Console.WriteLine(month);
+                        }
+
+                        data = "";
+                    }
+                    else
+                    {
+                        data += dateString[i];
+                    }
+                    //Console.WriteLine(data);
                 }
-                //Console.WriteLine(data);
+
+                day = ConvertToInt(data);
+
+                return new Date(year, month, day);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
 
-            day = ConvertToInt(data);
- 
-            return new Date(year, month, day);
+            return null;
         }
     }
 }

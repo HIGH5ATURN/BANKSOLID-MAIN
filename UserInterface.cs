@@ -174,12 +174,15 @@ namespace BANKSOLID
 
                         updated = customerAccountHandler.DepositOnSavings(ac_no, customer, amount);
 
+                        if (!updated)
+                        {
+                            updated = customerAccountHandler.DepositOnCurrentAccount(ac_no, customer, amount);
+                        }
 
-                        updated= customerAccountHandler.DepositOnCurrentAccount(ac_no,customer,amount);
-
-
-                        updated=customerAccountHandler.DepositOnIslamicAccount(ac_no,customer,amount);
-
+                        if (!updated)
+                        {
+                            updated = customerAccountHandler.DepositOnIslamicAccount(ac_no, customer, amount);
+                        }
 
                         if (!updated)
                         {
@@ -201,10 +204,15 @@ namespace BANKSOLID
 
                         updated=customerAccountHandler.WithdrawOnSavingsAccount(ac_no,customer,amount,date);
 
-                        updated = customerAccountHandler.WithdrawOnCurrentAccount(ac_no, customer,amount);
+                        if (!updated)
+                        {
+                            updated = customerAccountHandler.WithdrawOnCurrentAccount(ac_no, customer, amount);
+                        }
 
-                        updated = customerAccountHandler.WithdrawOnIslamicAccount(ac_no, customer, amount);
-                      
+                        if (!updated)
+                        {
+                            updated = customerAccountHandler.WithdrawOnIslamicAccount(ac_no, customer, amount);
+                        }
 
                         if (!updated)
                         {
@@ -221,40 +229,18 @@ namespace BANKSOLID
 
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
 
+                        updated = customerAccountHandler.Transfer_SavingsToSavings(ac_no, customer, amount, recipient_AcNo);
 
-                        for (int i = 0; i < customer.savingsAccounts.Count; i++)
+                        //do for current to current
+                        if (!updated)
                         {
-                            if (ac_no == customer.savingsAccounts[i].AccountNumber)
-                            {
-
-                                updated = true;
-                                Database db = new Database();
-                                //now do things to transfer the account from this, to recipient
-
-                                db.LoadAccountToList();
-                                db.LoadSavingsAccountToList();
-                                Bank.LoadAccountListForRespectiveCustomer(customer);
-                               
-                                break;
-
-                            }
+                            updated = customerAccountHandler.Transfer_CurrentToCurrent(ac_no, customer, amount, recipient_AcNo);
                         }
+                        //do for islamic to islamic
 
-                        for (int i = 0; i < customer.currentAccounts.Count; i++)
+                        if(!updated)
                         {
-                            if (ac_no == customer.currentAccounts[i].AccountNumber)
-                            {
-
-                            }
-                        }
-
-
-                        for (int i = 0; i < customer.islamicAccounts.Count; i++)
-                        {
-                            if (ac_no == customer.islamicAccounts[i].AccountNumber)
-                            {
-
-                            }
+                            updated=customerAccountHandler.Transfer_IslamicToIslamic(ac_no, customer, amount,recipient_AcNo);
                         }
 
                         if (!updated)
