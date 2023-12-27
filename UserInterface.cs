@@ -66,8 +66,10 @@ namespace BANKSOLID
 
                 if (loggedIn)
                 {
-                    Console.WriteLine("Logged In successfully!");
+                    
                     Console.Clear();
+                    Console.WriteLine("Logged In successfully!");
+                    Console.WriteLine();
                     Bank.LoadAccountListForRespectiveCustomer(customer);
                     CustomerPersonalUI(customer);
                 }
@@ -84,27 +86,14 @@ namespace BANKSOLID
         }
 
 
-        public bool ISUniqueAcNo(int ac_no)
-        {
-
-            for (int i = 0; i < Bank.AllAccountList.Count; i++)
-            {
-                if (ac_no == Bank.AllAccountList[i].AccountNumber)
-                {
-                    Console.WriteLine("This number is Already taken, Please Give Another one");
-
-                    return false;
-                }
-            }
-
-            return true;
-        }
+     
 
 
         public void CustomerAccountCreationUI(Customer customer)
         {
             try
             {
+                    CustomerAccountCreator customerAccountCreator = new CustomerAccountCreator();
                 
                     Console.WriteLine("You Haven't Opened an Account Yet!");
                     Console.WriteLine("If You want to open an Account please :");
@@ -117,16 +106,16 @@ namespace BANKSOLID
                     if (key == 1)
                     {
 
-                        CreateSavingsAccount(customer);
+                       customerAccountCreator.CreateSavingsAccount(customer);
 
                     }
                     else if (key == 2)
                     {
-
+                        //create current account
                     }
                     else if (key == 3)
                     {
-
+                        //create islamic account
                     }
                     else if (key == 4)
                     {
@@ -141,7 +130,7 @@ namespace BANKSOLID
             }
         }
         
-
+       
         public void CustomerTransactionUI(Customer customer)
         {
 
@@ -149,9 +138,9 @@ namespace BANKSOLID
             {
                 try {
 
-                    
-                    
-                    ShowAccountData(customer);
+                    CustomerAccountHandler customerAccountHandler = new CustomerAccountHandler();
+
+                    customerAccountHandler.ShowAccountData(customer);
                     Console.WriteLine("Press (1) to deposit money in your Bank Account!");
                     Console.WriteLine("Press (2) to withdraw money from your Bank Account!");
                     Console.WriteLine("Press (3) to transfer money to another Bank Account!");
@@ -170,56 +159,27 @@ namespace BANKSOLID
 
                     int ac_no = stringUtils.ConvertToInt(Console.ReadLine());
 
+                  
+                    
                     if (key == 1)//deposit money
                     {
 
-
+                        updated = false;
                         Console.Write("Give deposit Amount: ");
 
 
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
 
 
-                        for (int i = 0; i < customer.savingsAccounts.Count; i++)
-                        {
-                            if (ac_no == customer.savingsAccounts[i].AccountNumber)
-                            {
 
-                                updated = true;
-                                Database db = new Database();
+                        updated = customerAccountHandler.DepositOnSavings(ac_no, customer, amount);
 
 
-                                customer.savingsAccounts[i].Deposit(amount);
-
-                                db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
-
-                                db.LoadAccountToList();
-                                db.LoadSavingsAccountToList();
-                                Bank.LoadAccountListForRespectiveCustomer(customer);
-                                Console.WriteLine("Press any key to continue...");
-                                Console.ReadKey();
-                                Console.Clear();
-                                break;
-
-                            }
-                        }
-
-                        for (int i = 0; i < customer.currentAccounts.Count; i++)
-                        {
-                            if (ac_no == customer.currentAccounts[i].AccountNumber)
-                            {
-
-                            }
-                        }
+                        updated= customerAccountHandler.DepositOnCurrentAccount(ac_no,customer,amount);
 
 
-                        for (int i = 0; i < customer.islamicAccounts.Count; i++)
-                        {
-                            if (ac_no == customer.islamicAccounts[i].AccountNumber)
-                            {
+                        updated=customerAccountHandler.DepositOnIslamicAccount(ac_no,customer,amount);
 
-                            }
-                        }
 
                         if (!updated)
                         {
@@ -228,6 +188,8 @@ namespace BANKSOLID
                     }
                     else if (key == 2)//withdraw
                     {
+                        updated = false;
+                        //taking inputs
                         Console.Write("Give withdraw Amount: ");
 
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
@@ -237,46 +199,12 @@ namespace BANKSOLID
                         Date date = stringUtils.ConvertToDate(Console.ReadLine());
 
 
+                        updated=customerAccountHandler.WithdrawOnSavingsAccount(ac_no,customer,amount,date);
 
-                        for (int i = 0; i < customer.savingsAccounts.Count; i++)
-                        {
-                            if (ac_no == customer.savingsAccounts[i].AccountNumber)
-                            {
+                        updated = customerAccountHandler.WithdrawOnCurrentAccount(ac_no, customer,amount);
 
-                                updated = true;
-                                Database db = new Database();
-
-                                customer.savingsAccounts[i].Withdraw(amount, date);
-
-                                db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
-
-                                db.LoadAccountToList();
-                                db.LoadSavingsAccountToList();
-                                Bank.LoadAccountListForRespectiveCustomer(customer);
-                                Console.WriteLine("Press any key to continue...");
-                                
-                                Console.ReadKey();
-                                Console.Clear();
-                                break;
-                            }
-                        }
-
-                        for (int i = 0; i < customer.currentAccounts.Count; i++)
-                        {
-                            if (ac_no == customer.currentAccounts[i].AccountNumber)
-                            {
-
-                            }
-                        }
-
-
-                        for (int i = 0; i < customer.islamicAccounts.Count; i++)
-                        {
-                            if (ac_no == customer.islamicAccounts[i].AccountNumber)
-                            {
-
-                            }
-                        }
+                        updated = customerAccountHandler.WithdrawOnIslamicAccount(ac_no, customer, amount);
+                      
 
                         if (!updated)
                         {
@@ -306,8 +234,7 @@ namespace BANKSOLID
                                 db.LoadAccountToList();
                                 db.LoadSavingsAccountToList();
                                 Bank.LoadAccountListForRespectiveCustomer(customer);
-                                Console.WriteLine("Press any key to continue...");
-                                Console.ReadKey();
+                               
                                 break;
 
                             }
@@ -337,7 +264,7 @@ namespace BANKSOLID
                     }
                     else if (key == 4)
                     {
-                        Console.Clear();
+                        
                         break;
 
                     }
@@ -347,6 +274,11 @@ namespace BANKSOLID
                 catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                }
+                finally {
+                    Console.WriteLine("Press any key to contiue..");
+                    Console.ReadKey();
+                    Console.Clear(); 
                 }
             }
             
@@ -372,6 +304,7 @@ namespace BANKSOLID
                     {
                         if(customer.accounts.Count != 0)
                         {
+                            Console.Clear();
                             CustomerTransactionUI(customer);
                         }
                         else
@@ -397,76 +330,7 @@ namespace BANKSOLID
             }
 
         }
-        public void ShowAccountData(Customer customer)
-        {
-           
-            Console.WriteLine("Your Accounts are:");
-
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
-            {
-                Console.WriteLine("-----------------------------------------");
-                Console.WriteLine("Account Number: " + customer.savingsAccounts[i].AccountNumber);
-                Console.WriteLine("Account Balance: " + customer.savingsAccounts[i].Balance);
-                Console.WriteLine("Account Type: " + customer.savingsAccounts[i].GetAccountType());
-                Console.WriteLine("-----------------------------------------");
-            }
-
-            Console.WriteLine();
-            for (int i = 0; i < customer.currentAccounts.Count; i++)
-            {
-                Console.WriteLine("-----------------------------------------");
-                Console.WriteLine("Account Number: " + customer.currentAccounts[i].AccountNumber);
-                Console.WriteLine("Account Balance: " + customer.currentAccounts[i].Balance);
-                Console.WriteLine("Account Type: " + customer.currentAccounts[i].GetAccountType());
-                Console.WriteLine("-----------------------------------------");
-            }
-            Console.WriteLine();
-            for (int i = 0; i < customer.islamicAccounts.Count; i++)
-            {
-                Console.WriteLine("-----------------------------------------");
-                Console.WriteLine("Account Number: " + customer.islamicAccounts[i].AccountNumber);
-                Console.WriteLine("Account Balance: " + customer.islamicAccounts[i].Balance);
-                Console.WriteLine("Account Type: " + customer.islamicAccounts[i].GetAccountType());
-                Console.WriteLine("-----------------------------------------");
-            }
-            Console.WriteLine();
-        }
-
-        public void CreateSavingsAccount(Customer customer)
-        {
-            Console.WriteLine("Please Fill out the Following Information:");
-
-            Console.WriteLine("Please Enter your desired Account Number:");
-
-            int ac_no = stringUtils.ConvertToInt(Console.ReadLine());
-
-            while (!ISUniqueAcNo(ac_no))
-            {
-
-                ac_no = stringUtils.ConvertToInt(Console.ReadLine());
-
-            }
-            Console.Write("Now State initial Deposit amount : ");
-
-            double Balance = stringUtils.ConvertToDouble(Console.ReadLine());
-
-            SavingsAccount savingsAc = new SavingsAccount(ac_no, customer.NID, customer.Name, Balance, Date.Now);
-
-            customer.savingsAccounts.Add(savingsAc);
-            customer.accounts.Add(savingsAc);
-            //NOW ADD THIS TO ACCOUNT TABLE AND SAVINGS ACCOUNT TABLE
-            Database db = new Database();
-
-            db.SaveAccountToDb(savingsAc);
-
-            db.SaveSavingsAccounttoDb(savingsAc);
-
-            db.LoadAccountToList();
-            db.LoadSavingsAccountToList();
-            Bank.LoadAccountListForRespectiveCustomer(customer);
-            
-        }
-
+       
 
         public void AdminPanel()
         {

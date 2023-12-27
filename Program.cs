@@ -5,18 +5,20 @@ namespace BANKSOLID
 {
     internal class Program
     {
-       
 
-      
+
+
         static void Main(string[] args)
         {
-            try { 
-             UserInterface ui = new UserInterface();
+
+            UserInterface ui = new UserInterface();
             Console.WriteLine("Welcome to the Bank Management System!");
             ui.EnviromentSetup();
 
 
-                while (true)
+            while (true)
+            {
+                try
                 {
                     Console.WriteLine("1]> Admin Panel\n");
                     Console.WriteLine("2]> Customer Panel\n");
@@ -61,12 +63,17 @@ namespace BANKSOLID
                     Console.ReadKey();
                     Console.Clear();
                 }
-                
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
             }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
         }
+
+     
+           
+        
     }
 }
