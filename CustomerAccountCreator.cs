@@ -54,6 +54,7 @@ namespace BANKSOLID
 
             db.SaveSavingsAccounttoDb(savingsAc);
 
+            //just to be safe
             db.LoadAccountToList();
             db.LoadSavingsAccountToList();
             Bank.LoadAccountListForRespectiveCustomer(customer);

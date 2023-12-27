@@ -229,6 +229,8 @@ namespace BANKSOLID
 
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
 
+                        //Look at all these methods they are same AF. we can create a Itransfer interface that will have a transfer method.
+                        //we can implement that Itransfer and have different implementation for different purpose using different class
                         updated = customerAccountHandler.Transfer_SavingsToSavings(ac_no, customer, amount, recipient_AcNo);
 
                         //do for current to current
@@ -277,6 +279,7 @@ namespace BANKSOLID
             {
                 while (true)
                 {
+                    // need to show customer info hereeee
                     Console.Clear ();
                     Console.WriteLine("Press (1) for Account Creation!");
                     Console.WriteLine("Press (2) to check your accounts and do transactions!");
