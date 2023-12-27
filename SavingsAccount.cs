@@ -15,6 +15,8 @@ namespace BANKSOLID
         private int withdrawalCount = 0;
         public Date LastWithdrawDate { get; set; }
 
+
+        //first time
         public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate)  : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
             this.AccountNumber = AccountNumber;
@@ -26,6 +28,7 @@ namespace BANKSOLID
             LastInterestDate = OpeningDate;
         }
 
+        //fetching from database
         public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate,Date LastInterestDate,Date LastWithdrawDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
             this.AccountNumber = AccountNumber;

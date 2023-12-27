@@ -31,7 +31,7 @@ namespace BANKSOLID
 
                     switch (option)
                     {
-                        case 1:
+                        case 1://not finished
                             Console.Clear();
                             Console.WriteLine("You are in the Admin Panel");
                             ui.AdminPanel();

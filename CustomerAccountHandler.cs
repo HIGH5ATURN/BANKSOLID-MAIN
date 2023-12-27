@@ -25,6 +25,7 @@ namespace BANKSOLID
 
                     db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
 
+                    //just to be safe
                     db.LoadAccountToList();
                     db.LoadSavingsAccountToList();
                     Bank.LoadAccountListForRespectiveCustomer(customer);
@@ -85,6 +86,7 @@ namespace BANKSOLID
 
                     db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
 
+                    //just to be safe
                     db.LoadAccountToList();
                     db.LoadSavingsAccountToList();
                     Bank.LoadAccountListForRespectiveCustomer(customer);
@@ -169,6 +171,7 @@ namespace BANKSOLID
 
                     db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
                     db.TransactionUpdateOnSavingsTable(reciever);
+                    //just to be safe
                     db.LoadAccountToList();
                     db.LoadSavingsAccountToList();
                     Bank.LoadAccountListForRespectiveCustomer(customer);
