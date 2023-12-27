@@ -41,7 +41,7 @@ namespace BANKSOLID
 
         public void Transfer(Account account, double Amount)
         {
-            if (Balance - Amount >= 1000)
+            if (Balance - Amount >= 1000 && Amount >0)
             {
                 Balance -= Amount;
                 account.Balance += Amount;

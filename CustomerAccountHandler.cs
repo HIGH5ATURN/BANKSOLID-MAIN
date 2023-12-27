@@ -128,6 +128,60 @@ namespace BANKSOLID
             return false;
         }
 
+        public bool Transfer_CurrentToCurrent(int accountNumber, Customer customer, double amount, int recipient_ac_no)
+        {
+            //do this same as savingstosavings but for current only
+
+
+            return false;
+        }
+
+        
+        public bool Transfer_IslamicToIslamic(int accountNumber, Customer customer, double amount, int recipient_ac_no)
+        {
+            return false;
+
+        }
+        public bool Transfer_SavingsToSavings(int accountNumber, Customer customer, double amount,int recipient_ac_no)
+        {
+            SavingsAccount reciever=null;
+
+            bool found =false;
+            for(int i=0;i<Bank.SavingsAccountList.Count;i++)
+            {
+                if(recipient_ac_no == Bank.SavingsAccountList[i].AccountNumber)
+                {
+                    reciever = Bank.SavingsAccountList[i];
+                    found = true; break;
+                }
+            }
+            if(!found)
+            {
+                return false;
+            }
+            for (int i = 0; i < customer.savingsAccounts.Count; i++)
+            {
+                if (accountNumber == customer.savingsAccounts[i].AccountNumber)
+                {
+
+
+                    customer.savingsAccounts[i].Transfer(reciever, amount);
+
+                    db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
+                    db.TransactionUpdateOnSavingsTable(reciever);
+                    db.LoadAccountToList();
+                    db.LoadSavingsAccountToList();
+                    Bank.LoadAccountListForRespectiveCustomer(customer);
+                    
+                   
+
+                    return true;
+                }
+            }
+
+
+            return false;
+        }
         public void ShowAccountData(Customer customer)
         {
 

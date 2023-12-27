@@ -36,7 +36,7 @@ namespace BANKSOLID
 
         public void Transfer(Account account, double Amount)
         {
-            if (Balance - Amount >= 1000)
+            if (Balance - Amount >= 1000 && Amount > 0)
             {
                 Balance -= Amount;
                 account.Balance += Amount;
@@ -58,7 +58,7 @@ namespace BANKSOLID
 
             if (LastWithdrawDate.DifferenceInDays(withdraw_date) <= 30 && withdrawalCount >= withdrawalLimit)
             {
-                throw new TransactionException("In Savings Account you can withdraw only 5 times a month!");
+                throw new TransactionException("In Islamic Account you can withdraw only 5 times a month!");
             }
             else
             {
