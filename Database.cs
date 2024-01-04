@@ -285,5 +285,195 @@ namespace BANKSOLID
                 }
             
         }
+
+
+
+        public void SaveCurrentAccounttoDb(CurrentAccount currentaccount) 
+        {
+
+            try
+            {
+
+                conn.Open();
+
+                string sql = "Insert into CurrentAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate) values" + "(@acno,@name,@nid,@balance,@date,@lastInterestDate)";
+
+
+                cmd = new OleDbCommand(sql, conn);
+
+
+                cmd.Parameters.AddWithValue("@acno", currentaccount.AccountNumber);
+
+                cmd.Parameters.AddWithValue("@name", currentaccount.AccountHolderName);
+
+                cmd.Parameters.AddWithValue("@nid", currentaccount.AccountHolderNID);
+
+                cmd.Parameters.AddWithValue("@balance", currentaccount.Balance);
+
+                cmd.Parameters.AddWithValue("@date", stringUtils.ConvertDateToString(currentaccount.OpeningDate));
+
+                cmd.Parameters.AddWithValue("@lastInterestDate", stringUtils.ConvertDateToString(currentaccount.LastInterestDate));
+
+                cmd.ExecuteNonQuery();
+
+
+
+                conn.Close();
+            }
+
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+
+
+            }
+
+        }
+
+
+
+
+
+        public void LoadCurrentAccountToList()
+        {
+
+            Bank.CurrentAccountList.Clear();
+
+
+            try
+            {
+
+                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                conn.Open();
+
+                String sql = "Select * from CurrentAccount";
+
+                cmd=new OleDbCommand(sql, conn);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while(reader.Read())
+                {
+
+                    int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
+
+                    string name = reader["_AccountHolderName"].ToString();
+
+                    int nid = stringUtils.ConvertToInt(reader["_AccountHolderNID"].ToString());
+
+                    double balance = stringUtils.ConvertToDouble(reader["_Balance"].ToString());
+
+                    Date date = stringUtils.ConvertToDate(reader["_Date"].ToString());
+
+                    Date LastInterestDate = stringUtils.ConvertToDate(reader["_LastInterestDate"].ToString()) ;
+
+                    CurrentAccount currentAccount = new CurrentAccount(ac_no, nid, name, balance, date, LastInterestDate);
+
+                    Bank.CurrentAccountList.Add(currentAccount);
+
+                }
+
+                conn.Close();
+
+            }
+
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
+        
+
+
+
+        public void TransactionUpdateOnCurrentTable(CurrentAccount currentaccount)
+        {
+
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE CurrentAccount SET _Balance = ? WHERE AccountNumber = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Balance", currentaccount.Balance);
+
+
+                        command.Parameters.AddWithValue("@AccountNumber", currentaccount.AccountNumber);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Operation Done Successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Account not found or no update needed.");
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"Error: {ex.Message}");
+
+                }
+            }
+
+        }
+
+
+
+        public void DepositOnCurrentTable(CurrentAccount currentaccount)
+        {
+
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE CurrentAccount SET _Balance = ? WHERE AccountNumber = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Balance", currentaccount.Balance);
+                        
+                        command.Parameters.AddWithValue("@AccountNumber", currentaccount.AccountNumber);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Operation Done Successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Account not found or no update needed.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+
+        }
     }
 }

@@ -40,18 +40,32 @@ namespace BANKSOLID
 
 
 
-        public bool DepositOnCurrentAccount(int accountNumber, Customer customer, double amount)
+
+        public bool DepositOnCurrentAccount(int accountNumber,Customer customer,double amount)
         {
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
+
+            for(int i=0;i<customer.currentAccounts.Count;i++)
             {
+
                 if (accountNumber == customer.currentAccounts[i].AccountNumber)
                 {
-                    //same operations as Deposit on savings but just for currentaccount table in database
+                    customer.currentAccounts[i].Deposit(amount);
+
+                    db.TransactionUpdateOnCurrentTable(customer.currentAccounts[i]);
+
+                    
+                    db.LoadAccountToList();
+
+                    db.LoadSavingsAccountToList();
+
+                    Bank.LoadAccountListForRespectiveCustomer(customer);
 
                     return true;
-
                 }
+
             }
+
+
             return false;
 
         }
@@ -97,21 +111,40 @@ namespace BANKSOLID
 
             return false;
         }
-        public bool WithdrawOnCurrentAccount(int accountNumber, Customer customer, double amount)
+        
+
+
+        public bool WithDrawOnCurrentAccount(int accountNumber, Customer customer, double amount,Date withdrawDate)
         {
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
+
+            for(int i=0;i<customer.currentAccounts.Count;i++)
             {
-                if (accountNumber == customer.savingsAccounts[i].AccountNumber)
+
+                if (accountNumber == customer.currentAccounts[i].AccountNumber)
                 {
 
 
-                    //same operations as withdraw on savings but just for currentaccount table in database
+                    customer.currentAccounts[i].Withdraw(amount,withdrawDate);
+
+
+                    db.TransactionUpdateOnCurrentTable(customer.currentAccounts[i]);
+
+
+                    db.LoadAccountToList();
+
+                    db.LoadCurrentAccountToList();
+
+                    Bank.LoadAccountListForRespectiveCustomer(customer);
+
 
                     return true;
                 }
+
             }
 
+
             return false;
+
         }
         public bool WithdrawOnIslamicAccount(int accountNumber, Customer customer, double amount)
         {
@@ -132,7 +165,56 @@ namespace BANKSOLID
 
         public bool Transfer_CurrentToCurrent(int accountNumber, Customer customer, double amount, int recipient_ac_no)
         {
-            //do this same as savingstosavings but for current only
+
+            CurrentAccount receiver = null;
+
+            bool found = false;
+
+            for (int i = 0; i < Bank.CurrentAccountList.Count; i++)
+            {
+
+                if (recipient_ac_no == Bank.CurrentAccountList[i].AccountNumber)
+                {
+                    receiver = Bank.CurrentAccountList[i];
+
+                    found = true;
+
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < customer.currentAccounts.Count; i++)
+            {
+                if (accountNumber == customer.currentAccounts[i].AccountNumber)
+                {
+
+
+                    customer.currentAccounts[i].Transfer(receiver, amount);
+
+
+                    db.TransactionUpdateOnCurrentTable(customer.currentAccounts[i]);
+
+                    db.TransactionUpdateOnCurrentTable(receiver);
+
+
+
+                    db.LoadAccountToList();
+
+                    db.LoadCurrentAccountToList();
+
+                    Bank.LoadAccountListForRespectiveCustomer(customer);
+
+
+
+                    return true;
+                }
+
+            }
 
 
             return false;
