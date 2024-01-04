@@ -111,7 +111,7 @@ namespace BANKSOLID
                     }
                     else if (key == 2)
                     {
-                        //create current account
+                        customerAccountCreator.CreateCurrentAccount(customer);
                     }
                     else if (key == 3)
                     {
@@ -206,7 +206,7 @@ namespace BANKSOLID
 
                         if (!updated)
                         {
-                            updated = customerAccountHandler.WithdrawOnCurrentAccount(ac_no, customer, amount);
+                            updated = customerAccountHandler.WithDrawOnCurrentAccount(ac_no, customer, amount,date);
                         }
 
                         if (!updated)
@@ -333,6 +333,7 @@ namespace BANKSOLID
             database.LoadCustomerToBankList();
             database.LoadAccountToList();
             database.LoadSavingsAccountToList();
+            database.LoadCurrentAccountToList();
 
         }
     }

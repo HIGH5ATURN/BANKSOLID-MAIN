@@ -13,6 +13,8 @@ namespace BANKSOLID
         public double InterestRate { get; set; } = 0.02;
 
         public Date LastInterestDate { get; set; }
+
+        //First time initialisation
         public CurrentAccount(int AccountNumber,int AccountHolderNID, String AccountHolderName, Double Balance,Date OpeningDate): base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
             this.AccountNumber = AccountNumber;
@@ -20,6 +22,24 @@ namespace BANKSOLID
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
             this.OpeningDate = OpeningDate;
+            LastInterestDate = OpeningDate;
+        }
+
+
+
+
+        // Fetching from database
+
+        public CurrentAccount(int AccountNumber,int AccountHolderNID,String AccountHolderName,double Balance,Date OpeningDate,Date LastInterestDate):base(AccountNumber,AccountHolderNID,AccountHolderName,Balance,OpeningDate)
+        {
+            this.AccountNumber = AccountNumber;
+            this.AccountHolderNID = AccountHolderNID;
+            this.AccountHolderName = AccountHolderName;
+            this.Balance = Balance;
+            this.OpeningDate = OpeningDate;
+            this.LastInterestDate = LastInterestDate;
+
+
         }
 
        
