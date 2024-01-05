@@ -285,7 +285,7 @@ namespace BANKSOLID
                 }
             
         }
-
+        
 
 
         public void SaveCurrentAccounttoDb(CurrentAccount currentaccount) 
@@ -474,6 +474,35 @@ namespace BANKSOLID
                 }
             }
 
+        }
+
+
+        public void SaveIslamicAccounttoDb(IslamicAccount islamicAccount)
+        {
+
+
+            try
+            {
+                conn.Open();
+
+                string sql = "Insert into IslamicAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastWithdrawDate,_withdrawCount) values" + "(@acno,@name,@nid,@balance,@date,@lastWithdrawDate,@withdrawCount)";
+                cmd = new OleDbCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@acno", islamicAccount.AccountNumber);
+                cmd.Parameters.AddWithValue("@name", islamicAccount.AccountHolderName);
+                cmd.Parameters.AddWithValue("@nid", islamicAccount.AccountHolderNID);
+                cmd.Parameters.AddWithValue("@balance", islamicAccount.Balance);
+                cmd.Parameters.AddWithValue("@date", stringUtils.ConvertDateToString(islamicAccount.OpeningDate));
+                cmd.Parameters.AddWithValue("@lastWithdrawDate", stringUtils.ConvertDateToString(islamicAccount.LastWithdrawDate));
+                cmd.Parameters.AddWithValue("@withdrawCount", 0);
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

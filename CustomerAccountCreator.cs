@@ -127,9 +127,9 @@ namespace BANKSOLID
 
             double Balance = stringUtils.ConvertToDouble(Console.ReadLine());
 
-            CurrentAccount currentaccount = new CurrentAccount(ac_no, customer.NID, customer.Name, Balance, Date.Now);
+            IslamicAccount islamicAccount = new IslamicAccount(ac_no, customer.NID, customer.Name, Balance, Date.Now);
 
-            customer.currentAccounts.Add(currentaccount);
+            customer.islamicAccounts.Add(islamicAccount);
 
 
 
@@ -137,15 +137,15 @@ namespace BANKSOLID
 
             Database db = new Database();
 
-            db.SaveAccountToDb(currentaccount);
+            db.SaveAccountToDb(islamicAccount);
 
-            db.SaveCurrentAccounttoDb(currentaccount);
+            db.SaveIslamicAccounttoDb(islamicAccount);
 
-
+            //just to be safe
 
             db.LoadAccountToList();
 
-            db.LoadCurrentAccountToList();
+            //LoadIslamicAccounttoList()->shef
 
             Bank.LoadAccountListForRespectiveCustomer(customer);
 

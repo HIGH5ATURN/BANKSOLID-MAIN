@@ -20,6 +20,7 @@ namespace BANKSOLID
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
             this.OpeningDate = OpeningDate;
+            LastWithdrawDate = OpeningDate;
         }
          public void Deposit(double amount)
         {

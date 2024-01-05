@@ -95,7 +95,7 @@ namespace BANKSOLID
             {
                     CustomerAccountCreator customerAccountCreator = new CustomerAccountCreator();
                 
-                    Console.WriteLine("You Haven't Opened an Account Yet!");
+                    Console.WriteLine("You Haven't Opened an Account Yet!");//Delete this(navid)
                     Console.WriteLine("If You want to open an Account please :");
                     Console.WriteLine("Press (1) to open Savings Account!");
                     Console.WriteLine("Press (2) to open Current Account!");
@@ -116,6 +116,8 @@ namespace BANKSOLID
                     else if (key == 3)
                     {
                         //create islamic account
+                        customerAccountCreator.CreatIslamicAccount(customer);
+
                     }
                     else if (key == 4)
                     {

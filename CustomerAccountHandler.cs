@@ -72,13 +72,24 @@ namespace BANKSOLID
 
         public bool DepositOnIslamicAccount(int accountNumber, Customer customer, double amount)
         {
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
+            for (int i = 0; i < customer.islamicAccounts.Count; i++)
             {
-                if (accountNumber == customer.currentAccounts[i].AccountNumber)
+                if (accountNumber == customer.islamicAccounts[i].AccountNumber)
                 {
 
 
-                    //same operations as Deposit on Islmiac but just for customer table in database
+                    
+                    customer.islamicAccounts[i].Deposit(amount);
+
+                   //db.TransactionUpdateOnCurrentTable(customer.islamicAccounts[i]);
+                   //islamic account er db ekhono hoye nae
+
+
+                    db.LoadAccountToList();
+
+                    db.LoadSavingsAccountToList();
+
+                    Bank.LoadAccountListForRespectiveCustomer(customer);
                     return true;
 
                 }
