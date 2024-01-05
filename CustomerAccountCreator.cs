@@ -105,5 +105,53 @@ namespace BANKSOLID
 
 
         }
+
+
+        
+        public void CreatIslamicAccount(Customer customer)
+        {
+
+            Console.WriteLine("Please Fill out the Following Information:");
+
+            Console.WriteLine("Please Enter your desired Account Number:");
+
+            int ac_no = stringUtils.ConvertToInt(Console.ReadLine());
+
+            while (!ISUniqueAcNo(ac_no))
+            {
+
+                ac_no = stringUtils.ConvertToInt(Console.ReadLine());
+
+            }
+            Console.Write("Now State initial Deposit amount : ");
+
+            double Balance = stringUtils.ConvertToDouble(Console.ReadLine());
+
+            CurrentAccount currentaccount = new CurrentAccount(ac_no, customer.NID, customer.Name, Balance, Date.Now);
+
+            customer.currentAccounts.Add(currentaccount);
+
+
+
+
+
+            Database db = new Database();
+
+            db.SaveAccountToDb(currentaccount);
+
+            db.SaveCurrentAccounttoDb(currentaccount);
+
+
+
+            db.LoadAccountToList();
+
+            db.LoadCurrentAccountToList();
+
+            Bank.LoadAccountListForRespectiveCustomer(customer);
+
+
+        }
     }
 }
+
+
