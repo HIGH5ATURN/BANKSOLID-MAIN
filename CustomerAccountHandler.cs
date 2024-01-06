@@ -281,6 +281,127 @@ namespace BANKSOLID
 
             return false;
         }
+
+        public Account FindAccount(int accountNumber)
+        {
+            for (int i = 0; i < Bank.SavingsAccountList.Count; i++)
+            {
+                if (accountNumber == Bank.SavingsAccountList[i].AccountNumber)
+                {
+                    return Bank.SavingsAccountList[i];
+                }
+            }
+            for (int i = 0; i < Bank.CurrentAccountList.Count; i++)
+            {
+                if (accountNumber == Bank.CurrentAccountList[i].AccountNumber)
+                {
+                    return Bank.CurrentAccountList[i];
+                }
+            }
+            for (int i = 0; i < Bank.IslamicAccountList.Count; i++)
+            {
+                if (accountNumber == Bank.IslamicAccountList[i].AccountNumber)
+                {
+                    return Bank.IslamicAccountList[i]; 
+                }
+            }
+
+            return null;
+        }
+
+        public Itransaction FindAccountForCustomer(Customer customer, int accountNumber)
+        {
+            for(int i=0;i<customer.savingsAccounts.Count;i++) {
+                if (accountNumber == customer.savingsAccounts[i].AccountNumber)
+                {
+                    return customer.savingsAccounts[i];
+                }
+            }
+
+            for (int i = 0; i < customer.currentAccounts.Count; i++)
+            {
+                if (accountNumber == customer.currentAccounts[i].AccountNumber)
+                {
+                    return customer.currentAccounts[i];
+                }
+            }
+            for (int i = 0; i < customer.islamicAccounts.Count; i++)
+            {
+                if (accountNumber == customer.islamicAccounts[i].AccountNumber)
+                {
+                    return customer.islamicAccounts[i];
+                }
+            }
+
+            return null;
+        }
+        public void Transfer(int accountNumber, Customer customer, double amount, int recipient_ac_no)
+        {
+            try
+            {
+                Account reciver_ac = FindAccount(recipient_ac_no);
+
+                Itransaction giver = FindAccountForCustomer(customer, accountNumber);
+
+
+                if (reciver_ac == null || giver==null)
+                {
+                    throw new TransactionException("Invalid recipient account number!");
+                }
+
+                giver.Transfer(reciver_ac, amount);
+
+                //giver end
+                if(giver is SavingsAccount)
+                {
+                    SavingsAccount savings  = (SavingsAccount)giver;
+
+                    db.TransactionUpdateOnSavingsTable(savings);
+                }
+                else if(giver is CurrentAccount)
+                {
+                    CurrentAccount current_ac= (CurrentAccount)giver;
+                    db.TransactionUpdateOnCurrentTable(current_ac);
+
+                }
+                else if(giver is IslamicAccount)
+                {
+                    IslamicAccount islamicAccount = (IslamicAccount)giver;
+
+                    db.TransactionUpdateOnIslamicTable(islamicAccount);
+                }
+
+                //reciever end
+                if (reciver_ac is SavingsAccount)
+                {
+                    SavingsAccount savings = (SavingsAccount)reciver_ac;
+
+                    db.TransactionUpdateOnSavingsTable(savings);
+                }
+                else if (reciver_ac is CurrentAccount)
+                {
+                    CurrentAccount current_ac = (CurrentAccount)reciver_ac;
+                    db.TransactionUpdateOnCurrentTable(current_ac);
+
+                }
+                else if (reciver_ac is IslamicAccount)
+                {
+                    IslamicAccount islamicAccount = (IslamicAccount)reciver_ac;
+
+                    db.TransactionUpdateOnIslamicTable(islamicAccount);
+                }
+
+                //just to be safe
+                db.LoadAccountToList();
+                db.LoadSavingsAccountToList();
+                Bank.LoadAccountListForRespectiveCustomer(customer);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: "+e.Message);
+            }
+        }
         public void ShowAccountData(Customer customer)
         {
 
