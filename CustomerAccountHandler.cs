@@ -23,8 +23,7 @@ namespace BANKSOLID
 
                     customer.savingsAccounts[i].Deposit(amount);
 
-                    db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
-
+                    db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);                  
                     //just to be safe
                     db.LoadAccountToList();
                     db.LoadSavingsAccountToList();
