@@ -145,7 +145,7 @@ namespace BANKSOLID
 
             db.LoadAccountToList();
 
-            //LoadIslamicAccounttoList()->shef
+            db.LoadIslamicAccountToList();
 
             Bank.LoadAccountListForRespectiveCustomer(customer);
 

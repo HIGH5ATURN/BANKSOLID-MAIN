@@ -22,7 +22,22 @@ namespace BANKSOLID
             this.OpeningDate = OpeningDate;
             LastWithdrawDate = OpeningDate;
         }
-         public void Deposit(double amount)
+
+        public IslamicAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate, Date LastWithdrawDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        {
+            this.AccountNumber = AccountNumber;
+            this.AccountHolderNID = AccountHolderNID;
+            this.AccountHolderName = AccountHolderName;
+            this.Balance = Balance;
+            this.OpeningDate = OpeningDate;
+            this.LastWithdrawDate = LastWithdrawDate;
+        }
+        public void setWithdrawalCount(int cnt)
+        {
+            withdrawalCount = cnt;
+        }
+
+        public void Deposit(double amount)
         {
             if (amount >= 0)
             {
@@ -79,7 +94,7 @@ namespace BANKSOLID
 
         public override String GetAccountType()
         {
-            return " TYPE ::: ISLAMIC ACCOUNT. ";
+            return " Islamic ";
         }
 
     }
