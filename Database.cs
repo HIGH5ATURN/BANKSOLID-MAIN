@@ -547,5 +547,49 @@ namespace BANKSOLID
             }
         }
 
+
+        public void TransactionUpdateOnIslamicTable(IslamicAccount islamic_account)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE IslamicAccount SET _Balance = ?,_withdrawCount= ? ,_LastWithdrawDate= ? WHERE AccountNumber = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Balance", islamic_account.Balance);
+
+                        command.Parameters.AddWithValue("@withdrawCount", islamic_account.getWithdrawalCount());
+
+
+                        command.Parameters.AddWithValue("@LastWithdrawDate", stringUtils.ConvertDateToString(islamic_account.LastWithdrawDate));
+
+                        command.Parameters.AddWithValue("@AccountNumber", islamic_account.AccountNumber);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Operation Done Successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Account not found or no update needed.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
+
+
     }
-}
+    }

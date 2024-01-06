@@ -157,16 +157,20 @@ namespace BANKSOLID
             return false;
 
         }
-        public bool WithdrawOnIslamicAccount(int accountNumber, Customer customer, double amount)
+        public bool WithdrawOnIslamicAccount(int accountNumber, Customer customer, double amount,Date withdrawDate)
         {
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
+            for (int i = 0; i < customer.islamicAccounts.Count; i++)
             {
-                if (accountNumber == customer.savingsAccounts[i].AccountNumber)
+                if (accountNumber == customer.islamicAccounts[i].AccountNumber)
                 {
 
 
-                    //same as withdraw on savings but for Islamic Account
+                    customer.islamicAccounts[i].Withdraw(amount, withdrawDate);
+                    db.TransactionUpdateOnIslamicTable(customer.islamicAccounts[i]);
 
+                    db.LoadAccountToList();
+                    db.LoadIslamicAccountToList();
+                    Bank.LoadAccountListForRespectiveCustomer(customer);
                     return true;
                 }
             }
