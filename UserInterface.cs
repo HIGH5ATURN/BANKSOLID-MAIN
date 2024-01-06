@@ -233,24 +233,9 @@ namespace BANKSOLID
 
                         //Look at all these methods they are same AF. we can create a Itransfer interface that will have a transfer method.
                         //we can implement that Itransfer and have different implementation for different purpose using different class
-                        updated = customerAccountHandler.Transfer_SavingsToSavings(ac_no, customer, amount, recipient_AcNo);
+                        customerAccountHandler.Transfer(ac_no, customer, amount, recipient_AcNo);
 
-                        //do for current to current
-                        if (!updated)
-                        {
-                            updated = customerAccountHandler.Transfer_CurrentToCurrent(ac_no, customer, amount, recipient_AcNo);
-                        }
-                        //do for islamic to islamic
 
-                        if(!updated)
-                        {
-                            updated=customerAccountHandler.Transfer_IslamicToIslamic(ac_no, customer, amount,recipient_AcNo);
-                        }
-
-                        if (!updated)
-                        {
-                            Console.WriteLine("Incorrect Account Number! Please try Again!");
-                        }
                     }
                     else if (key == 4)
                     {
