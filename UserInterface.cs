@@ -183,27 +183,8 @@ namespace BANKSOLID
 
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
                         Console.WriteLine();
-                        Console.Write("Give withdraw Date (yyyy-mm-dd): ");
 
-                        Date date = stringUtils.ConvertToDate(Console.ReadLine());
-
-
-                        updated=customerAccountHandler.WithdrawOnSavingsAccount(ac_no,customer,amount,date);
-
-                        if (!updated)
-                        {
-                            updated = customerAccountHandler.WithDrawOnCurrentAccount(ac_no, customer, amount,date);
-                        }
-
-                        if (!updated)
-                        {
-                            updated = customerAccountHandler.WithdrawOnIslamicAccount(ac_no, customer, amount,date);
-                        }
-
-                        if (!updated)
-                        {
-                            Console.WriteLine("Incorrect Account Number! Please try Again!");
-                        }
+                        customerAccountHandler.Withdraw(ac_no, customer, amount);
                     }
                     else if (key == 3)//transfer to another account
                     {

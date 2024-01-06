@@ -10,33 +10,7 @@ namespace BANKSOLID
     {
 
         Database db = new Database();
-
-        public bool DepositOnSavings(int accountNumber, Customer customer, double amount)
-        {
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
-            {
-                if (accountNumber == customer.savingsAccounts[i].AccountNumber)
-                {
-
-                   
-
-
-                    customer.savingsAccounts[i].Deposit(amount);
-
-                    db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);                  
-                    //just to be safe
-                    db.LoadAccountToList();
-                    db.LoadSavingsAccountToList();
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-                    return true;
-
-
-                }
-            }
-
-            return false;
-        }
-
+ 
 
         public void Deposit(int accountNumber, Customer customer, double amount)
         {
@@ -85,64 +59,53 @@ namespace BANKSOLID
 
         }
 
-        public bool DepositOnCurrentAccount(int accountNumber,Customer customer,double amount)
+     
+
+        public void Withdraw(int accountNumber, Customer customer, double amount)
         {
-
-            for(int i=0;i<customer.currentAccounts.Count;i++)
+            try
             {
+                Itransaction account = FindAccountForCustomer(customer, accountNumber);
 
-                if (accountNumber == customer.currentAccounts[i].AccountNumber)
+                if (account == null)
                 {
-                    customer.currentAccounts[i].Deposit(amount);
-
-                    db.TransactionUpdateOnCurrentTable(customer.currentAccounts[i]);
-
-                    
-                    db.LoadAccountToList();
-
-                    db.LoadSavingsAccountToList();
-
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-
-                    return true;
+                    throw new TransactionException("Incorrect Account Number!");
                 }
 
-            }
 
+                account.Withdraw(amount,Date.Now);
 
-            return false;
-
-        }
-
-        public bool DepositOnIslamicAccount(int accountNumber, Customer customer, double amount)
-        {
-            for (int i = 0; i < customer.islamicAccounts.Count; i++)
-            {
-                if (accountNumber == customer.islamicAccounts[i].AccountNumber)
+                if (account is SavingsAccount)
                 {
+                    SavingsAccount s_ac = (SavingsAccount)account;
 
-
-                    
-                    customer.islamicAccounts[i].Deposit(amount);
-
-                   //db.TransactionUpdateOnCurrentTable(customer.islamicAccounts[i]);
-                   //islamic account er db ekhono hoye nae
-
-
-                    db.LoadAccountToList();
-
-                    db.LoadSavingsAccountToList();
-
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-                    return true;
-
+                    db.TransactionUpdateOnSavingsTable(s_ac);
                 }
+                else if (account is CurrentAccount)
+                {
+                    CurrentAccount currentAccount = (CurrentAccount)account;
+
+                    db.TransactionUpdateOnCurrentTable(currentAccount);
+                }
+                else if (account is IslamicAccount)
+                {
+                    IslamicAccount islamicAccount = (IslamicAccount)account;
+
+                    db.TransactionUpdateOnIslamicTable(islamicAccount);
+                }
+
+
+                db.LoadAccountToList();
+                db.LoadSavingsAccountToList();
+                db.LoadCurrentAccountToList();
+                db.LoadIslamicAccountToList();
+                Bank.LoadAccountListForRespectiveCustomer(customer);
             }
-
-            return false;
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.Message);
+            }
         }
-
-
         public bool WithdrawOnSavingsAccount(int accountNumber, Customer customer, double amount,Date withdrawDate)
         {
             for (int i = 0; i < customer.savingsAccounts.Count; i++)
