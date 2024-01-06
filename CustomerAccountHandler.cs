@@ -38,7 +38,52 @@ namespace BANKSOLID
         }
 
 
+        public void Deposit(int accountNumber, Customer customer, double amount)
+        {
+            try
+            {
+                Itransaction account = FindAccountForCustomer(customer, accountNumber);
 
+                if (account == null)
+                {
+                    throw new TransactionException("Incorrect Account Number!");
+                }
+
+
+                account.Deposit(amount);
+
+                if (account is SavingsAccount)
+                {
+                    SavingsAccount s_ac = (SavingsAccount)account;
+
+                    db.TransactionUpdateOnSavingsTable(s_ac);
+                }
+                else if (account is CurrentAccount)
+                {
+                    CurrentAccount currentAccount = (CurrentAccount)account;
+
+                    db.TransactionUpdateOnCurrentTable(currentAccount);
+                }
+                else if (account is IslamicAccount)
+                {
+                    IslamicAccount islamicAccount = (IslamicAccount)account;
+
+                    db.TransactionUpdateOnIslamicTable(islamicAccount);
+                }
+
+
+                db.LoadAccountToList();
+                db.LoadSavingsAccountToList();
+                db.LoadCurrentAccountToList();
+                db.LoadIslamicAccountToList();
+                Bank.LoadAccountListForRespectiveCustomer(customer);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error : "+ex.Message);
+            }
+
+        }
 
         public bool DepositOnCurrentAccount(int accountNumber,Customer customer,double amount)
         {
@@ -177,110 +222,8 @@ namespace BANKSOLID
             return false;
         }
 
-        public bool Transfer_CurrentToCurrent(int accountNumber, Customer customer, double amount, int recipient_ac_no)
-        {
-
-            CurrentAccount receiver = null;
-
-            bool found = false;
-
-            for (int i = 0; i < Bank.CurrentAccountList.Count; i++)
-            {
-
-                if (recipient_ac_no == Bank.CurrentAccountList[i].AccountNumber)
-                {
-                    receiver = Bank.CurrentAccountList[i];
-
-                    found = true;
-
-                    break;
-                }
-            }
-
-            if (!found)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < customer.currentAccounts.Count; i++)
-            {
-                if (accountNumber == customer.currentAccounts[i].AccountNumber)
-                {
-
-
-                    customer.currentAccounts[i].Transfer(receiver, amount);
-
-
-                    db.TransactionUpdateOnCurrentTable(customer.currentAccounts[i]);
-
-                    db.TransactionUpdateOnCurrentTable(receiver);
-
-
-
-                    db.LoadAccountToList();
-
-                    db.LoadCurrentAccountToList();
-
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-
-
-
-                    return true;
-                }
-
-            }
-
-
-            return false;
-        }
-
+      
         
-        public bool Transfer_IslamicToIslamic(int accountNumber, Customer customer, double amount, int recipient_ac_no)
-        {
-            return false;
-
-        }
-        public bool Transfer_SavingsToSavings(int accountNumber, Customer customer, double amount,int recipient_ac_no)
-        {
-            SavingsAccount reciever=null;
-
-            bool found =false;
-            for(int i=0;i<Bank.SavingsAccountList.Count;i++)
-            {
-                if(recipient_ac_no == Bank.SavingsAccountList[i].AccountNumber)
-                {
-                    reciever = Bank.SavingsAccountList[i];
-                    found = true; break;
-                }
-            }
-            if(!found)
-            {
-                return false;
-            }
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
-            {
-                if (accountNumber == customer.savingsAccounts[i].AccountNumber)
-                {
-
-
-                    customer.savingsAccounts[i].Transfer(reciever, amount);
-
-                    db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
-                    db.TransactionUpdateOnSavingsTable(reciever);
-                    //just to be safe
-                    db.LoadAccountToList();
-                    db.LoadSavingsAccountToList();
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-                    
-                   
-
-                    return true;
-                }
-            }
-
-
-            return false;
-        }
 
         public Account FindAccount(int accountNumber)
         {
@@ -346,12 +289,12 @@ namespace BANKSOLID
 
                 if (reciver_ac == null || giver==null)
                 {
-                    throw new TransactionException("Invalid recipient account number!");
+                    throw new TransactionException("Invalid account number!");
                 }
 
                 giver.Transfer(reciver_ac, amount);
 
-                //giver end
+                //giver end // NOTE : here the databaase can also be brought under refactoring and be applied OCP
                 if(giver is SavingsAccount)
                 {
                     SavingsAccount savings  = (SavingsAccount)giver;
@@ -394,6 +337,8 @@ namespace BANKSOLID
                 //just to be safe
                 db.LoadAccountToList();
                 db.LoadSavingsAccountToList();
+                db.LoadCurrentAccountToList();
+                db.LoadIslamicAccountToList();
                 Bank.LoadAccountListForRespectiveCustomer(customer);
 
             }
