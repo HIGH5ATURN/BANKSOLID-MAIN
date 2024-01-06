@@ -93,6 +93,7 @@ namespace BANKSOLID
         {
             try
             {
+                    Console.Clear();
                     CustomerAccountCreator customerAccountCreator = new CustomerAccountCreator();
                 
                   
@@ -157,7 +158,7 @@ namespace BANKSOLID
                     }
                     bool updated = false;
 
-                    Console.Write("Give Account Number: ");
+                    Console.Write("Give your Account Number: ");
 
                     int ac_no = stringUtils.ConvertToInt(Console.ReadLine());
 
@@ -250,7 +251,10 @@ namespace BANKSOLID
                         }
                         else
                         {
-                            Console.WriteLine("You dont have any accounts!");
+                            Console.WriteLine("You dont have any accounts! But you can always create one! ");
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey ();
+
                         }
                         
                         
