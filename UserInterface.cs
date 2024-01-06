@@ -213,7 +213,7 @@ namespace BANKSOLID
 
                         if (!updated)
                         {
-                            updated = customerAccountHandler.WithdrawOnIslamicAccount(ac_no, customer, amount);
+                            updated = customerAccountHandler.WithdrawOnIslamicAccount(ac_no, customer, amount,date);
                         }
 
                         if (!updated)

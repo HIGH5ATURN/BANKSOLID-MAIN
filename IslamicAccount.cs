@@ -8,7 +8,7 @@ namespace BANKSOLID
 {
     public class IslamicAccount : Account,Itransaction
     {
-        public int withdrawalLimit { get; set; } = 5;
+        public int withdrawalLimit { get; set; } = 7;
         private int withdrawalCount = 0;
         public Date LastWithdrawDate;
 
@@ -37,6 +37,10 @@ namespace BANKSOLID
             withdrawalCount = cnt;
         }
 
+        public int getWithdrawalCount()
+        {
+            return withdrawalCount;
+        }
         public void Deposit(double amount)
         {
             if (amount >= 0)
@@ -74,7 +78,7 @@ namespace BANKSOLID
 
             if (LastWithdrawDate.DifferenceInDays(withdraw_date) <= 30 && withdrawalCount >= withdrawalLimit)
             {
-                throw new TransactionException("In Islamic Account you can withdraw only 5 times a month!");
+                throw new TransactionException("In Islamic Account you can withdraw only 7 times a month!");
             }
             else
             {
