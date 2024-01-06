@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fhZCE+5SQkEIuu/X74V5KlYP1Zb3qKcSqL4oZoRl8nPX+IFVBURp75J1J9ibmGx1UfjmzYkF7lRsf+o7my3Bkg==",
+  "dgSpecHash": "eqmgYW2tRSzvBkZyhpgDL75dhvqyOQDsQc4XcZWJfDmPdEnZS1SSWh09TdNyNazikZO3MkPOPG7L9OqrzI5blQ==",
   "success": true,
-  "projectFilePath": "D:\\BANKSOLID-MAIN\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+  "projectFilePath": "C:\\Users\\Hp\\Desktop\\Banksolid\\BANKSOLID-MAIN\\BANKSOLID.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hp\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\Hp\\.nuget\\packages\\system.configuration.configurationmanager\\7.0.0\\system.configuration.configurationmanager.7.0.0.nupkg.sha512",

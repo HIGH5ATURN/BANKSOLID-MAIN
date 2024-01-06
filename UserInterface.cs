@@ -336,6 +336,7 @@ namespace BANKSOLID
             database.LoadAccountToList();
             database.LoadSavingsAccountToList();
             database.LoadCurrentAccountToList();
+            database.LoadIslamicAccountToList();
 
         }
     }

@@ -504,5 +504,48 @@ namespace BANKSOLID
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public void LoadIslamicAccountToList()
+        {
+            Bank.IslamicAccountList.Clear();
+
+            try
+            {
+                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                conn.Open();
+                string sql = "Select * from IslamicAccount";
+
+                cmd = new OleDbCommand(sql, conn);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
+
+                    string name = reader["_AccountHolderName"].ToString();
+
+                    int nid = stringUtils.ConvertToInt(reader["_AccountHolderNID"].ToString());
+
+                    double Balance = stringUtils.ConvertToDouble(reader["_Balance"].ToString());
+
+                    Date date = stringUtils.ConvertToDate(reader["_Date"].ToString());
+
+                    Date LastWithdrawDate = stringUtils.ConvertToDate(reader["_LastWithdrawDate"].ToString());
+
+                    IslamicAccount islamicAc = new IslamicAccount(ac_no, nid, name, Balance, date, LastWithdrawDate);
+                    islamicAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
+
+                    Bank.IslamicAccountList.Add(islamicAc);
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
     }
 }
