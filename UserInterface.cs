@@ -172,24 +172,8 @@ namespace BANKSOLID
 
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
 
+                       customerAccountHandler.Deposit(ac_no,customer,amount);
 
-
-                        updated = customerAccountHandler.DepositOnSavings(ac_no, customer, amount);
-
-                        if (!updated)
-                        {
-                            updated = customerAccountHandler.DepositOnCurrentAccount(ac_no, customer, amount);
-                        }
-
-                        if (!updated)
-                        {
-                            updated = customerAccountHandler.DepositOnIslamicAccount(ac_no, customer, amount);
-                        }
-
-                        if (!updated)
-                        {
-                            Console.WriteLine("Incorrect Account Number! Please try Again!");
-                        }
                     }
                     else if (key == 2)//withdraw
                     {

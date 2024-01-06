@@ -102,7 +102,7 @@ namespace BANKSOLID
             }
         }
 
-        public void TransactionUpdateOnAccountTable(Account account)
+        private void TransactionUpdateOnAccountTable(Account account)
         {
             string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
 
