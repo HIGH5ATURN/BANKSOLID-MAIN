@@ -18,6 +18,12 @@ namespace BANKSOLID
 
         public static vector<IslamicAccount> IslamicAccountList = new vector<IslamicAccount>();
 
+        public static vector<Loan> AllLoanList = new vector<Loan>();
+
+        public static vector<HomeLoan> HomeLoanList = new vector<HomeLoan>();
+
+        public static vector<EducationLoan> EducationLoanList = new vector<EducationLoan>();
+
         public static void LoadAccountListForRespectiveCustomer(Customer customer)
         {
             customer.savingsAccounts.Clear();

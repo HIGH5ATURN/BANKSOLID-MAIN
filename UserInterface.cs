@@ -100,8 +100,9 @@ namespace BANKSOLID
                     Console.WriteLine("If You want to open an Account please :");
                     Console.WriteLine("Press (1) to open Savings Account!");
                     Console.WriteLine("Press (2) to open Current Account!");
-                    Console.WriteLine("Press (3) to open Islamic Account!");
+                    Console.WriteLine("Press (3) to open Islamic Account!");     
                     Console.WriteLine("Press (4) to exit!");
+                    Console.Write("Select an option:");
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
 
                     if (key == 1)
@@ -119,7 +120,7 @@ namespace BANKSOLID
                         //create islamic account
                         customerAccountCreator.CreatIslamicAccount(customer);
 
-                    }
+                    }          
                     else if (key == 4)
                     {
                         Console.Clear();
@@ -236,7 +237,9 @@ namespace BANKSOLID
                     Console.Clear ();
                     Console.WriteLine("Press (1) for Account Creation!");
                     Console.WriteLine("Press (2) to check your accounts and do transactions!");
-                    Console.WriteLine("Press (3) to return!");
+                    Console.WriteLine("Press (3) to apply for loan!");
+                    Console.WriteLine("Press (4) to return!");
+                    Console.Write("Select an option: ");
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
                     if (key == 1)
                     {
@@ -260,6 +263,11 @@ namespace BANKSOLID
                         
                     }
                     else if(key==3)
+                    {
+                        //loan er UI 
+                        LoanUI.UI(customer);
+                    }
+                    else if(key==4)
                     {
                         break;
                     }
