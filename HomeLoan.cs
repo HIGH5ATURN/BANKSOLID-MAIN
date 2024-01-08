@@ -52,13 +52,15 @@ namespace BANKSOLID
             }
             if (payment < leastPayment && loan_amount >= leastPayment)
             {
-                throw new LoanException("Least payment of loan has to be 1000 bdt");
+                throw new LoanException("Least payment of loan has to be 5000 bdt");
             }
             else
             {
+                AddInterest();
                 loan_amount -= payment;
 
                 last_payment_date = Date.Now;
+                
             }
 
         }
@@ -69,6 +71,7 @@ namespace BANKSOLID
             this.loan_amount = loan_amount;
             this.starting_date = starting_date;
             remaining_loan_amount = loan_amount;
+            lastInterestDate=starting_date;
         }
 
 

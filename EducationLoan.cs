@@ -57,6 +57,7 @@ namespace BANKSOLID
             }
             else
             {
+                AddInterest();
                 loan_amount -= payment;
 
                 last_payment_date = Date.Now;
@@ -70,6 +71,7 @@ namespace BANKSOLID
             this.loan_amount = loan_amount;
             this.starting_date = starting_date;
             remaining_loan_amount = loan_amount;
+            lastInterestDate=starting_date;
         }
 
 
