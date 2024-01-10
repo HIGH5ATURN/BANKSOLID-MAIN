@@ -24,6 +24,14 @@ namespace BANKSOLID
             Balance = balance;
             OpeningDate = openingDate;
         }
+        public Account( int accountHolderNID, string accountHolderName, double balance, Date openingDate)
+        {
+    
+            AccountHolderNID = accountHolderNID;
+            AccountHolderName = accountHolderName;
+            Balance = balance;
+            OpeningDate = openingDate;
+        }
 
         public virtual String GetAccountType()
         {

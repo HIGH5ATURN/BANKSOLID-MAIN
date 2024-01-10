@@ -23,6 +23,16 @@ namespace BANKSOLID
             LastWithdrawDate = OpeningDate;
         }
 
+        public IslamicAccount( int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate) : base( AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        {
+           
+            this.AccountHolderNID = AccountHolderNID;
+            this.AccountHolderName = AccountHolderName;
+            this.Balance = Balance;
+            this.OpeningDate = OpeningDate;
+            LastWithdrawDate = OpeningDate;
+        }
+
         public IslamicAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate, Date LastWithdrawDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
             this.AccountNumber = AccountNumber;

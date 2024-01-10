@@ -39,20 +39,22 @@ namespace BANKSOLID
         {
             try
             {
-                conn.Open();
+                OleDbConnection connect = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                OleDbCommand command;
 
+                connect.Open();
                 string sql = "Insert into Accounts(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date) values" + "(@acno,@name,@nid,@balance,@date)";
-                cmd = new OleDbCommand(sql, conn);
+                command = new OleDbCommand(sql, connect);
 
-                cmd.Parameters.AddWithValue("@acno", account.AccountNumber);
-                cmd.Parameters.AddWithValue("@name", account.AccountHolderName);
-                cmd.Parameters.AddWithValue("@nid", account.AccountHolderNID);
-                cmd.Parameters.AddWithValue("@balance", account.Balance);
-                cmd.Parameters.AddWithValue("@date",stringUtils.ConvertDateToString( account.OpeningDate));
+                command.Parameters.AddWithValue("@acno", account.AccountNumber);
+                command.Parameters.AddWithValue("@name", account.AccountHolderName);
+                command.Parameters.AddWithValue("@nid", account.AccountHolderNID);
+                command.Parameters.AddWithValue("@balance", account.Balance);
+                command.Parameters.AddWithValue("@date",stringUtils.ConvertDateToString( account.OpeningDate));
 
-                cmd.ExecuteNonQuery();
+                command.ExecuteNonQuery();
 
-                conn.Close();
+                connect.Close();
             }
             catch (Exception ex)
             {
@@ -69,13 +71,15 @@ namespace BANKSOLID
 
             try
             {
-                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
-                conn.Open();
+                OleDbConnection newConn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                OleDbCommand newCmd;
+
+                newConn.Open();
                 string sql = "Select * from Accounts";
 
-                cmd = new OleDbCommand(sql, conn);
+                newCmd = new OleDbCommand(sql, newConn);
 
-                OleDbDataReader reader = cmd.ExecuteReader();
+                OleDbDataReader reader = newCmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -92,9 +96,10 @@ namespace BANKSOLID
                     Account account = new Account(ac_no,nid,name,Balance,date);
 
                     Bank.AllAccountList.Add(account);
+                  
                 }
 
-                conn.Close();
+                newConn.Close();
             }
             catch(Exception ex)
             {
@@ -135,10 +140,9 @@ namespace BANKSOLID
             {
                 conn.Open();
 
-                string sql = "Insert into SavingsAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate,_LastWithdrawDate,_withdrawCount) values" + "(@acno,@name,@nid,@balance,@date,@lastInterestDate,@lastWithdrawDate,@withdrawCount)";
+                string sql = "Insert into SavingsAccount(_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate,_LastWithdrawDate,_withdrawCount) values" + "(@name,@nid,@balance,@date,@lastInterestDate,@lastWithdrawDate,@withdrawCount)";
                 cmd = new OleDbCommand(sql, conn);
 
-                cmd.Parameters.AddWithValue("@acno", savingsAccount.AccountNumber);
                 cmd.Parameters.AddWithValue("@name", savingsAccount.AccountHolderName);
                 cmd.Parameters.AddWithValue("@nid", savingsAccount.AccountHolderNID);
                 cmd.Parameters.AddWithValue("@balance", savingsAccount.Balance);
@@ -156,6 +160,35 @@ namespace BANKSOLID
             }
         }
 
+        public int FetchAccountNumber(string tablename)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "SELECT TOP 1 *" +
+                    "FROM " + tablename +
+                    " ORDER BY[AccountNumber] DESC";
+
+
+
+                cmd = new OleDbCommand(sql, conn);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                   return stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
+                }
+
+                conn.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return 0;
+        }
         public void LoadSavingsAccountToList()
         {
             Bank.SavingsAccountList.Clear();
@@ -190,6 +223,8 @@ namespace BANKSOLID
                     savingsAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
 
                     Bank.SavingsAccountList.Add(savingsAc);
+
+                 
                 }
 
                 conn.Close();
@@ -325,13 +360,13 @@ namespace BANKSOLID
 
                 conn.Open();
 
-                string sql = "Insert into CurrentAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate) values" + "(@acno,@name,@nid,@balance,@date,@lastInterestDate)";
+                string sql = "Insert into CurrentAccount(_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastInterestDate) values" + "(@name,@nid,@balance,@date,@lastInterestDate)";
 
 
                 cmd = new OleDbCommand(sql, conn);
 
 
-                cmd.Parameters.AddWithValue("@acno", currentaccount.AccountNumber);
+        
 
                 cmd.Parameters.AddWithValue("@name", currentaccount.AccountHolderName);
 
@@ -514,10 +549,10 @@ namespace BANKSOLID
             {
                 conn.Open();
 
-                string sql = "Insert into IslamicAccount(AccountNumber,_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastWithdrawDate,_withdrawCount) values" + "(@acno,@name,@nid,@balance,@date,@lastWithdrawDate,@withdrawCount)";
+                string sql = "Insert into IslamicAccount(_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastWithdrawDate,_withdrawCount) values" + "(@name,@nid,@balance,@date,@lastWithdrawDate,@withdrawCount)";
                 cmd = new OleDbCommand(sql, conn);
 
-                cmd.Parameters.AddWithValue("@acno", islamicAccount.AccountNumber);
+     
                 cmd.Parameters.AddWithValue("@name", islamicAccount.AccountHolderName);
                 cmd.Parameters.AddWithValue("@nid", islamicAccount.AccountHolderNID);
                 cmd.Parameters.AddWithValue("@balance", islamicAccount.Balance);
