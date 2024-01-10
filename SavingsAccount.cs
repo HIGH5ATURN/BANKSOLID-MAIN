@@ -17,9 +17,20 @@ namespace BANKSOLID
 
 
         //first time
-        public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate)  : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        //public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate)  : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        //{
+        //    this.AccountNumber = AccountNumber;
+        //    this.AccountHolderNID = AccountHolderNID;
+        //    this.AccountHolderName = AccountHolderName;
+        //    this.Balance = Balance;
+        //    this.OpeningDate = OpeningDate;
+        //    LastWithdrawDate = OpeningDate;
+        //    LastInterestDate = OpeningDate;
+        //}
+
+        public SavingsAccount( int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate) : base( AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
-            this.AccountNumber = AccountNumber;
+           
             this.AccountHolderNID = AccountHolderNID;
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
@@ -31,7 +42,7 @@ namespace BANKSOLID
         //fetching from database
         public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate,Date LastInterestDate,Date LastWithdrawDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
         {
-            this.AccountNumber = AccountNumber;
+            
             this.AccountHolderNID = AccountHolderNID;
             this.AccountHolderName = AccountHolderName;
             this.Balance = Balance;
