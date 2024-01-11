@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace BANKSOLID
 {
-    public static class LoanUI
+    public  class LoanUI
     {
-        public static void UI(Customer customer)
+        Database db = new Database();
+        public void UI(Customer customer)
         {
             try 
             {
@@ -29,6 +30,13 @@ namespace BANKSOLID
                         //we need to generate auto number for everything!!!
                         //1) for accounts 
                         //2)for loans
+
+                        Console.Write("Please state the amount you want for loan: ");
+                        double loanAmount= stringUtils.ConvertToDouble(Console.ReadLine());
+
+                        HomeLoan homeloan = new HomeLoan(loanAmount,Date.Now);
+                       // db.SavetoHomeLoanRequest(homeloan);
+                        Console.WriteLine("Your Home Loan request is up for review! You will be hearing from us very soon");
 
 
                     }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.OleDb;
 using System.Security.Principal;
+using System.Security.Cryptography;
 
 namespace BANKSOLID
 {
@@ -13,7 +14,7 @@ namespace BANKSOLID
 
         OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
         OleDbCommand cmd;
-       
+
         public void SaveCustomerToDb(Customer customer)
         {
             try
@@ -22,7 +23,7 @@ namespace BANKSOLID
                 string sql = "Insert into Customer(_NID,_uname,_pass) VALUES" + "(@nid,@name,@pass)";
 
                 cmd = new OleDbCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@nid", customer.NID.ToString());
+                cmd.Parameters.AddWithValue("@nid", customer.NID);
                 cmd.Parameters.AddWithValue("@name", customer.Name);
                 cmd.Parameters.AddWithValue("@pass", customer.password);
                 cmd.ExecuteNonQuery();
@@ -50,7 +51,7 @@ namespace BANKSOLID
                 command.Parameters.AddWithValue("@name", account.AccountHolderName);
                 command.Parameters.AddWithValue("@nid", account.AccountHolderNID);
                 command.Parameters.AddWithValue("@balance", account.Balance);
-                command.Parameters.AddWithValue("@date",stringUtils.ConvertDateToString( account.OpeningDate));
+                command.Parameters.AddWithValue("@date", stringUtils.ConvertDateToString(account.OpeningDate));
 
                 command.ExecuteNonQuery();
 
@@ -93,15 +94,15 @@ namespace BANKSOLID
 
                     Date date = stringUtils.ConvertToDate(reader["_Date"].ToString());
 
-                    Account account = new Account(ac_no,nid,name,Balance,date);
+                    Account account = new Account(ac_no, nid, name, Balance, date);
 
                     Bank.AllAccountList.Add(account);
-                  
+
                 }
 
                 newConn.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -125,7 +126,7 @@ namespace BANKSOLID
 
                         command.Parameters.AddWithValue("@AccountNumber", account.AccountNumber);
 
-                        command.ExecuteNonQuery();   
+                        command.ExecuteNonQuery();
                     }
                 }
                 catch (Exception ex)
@@ -177,7 +178,7 @@ namespace BANKSOLID
 
                 while (reader.Read())
                 {
-                   return stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
+                    return stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
                 }
 
                 conn.Close();
@@ -219,12 +220,12 @@ namespace BANKSOLID
 
                     Date LastWithdrawDate = stringUtils.ConvertToDate(reader["_LastWithdrawDate"].ToString());
 
-                    SavingsAccount savingsAc = new SavingsAccount(ac_no, nid, name, Balance, date,last_interest_date,LastWithdrawDate);
+                    SavingsAccount savingsAc = new SavingsAccount(ac_no, nid, name, Balance, date, last_interest_date, LastWithdrawDate);
                     savingsAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
 
                     Bank.SavingsAccountList.Add(savingsAc);
 
-                 
+
                 }
 
                 conn.Close();
@@ -240,28 +241,28 @@ namespace BANKSOLID
             try
             {
                 conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
-                conn.Open ();
+                conn.Open();
                 string sql = "Select * from Customer";
 
-                cmd = new OleDbCommand (sql, conn);
+                cmd = new OleDbCommand(sql, conn);
 
                 OleDbDataReader reader = cmd.ExecuteReader();
 
-                while(reader.Read())
+                while (reader.Read())
                 {
-                   int nid  = stringUtils.ConvertToInt(reader["_NID"].ToString());
+                    int nid = stringUtils.ConvertToInt(reader["_NID"].ToString());
 
                     string name = reader["_uname"].ToString();
 
                     string password = reader["_pass"].ToString();
-                   
+
 
                     Customer temp = new Customer(name, nid, password);
 
                     Bank.CustomerList.Add(temp);
                 }
 
-                conn.Close ();
+                conn.Close();
             }
             catch (Exception ex)
             {
@@ -287,7 +288,7 @@ namespace BANKSOLID
                         command.Parameters.AddWithValue("@Balance", s_account.Balance);
 
                         command.Parameters.AddWithValue("@withdrawCount", s_account.getWithdrawCount());
-                       
+
 
                         command.Parameters.AddWithValue("@LastWithdrawDate", stringUtils.ConvertDateToString(s_account.LastWithdrawDate));
 
@@ -313,46 +314,46 @@ namespace BANKSOLID
         }
         public void DepositOnSavingsTable(SavingsAccount s_account)
         {
-           
-                string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
 
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
                 {
-                    try
+                    connection.Open();
+
+                    string updateQuery = "UPDATE SavingsAccount SET _Balance = ?,_withdrawCount= ? WHERE AccountNumber = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
                     {
-                        connection.Open();
+                        command.Parameters.AddWithValue("@Balance", s_account.Balance);
+                        command.Parameters.AddWithValue("@withdrawCount", s_account.getWithdrawCount());
+                        command.Parameters.AddWithValue("@AccountNumber", s_account.AccountNumber);
 
-                        string updateQuery = "UPDATE SavingsAccount SET _Balance = ?,_withdrawCount= ? WHERE AccountNumber = ?";
+                        int rowsAffected = command.ExecuteNonQuery();
 
-                        using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                        if (rowsAffected > 0)
                         {
-                            command.Parameters.AddWithValue("@Balance", s_account.Balance);
-                            command.Parameters.AddWithValue("@withdrawCount",s_account.getWithdrawCount());
-                            command.Parameters.AddWithValue("@AccountNumber", s_account.AccountNumber);
-
-                            int rowsAffected = command.ExecuteNonQuery();
-
-                            if (rowsAffected > 0)
-                            {
-                                Console.WriteLine("Operation Done Successfully!");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Account not found or no update needed.");
-                            }
+                            Console.WriteLine("Operation Done Successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Account not found or no update needed.");
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error: {ex.Message}");
-                    }
                 }
-            
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+
         }
-        
 
 
-        public void SaveCurrentAccounttoDb(CurrentAccount currentaccount) 
+
+        public void SaveCurrentAccounttoDb(CurrentAccount currentaccount)
         {
 
             try
@@ -366,7 +367,7 @@ namespace BANKSOLID
                 cmd = new OleDbCommand(sql, conn);
 
 
-        
+
 
                 cmd.Parameters.AddWithValue("@name", currentaccount.AccountHolderName);
 
@@ -413,11 +414,11 @@ namespace BANKSOLID
 
                 String sql = "Select * from CurrentAccount";
 
-                cmd=new OleDbCommand(sql, conn);
+                cmd = new OleDbCommand(sql, conn);
 
                 OleDbDataReader reader = cmd.ExecuteReader();
 
-                while(reader.Read())
+                while (reader.Read())
                 {
 
                     int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
@@ -430,7 +431,7 @@ namespace BANKSOLID
 
                     Date date = stringUtils.ConvertToDate(reader["_Date"].ToString());
 
-                    Date LastInterestDate = stringUtils.ConvertToDate(reader["_LastInterestDate"].ToString()) ;
+                    Date LastInterestDate = stringUtils.ConvertToDate(reader["_LastInterestDate"].ToString());
 
                     CurrentAccount currentAccount = new CurrentAccount(ac_no, nid, name, balance, date, LastInterestDate);
 
@@ -450,7 +451,7 @@ namespace BANKSOLID
 
         }
 
-        
+
 
 
 
@@ -516,7 +517,7 @@ namespace BANKSOLID
                     using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
                     {
                         command.Parameters.AddWithValue("@Balance", currentaccount.Balance);
-                        
+
                         command.Parameters.AddWithValue("@AccountNumber", currentaccount.AccountNumber);
 
 
@@ -552,7 +553,7 @@ namespace BANKSOLID
                 string sql = "Insert into IslamicAccount(_AccountHolderName,_AccountHolderNID,_Balance,_Date,_LastWithdrawDate,_withdrawCount) values" + "(@name,@nid,@balance,@date,@lastWithdrawDate,@withdrawCount)";
                 cmd = new OleDbCommand(sql, conn);
 
-     
+
                 cmd.Parameters.AddWithValue("@name", islamicAccount.AccountHolderName);
                 cmd.Parameters.AddWithValue("@nid", islamicAccount.AccountHolderNID);
                 cmd.Parameters.AddWithValue("@balance", islamicAccount.Balance);
@@ -656,5 +657,6 @@ namespace BANKSOLID
         }
 
 
+       
     }
-    }
+}

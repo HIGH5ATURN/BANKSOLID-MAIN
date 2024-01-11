@@ -74,6 +74,15 @@ namespace BANKSOLID
             lastInterestDate=starting_date;
         }
 
+        public HomeLoan(double loan_amount, Date starting_date)
+        {
+            
+            this.loan_amount = loan_amount;
+            this.starting_date = starting_date;
+            remaining_loan_amount = loan_amount;
+            lastInterestDate = starting_date;
+        }
+
 
     }
 }
