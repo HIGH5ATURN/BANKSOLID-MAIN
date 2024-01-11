@@ -149,6 +149,7 @@ namespace BANKSOLID
                     Console.WriteLine("Press (2) to withdraw money from your Bank Account!");
                     Console.WriteLine("Press (3) to transfer money to another Bank Account!");
                     Console.WriteLine("Press (4) to return!");
+                    Console.Write("Select an option: ");
                     int key = 0;
                     key = stringUtils.ConvertToInt(Console.ReadLine());
 
@@ -157,7 +158,7 @@ namespace BANKSOLID
                         Console.Clear();
                         break;
                     }
-                    bool updated = false;
+                 
 
                     Console.Write("Give your Account Number: ");
 
@@ -168,7 +169,7 @@ namespace BANKSOLID
                     if (key == 1)//deposit money
                     {
 
-                        updated = false;
+                       
                         Console.Write("Give deposit Amount: ");
 
 
@@ -179,7 +180,7 @@ namespace BANKSOLID
                     }
                     else if (key == 2)//withdraw
                     {
-                        updated = false;
+                       
                         //taking inputs
                         Console.Write("Give withdraw Amount: ");
 
@@ -198,8 +199,7 @@ namespace BANKSOLID
 
                         double amount = stringUtils.ConvertToDouble(Console.ReadLine());
 
-                        //Look at all these methods they are same AF. we can create a Itransfer interface that will have a transfer method.
-                        //we can implement that Itransfer and have different implementation for different purpose using different class
+                       
                         customerAccountHandler.Transfer(ac_no, customer, amount, recipient_AcNo);
 
 
@@ -238,7 +238,8 @@ namespace BANKSOLID
                     Console.WriteLine("Press (1) for Account Creation!");
                     Console.WriteLine("Press (2) to check your accounts and do transactions!");
                     Console.WriteLine("Press (3) to apply for loan!");
-                    Console.WriteLine("Press (4) to return!");
+                    Console.WriteLine("Press (4) to change your password!");
+                    Console.WriteLine("Press (5) to return!");
                     Console.Write("Select an option: ");
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
                     if (key == 1)
@@ -265,9 +266,27 @@ namespace BANKSOLID
                     else if(key==3)
                     {
                         //loan er UI 
-                        LoanUI.UI(customer);
+                        LoanUI loanui = new LoanUI();
+                            loanui.UI(customer);
                     }
                     else if(key==4)
+                    {
+                        //change password
+                        Console.Write("Give your current password: ");
+                        string currPass= Console.ReadLine();
+
+                        Console.Write("Give your new password: ");
+
+                        string newPass= Console.ReadLine();
+
+
+                        Console.WriteLine("Under construction");
+
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+
+                    }
+                    else if(key==5)
                     {
                         break;
                     }

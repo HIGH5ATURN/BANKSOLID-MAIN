@@ -10,6 +10,7 @@ namespace BANKSOLID
     {
         public int loan_id { get; set; }
 
+        public bool isApproved { get; set; } = false;
         public double loan_amount
         {
             get { return loan_amount; }
