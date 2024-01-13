@@ -10,6 +10,8 @@ namespace BANKSOLID
     {
         public int loan_id { get; set; }
 
+        public int customerNID { get; set; }
+
         public bool isApproved { get; set; } = false;
         public double loan_amount { get; set; }
  
@@ -21,6 +23,7 @@ namespace BANKSOLID
         public double remaining_loan_amount { get; set; }
 
 
+        public abstract void getLoanDetails();
 
     }
 }

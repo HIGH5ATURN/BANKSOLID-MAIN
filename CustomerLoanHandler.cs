@@ -20,13 +20,15 @@ namespace BANKSOLID
                 return;
             }
 
-            HomeLoan homeloan = new HomeLoan(loanAmount);
+            HomeLoan homeloan = new HomeLoan(customer.NID,loanAmount);
             customer.allLoans.Add(homeloan);
             customer.homeLoans.Add(homeloan);
             db.SaveLoantoDB(homeloan, customer.NID, "HomeLoan");
             Console.WriteLine("Your Home Loan request is up for review! You will be hearing from us very soon");
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
+
+            //missing just to be safe :)
 
         }
 
@@ -40,13 +42,28 @@ namespace BANKSOLID
                 return;
             }
 
-            EducationLoan educationLoan = new EducationLoan(loanAmount);
+            EducationLoan educationLoan = new EducationLoan(customer.NID,loanAmount);
             customer.allLoans.Add(educationLoan);
             customer.educationloans.Add(educationLoan);
             db.SaveLoantoDB(educationLoan, customer.NID, "EducationLoan");
             Console.WriteLine("Your Education Loan request is up for review! You will be hearing from us very soon");
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
+        }
+
+        public void ShowLoanInfo(Customer customer)
+        {
+            if(customer.allLoans.Count == 0)
+            {
+                Console.WriteLine("You have not taken any loans!");
+                return;
+            }
+            Console.WriteLine("-----------------------");
+            for (int i=0;i<customer.allLoans.Count;i++)
+            {
+                customer.allLoans[i].getLoanDetails();
+                Console.WriteLine("-----------------------");
+            }
         }
     }
 }

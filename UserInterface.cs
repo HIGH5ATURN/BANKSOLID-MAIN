@@ -71,6 +71,7 @@ namespace BANKSOLID
                     Console.WriteLine("Logged In successfully!");
                     Console.WriteLine();
                     Bank.LoadAccountListForRespectiveCustomer(customer);
+                    Bank.LoadLoansForRespectiveCustomer(customer);
                     CustomerPersonalUI(customer);
                 }
                 else
@@ -229,6 +230,8 @@ namespace BANKSOLID
         
         public void CustomerPersonalUI(Customer customer)
         {
+            
+
             try
             {
                 while (true)
@@ -237,7 +240,7 @@ namespace BANKSOLID
                     Console.Clear ();
                     Console.WriteLine("Press (1) for Account Creation!");
                     Console.WriteLine("Press (2) to check your accounts and do transactions!");
-                    Console.WriteLine("Press (3) to apply for loan!");
+                    Console.WriteLine("Press (3) to go to loan section!");
                     Console.WriteLine("Press (4) to change your password!");
                     Console.WriteLine("Press (5) to return!");
                     Console.Write("Select an option: ");
@@ -265,10 +268,11 @@ namespace BANKSOLID
                     }
                     else if(key==3)
                     {
-                        //loan er UI 
                         LoanUI loanui = new LoanUI();
+                        //loan er UI 
                             loanui.UI(customer);
                     }
+                    
                     else if(key==4)
                     {
                         //change password
@@ -318,7 +322,10 @@ namespace BANKSOLID
             database.LoadSavingsAccountToList();
             database.LoadCurrentAccountToList();
             database.LoadIslamicAccountToList();
-
+            
+            database.LoadLoansToList("HomeLoan");
+            database.LoadLoansToList("EducationLoan");
+            Bank.LoanAllLoanList();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace BANKSOLID
 {
     public class CarLoan : Loan, ILoan, ILoanInterest
     {
-        public void getLoanDetails()
+        public override void getLoanDetails()
         {
             Console.WriteLine();
             Console.WriteLine("Loan Details");

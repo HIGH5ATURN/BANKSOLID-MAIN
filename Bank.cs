@@ -69,5 +69,56 @@ namespace BANKSOLID
 
 
         }
+
+        public static void LoadLoansForRespectiveCustomer(Customer customer)
+        {
+            customer.allLoans.Clear();
+            customer.homeLoans.Clear();
+            customer.educationloans.Clear();
+
+
+            for(int i=0;i< AllLoanList.Count;i++)
+            {
+                if (AllLoanList[i].customerNID== customer.NID)
+                {
+                    customer.allLoans.Add(AllLoanList[i]);
+                }
+            }
+
+            for (int i = 0; i < HomeLoanList.Count; i++)
+            {
+                if (HomeLoanList[i].customerNID == customer.NID)
+                {
+                    customer.homeLoans.Add(HomeLoanList[i]);
+                }
+            }
+
+            for (int i = 0; i < EducationLoanList.Count; i++)
+            {
+                if (EducationLoanList[i].customerNID == customer.NID)
+                {
+                    customer.educationloans.Add(EducationLoanList[i]);
+                }
+            }
+        }
+
+        //part_of_just_to_be_safe
+        public static void LoanAllLoanList()
+        {
+            AllLoanList.Clear();
+            for (int i = 0; i < HomeLoanList.Count; i++)
+            {
+
+                AllLoanList.Add(HomeLoanList[i]);
+                
+            }
+
+            for (int i = 0; i < EducationLoanList.Count; i++)
+            {
+               
+                    AllLoanList.Add(EducationLoanList[i]);
+                
+            }
+        }
     }
 }

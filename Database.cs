@@ -676,7 +676,67 @@ namespace BANKSOLID
             }
         }
 
+        public void LoadLoansToList(string table)
+        {
+            if (table == "HomeLoan")
+            {
+                Bank.HomeLoanList.Clear();
+            }
+            else if(table=="EducationLoan")
+            {
+                Bank.EducationLoanList.Clear();
+            }
 
+
+            try
+            {
+                OleDbConnection newConn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                OleDbCommand newCmd;
+
+                newConn.Open();
+                string sql = "Select * from "+table;
+
+                newCmd = new OleDbCommand(sql, newConn);
+
+                OleDbDataReader reader = newCmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int loanID = stringUtils.ConvertToInt(reader["LoanID"].ToString());
+
+                    int CustomerNID =stringUtils.ConvertToInt(reader["CustomerNID"].ToString());
+
+                    double LoanAmount = stringUtils.ConvertToDouble(reader["LoanAmount"].ToString());
+
+                    bool IsApproved =Convert.ToBoolean(reader["IsApproved"]);
+
+                    Date starting_date = stringUtils.ConvertToDate(reader["starting_date"].ToString());
+
+                    Date last_interest_Date = stringUtils.ConvertToDate(reader["last_interest_date"].ToString());
+                    Date last_payment_date = stringUtils.ConvertToDate(reader["last_payment_date"].ToString());
+
+                    if (table == "HomeLoan")
+                    {
+                        HomeLoan homeLoan = new HomeLoan(loanID, CustomerNID, LoanAmount, IsApproved, starting_date, last_payment_date, last_interest_Date);
+
+                        Bank.HomeLoanList.Add(homeLoan);
+                    }
+                    else if(table=="EducationLoan")
+                    {
+                        EducationLoan educationloan = new EducationLoan(loanID, CustomerNID, LoanAmount, IsApproved, starting_date, last_payment_date, last_interest_Date);
+                        Bank.EducationLoanList.Add(educationloan);
+                    }
+                }
+
+                newConn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+       
 
     }
 }

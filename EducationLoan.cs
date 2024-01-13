@@ -8,15 +8,22 @@ namespace BANKSOLID
 {
     public class EducationLoan : Loan, ILoan, ILoanInterest
     {
-        public void getLoanDetails()
+        public override void getLoanDetails()
         {
             Console.WriteLine();
             Console.WriteLine("Loan Details");
             Console.WriteLine("Loan Type: Education Loan");
             Console.WriteLine("Loan ID: " + loan_id);
-            Console.WriteLine("Principle Amount: " + loan_amount);
+            Console.WriteLine("Loan Amount: " + loan_amount);
+            if (!isApproved)
+            {
+                Console.WriteLine("The loan is not approved yet!");
+            }
+            else
+            {
+                Console.WriteLine("Your Loan was approved!");
+            }
             Console.WriteLine("Loan taken on: " + starting_date);
-            Console.WriteLine("Remaining Payable: " + remaining_loan_amount);
             Console.WriteLine();
         }
 
@@ -65,17 +72,21 @@ namespace BANKSOLID
 
         }
 
-        public EducationLoan(int loan_id, double loan_amount, Date starting_date)
+        public EducationLoan(int loan_id, int customer_NID, double loan_amount, bool isApproved, Date starting_date, Date last_payment_Date, Date last_interest_Date)
         {
             this.loan_id = loan_id;
+            this.customerNID = customer_NID;
             this.loan_amount = loan_amount;
+            this.isApproved = isApproved;
             this.starting_date = starting_date;
-            remaining_loan_amount = loan_amount;
-            lastInterestDate=starting_date;
+            this.last_payment_date = last_payment_Date;
+            this.lastInterestDate = last_interest_Date;
+
         }
 
-        public EducationLoan( double loan_amount)
+        public EducationLoan(int customer_nid, double loan_amount)
         {
+            this.customerNID = customer_nid;
            
             this.loan_amount = loan_amount;
             remaining_loan_amount = loan_amount;
