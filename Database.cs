@@ -656,7 +656,27 @@ namespace BANKSOLID
             }
         }
 
+        public void SaveLoantoDB(Loan loan,int customerNID,string loantype)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "Insert into "+loantype+"(CustomerNID,LoanAmount,IsApproved) VALUES" + "(@nid,@amount,@isApproved)";
 
-       
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@nid", customerNID);
+                cmd.Parameters.AddWithValue("@amount", loan.loan_amount);
+                cmd.Parameters.AddWithValue("@isApproved", loan.isApproved);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
+
     }
 }

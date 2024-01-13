@@ -20,6 +20,12 @@ namespace BANKSOLID
         public vector<CurrentAccount> currentAccounts { get; set; }
 
         public vector<IslamicAccount> islamicAccounts { get; set; }
+
+        public vector<Loan> allLoans { get; set; }
+
+        public vector<HomeLoan> homeLoans { get; set; }
+
+        public vector<EducationLoan> educationloans { get; set; }
         public Customer(string name, int nID, string password)
         {
             Name = name;
@@ -29,6 +35,10 @@ namespace BANKSOLID
             savingsAccounts= new vector<SavingsAccount>();
             currentAccounts= new vector<CurrentAccount>();
             islamicAccounts= new vector<IslamicAccount>();
+
+            allLoans = new vector<Loan> ();
+            homeLoans = new vector<HomeLoan>(); 
+            educationloans = new vector<EducationLoan>();
         }
         public void ChangePassword(string password)
         {

@@ -101,6 +101,10 @@ namespace BANKSOLID
 
         public static Date ConvertToDate(string dateString)
         {
+            if (dateString == "" || dateString == null)
+            {
+                return null;
+            }
             try
             {
                 String data = "";

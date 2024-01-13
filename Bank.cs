@@ -24,6 +24,7 @@ namespace BANKSOLID
 
         public static vector<EducationLoan> EducationLoanList = new vector<EducationLoan>();
 
+        
         public static void LoadAccountListForRespectiveCustomer(Customer customer)
         {
             customer.savingsAccounts.Clear();

@@ -9,9 +9,9 @@ namespace BANKSOLID
     public interface ILoanInterest
     {
         Date lastInterestDate { get; set; }
-        double interestRate { get; set; }
+        static double interestRate { get; set; }
 
-        double leastPayment { get; set; }
+        static double leastPayment { get; set; }
         void AddInterest();
 
         void makePayment(double payment);
