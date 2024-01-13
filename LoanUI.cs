@@ -9,6 +9,7 @@ namespace BANKSOLID
     public  class LoanUI
     {
         Database db = new Database();
+        CustomerLoanHandler CustomerLoanHandler = new CustomerLoanHandler();
         public void UI(Customer customer)
         {
             try 
@@ -20,28 +21,20 @@ namespace BANKSOLID
                     Console.WriteLine("Press (1) to apply for Home Loan!");
                     Console.WriteLine("Press (2) to apply for Education Loan!");
                     Console.WriteLine("Press (3) to return!");
-                    Console.Write("Select what type of loan do you want to apply for:");
+                    Console.Write("Select an option: ");
 
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
 
                     if (key == 1)
                     {
-                        //HomeLoan loan = new HomeLoan();
-                        //we need to generate auto number for everything!!!
-                        //1) for accounts 
-                        //2)for loans
 
-                        Console.Write("Please state the amount you want for loan: ");
-                        double loanAmount= stringUtils.ConvertToDouble(Console.ReadLine());
-
-                        HomeLoan homeloan = new HomeLoan(loanAmount,Date.Now);
-                       // db.SavetoHomeLoanRequest(homeloan);
-                        Console.WriteLine("Your Home Loan request is up for review! You will be hearing from us very soon");
-
-
+                       CustomerLoanHandler.ApplyingForHomeLoan(customer);
+                        break;
                     }
                     else if (key == 2)
                     {
+                        CustomerLoanHandler.ApplyingForEducationLoan(customer);
+                        break;
 
                     }
                     else if (key == 3)
@@ -55,5 +48,9 @@ namespace BANKSOLID
                 Console.WriteLine("Error "+e.Message);
             }
         }
+
+
+
+      
     }
 }

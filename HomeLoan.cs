@@ -20,9 +20,9 @@ namespace BANKSOLID
             Console.WriteLine();
         }
 
-        public double interestRate { get; set; } = 0.05;
+        public static double interestRate { get; set; } = 0.05;
 
-        public double leastPayment { get; set; } = 5000;
+        public static double leastPayment { get; set; } = 5000;
 
         public Date lastInterestDate { get; set; }
         public void AddInterest()
@@ -65,24 +65,27 @@ namespace BANKSOLID
 
         }
 
-        public HomeLoan(int loan_id, double loan_amount, Date starting_date)
+        public HomeLoan(int loan_id, double loan_amount, Date starting_date,Boolean isApproved)
         {
             this.loan_id = loan_id;
             this.loan_amount = loan_amount;
             this.starting_date = starting_date;
             remaining_loan_amount = loan_amount;
             lastInterestDate=starting_date;
+            this.isApproved = isApproved;
         }
 
-        public HomeLoan(double loan_amount, Date starting_date)
+        public HomeLoan(double loan_amount)
         {
             
             this.loan_amount = loan_amount;
-            this.starting_date = starting_date;
             remaining_loan_amount = loan_amount;
-            lastInterestDate = starting_date;
+            isApproved = false;
         }
 
-
+        public string getType()
+        {
+            return this.GetType().Name;
+        }
     }
 }

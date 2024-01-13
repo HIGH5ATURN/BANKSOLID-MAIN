@@ -20,9 +20,9 @@ namespace BANKSOLID
             Console.WriteLine();
         }
 
-        public double interestRate { get; set; } = 0.05;
+        public static double interestRate { get; set; } = 0.02;
 
-        public double leastPayment { get; set; } = 1000;
+        public static double leastPayment { get; set; } = 1000;
 
         public Date lastInterestDate { get; set; }
 
@@ -74,6 +74,13 @@ namespace BANKSOLID
             lastInterestDate=starting_date;
         }
 
+        public EducationLoan( double loan_amount)
+        {
+           
+            this.loan_amount = loan_amount;
+            remaining_loan_amount = loan_amount;
+
+        }
 
 
     }
