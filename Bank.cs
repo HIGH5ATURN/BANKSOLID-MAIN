@@ -174,5 +174,36 @@ namespace BANKSOLID
                 Console.WriteLine("--------------------------");
             }
         }
+
+        public static Account FindAccount(int ac_no)
+        {
+
+            for(int i=0;i<SavingsAccountList.Count;i++)
+            {
+                if (ac_no == SavingsAccountList[i].AccountNumber)
+                {
+                    return SavingsAccountList[i];
+                }
+            }
+
+            for (int i = 0; i < CurrentAccountList.Count; i++)
+            {
+                if (CurrentAccountList[i].AccountNumber == ac_no)
+                {
+                    return CurrentAccountList[i];
+                }
+            }
+
+
+            for (int i = 0; i < IslamicAccountList.Count; i++)
+            {
+                if (IslamicAccountList[i].AccountNumber == ac_no)
+                {
+                  return IslamicAccountList[i];
+                }
+            }
+
+            return null;
+        }
     }
 }

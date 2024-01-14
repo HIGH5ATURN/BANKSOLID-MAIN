@@ -13,7 +13,7 @@ namespace BANKSOLID
         public Date LastWithdrawDate;
 
 
-        public IslamicAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        public IslamicAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate,bool isFreezed) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate, isFreezed)
         { 
             this.AccountNumber = AccountNumber;
             this.AccountHolderNID = AccountHolderNID;
@@ -21,6 +21,7 @@ namespace BANKSOLID
             this.Balance = Balance;
             this.OpeningDate = OpeningDate;
             LastWithdrawDate = OpeningDate;
+            this.isFreezed= isFreezed;
         }
 
         public IslamicAccount( int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate) : base( AccountHolderNID, AccountHolderName, Balance, OpeningDate)
@@ -33,7 +34,7 @@ namespace BANKSOLID
             LastWithdrawDate = OpeningDate;
         }
 
-        public IslamicAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate, Date LastWithdrawDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        public IslamicAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate, Date LastWithdrawDate,bool isFreezed) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate,isFreezed)
         {
             this.AccountNumber = AccountNumber;
             this.AccountHolderNID = AccountHolderNID;
@@ -41,6 +42,7 @@ namespace BANKSOLID
             this.Balance = Balance;
             this.OpeningDate = OpeningDate;
             this.LastWithdrawDate = LastWithdrawDate;
+            this.isFreezed = isFreezed;
         }
         public void setWithdrawalCount(int cnt)
         {
@@ -53,6 +55,11 @@ namespace BANKSOLID
         }
         public void Deposit(double amount)
         {
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return ;
+            }
             if (amount >= 0)
             {
                 Balance += amount;
@@ -66,6 +73,12 @@ namespace BANKSOLID
 
         public void Transfer(Account account, double Amount)
         {
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return ;
+            }
+
             if (Balance - Amount >= 1000 && Amount > 0)
             {
                 Balance -= Amount;
@@ -79,7 +92,13 @@ namespace BANKSOLID
 
         public double Withdraw(double amount, Date withdraw_date)
         {
-            if(LastWithdrawDate.DifferenceInDays(withdraw_date)>30)
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return -1;
+            }
+
+            if (LastWithdrawDate.DifferenceInDays(withdraw_date)>30)
             {
                 withdrawalCount = 0;
             }

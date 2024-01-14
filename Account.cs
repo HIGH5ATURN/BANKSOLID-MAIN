@@ -17,13 +17,15 @@ namespace BANKSOLID
         
         public Date OpeningDate { get; set; }
 
-        public Account(int accountNumber, int accountHolderNID, string accountHolderName, double balance, Date openingDate)
+        public bool isFreezed { get; set; }
+        public Account(int accountNumber, int accountHolderNID, string accountHolderName, double balance, Date openingDate,bool isFreezed)
         {
             AccountNumber = accountNumber;
             AccountHolderNID = accountHolderNID;
             AccountHolderName = accountHolderName;
             Balance = balance;
             OpeningDate = openingDate;
+            this.isFreezed = isFreezed;
         }
         public Account( int accountHolderNID, string accountHolderName, double balance, Date openingDate)
         {
@@ -32,6 +34,7 @@ namespace BANKSOLID
             AccountHolderName = accountHolderName;
             Balance = balance;
             OpeningDate = openingDate;
+            isFreezed = false;
         }
 
         public virtual String GetAccountType()
@@ -46,7 +49,7 @@ namespace BANKSOLID
             Console.WriteLine("Account Holder NID: "+AccountHolderNID);
             Console.WriteLine("Account Balance: "+Balance);
             Console.WriteLine("Opening Date(yyyy-mm-dd): "+OpeningDate.Year+"-"+OpeningDate.Month+"-"+OpeningDate.Day);
-
+            Console.WriteLine("Account Status: "+(isFreezed?"Freezed":"Active"));
 
         }
     }

@@ -321,6 +321,7 @@ namespace BANKSOLID
                 Console.WriteLine("Account Number: " + customer.savingsAccounts[i].AccountNumber);
                 Console.WriteLine("Account Balance: " + customer.savingsAccounts[i].Balance);
                 Console.WriteLine("Account Type: " + customer.savingsAccounts[i].GetAccountType());
+                Console.WriteLine("Account status: " + (customer.savingsAccounts[i].isFreezed?"Freezed":"Un-Freezed"));
                 Console.WriteLine("-----------------------------------------");
             }
 
@@ -331,6 +332,7 @@ namespace BANKSOLID
                 Console.WriteLine("Account Number: " + customer.currentAccounts[i].AccountNumber);
                 Console.WriteLine("Account Balance: " + customer.currentAccounts[i].Balance);
                 Console.WriteLine("Account Type: " + customer.currentAccounts[i].GetAccountType());
+                Console.WriteLine("Account status: " + (customer.currentAccounts[i].isFreezed ? "Freezed" : "Un-Freezed"));
                 Console.WriteLine("-----------------------------------------");
             }
             Console.WriteLine();
@@ -340,6 +342,7 @@ namespace BANKSOLID
                 Console.WriteLine("Account Number: " + customer.islamicAccounts[i].AccountNumber);
                 Console.WriteLine("Account Balance: " + customer.islamicAccounts[i].Balance);
                 Console.WriteLine("Account Type: " + customer.islamicAccounts[i].GetAccountType());
+                Console.WriteLine("Account status: " + (customer.islamicAccounts[i].isFreezed ? "Freezed" : "Un-Freezed"));
                 Console.WriteLine("-----------------------------------------");
             }
             Console.WriteLine();

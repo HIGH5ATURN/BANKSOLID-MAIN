@@ -40,7 +40,7 @@ namespace BANKSOLID
         }
 
         //fetching from database
-        public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate,Date LastInterestDate,Date LastWithdrawDate) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate)
+        public SavingsAccount(int AccountNumber, int AccountHolderNID, String AccountHolderName, Double Balance, Date OpeningDate,Date LastInterestDate,Date LastWithdrawDate,bool isFreezed) : base(AccountNumber, AccountHolderNID, AccountHolderName, Balance, OpeningDate, isFreezed)
         {
             
             this.AccountHolderNID = AccountHolderNID;
@@ -49,11 +49,17 @@ namespace BANKSOLID
             this.OpeningDate = OpeningDate;
             this.LastInterestDate = LastInterestDate;
             this.LastWithdrawDate = LastWithdrawDate;
+            this.isFreezed=isFreezed;
         }
 
 
         public void Deposit(double amount)
         {
+            if(isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return;
+            }
             if (amount >= 0)
             {
                 Balance += amount;
@@ -76,6 +82,11 @@ namespace BANKSOLID
         }
         public void Transfer(Account account, double Amount)
         {
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return;
+            }
             if (Balance - Amount >= 1000 && Amount>0)
             {
                 Balance -= Amount;
@@ -89,7 +100,13 @@ namespace BANKSOLID
 
         public double Withdraw(double amount, Date withdraw_date)
         {
-            if(LastWithdrawDate.DifferenceInDays(withdraw_date)>30)
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return -1;
+            }
+
+            if (LastWithdrawDate.DifferenceInDays(withdraw_date)>30)
             {
                 withdrawalCount = 0;
             }

@@ -39,7 +39,7 @@ namespace BANKSOLID
 
         // Fetching from database
 
-        public CurrentAccount(int AccountNumber,int AccountHolderNID,String AccountHolderName,double Balance,Date OpeningDate,Date LastInterestDate):base(AccountNumber,AccountHolderNID,AccountHolderName,Balance,OpeningDate)
+        public CurrentAccount(int AccountNumber,int AccountHolderNID,String AccountHolderName,double Balance,Date OpeningDate,Date LastInterestDate,bool isFreezed):base(AccountNumber,AccountHolderNID,AccountHolderName,Balance,OpeningDate, isFreezed)
         {
             this.AccountNumber = AccountNumber;
             this.AccountHolderNID = AccountHolderNID;
@@ -48,13 +48,18 @@ namespace BANKSOLID
             this.OpeningDate = OpeningDate;
             this.LastInterestDate = LastInterestDate;
 
-
+            this.isFreezed=isFreezed;
         }
 
        
 
         public void Deposit(double amount)
         {
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return;
+            }
             if (amount >= 0)
             {
                 Balance += amount;
@@ -70,6 +75,11 @@ namespace BANKSOLID
 
         public void Transfer(Account account, double Amount)
         {
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return;
+            }
             if (Balance - Amount >= 1000 && Amount >0)
             {
                 Balance -= Amount;
@@ -83,6 +93,12 @@ namespace BANKSOLID
 
         public double Withdraw(double amount, Date withdraw_date)
         {
+            if (isFreezed)
+            {
+                Console.WriteLine("The Account is freezed, Can't do any transactions!");
+                return -1;
+            }
+
             if (Balance - amount >= 1000)
             {
                 Balance -= amount;
