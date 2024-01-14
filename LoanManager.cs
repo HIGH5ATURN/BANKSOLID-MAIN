@@ -21,10 +21,10 @@ namespace BANKSOLID
         }
 
 
-        public void makePayment(ILoanInterest loantype, double amount)
-        {
-            loantype.makePayment(amount);
-        }
+        //public void makePayment(ILoanInterest loantype, double amount)
+        //{
+        //    loantype.makePayment(amount);
+        //}
 
 
     }

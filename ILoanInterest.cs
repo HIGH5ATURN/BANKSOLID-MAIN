@@ -14,6 +14,6 @@ namespace BANKSOLID
         static double leastPayment { get; set; }
         void AddInterest();
 
-        void makePayment(double payment);
+        
     }
 }

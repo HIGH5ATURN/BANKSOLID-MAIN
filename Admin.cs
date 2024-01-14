@@ -112,9 +112,126 @@ namespace BANKSOLID
 
         public void LoanSection()
         {
+            while(true)
+            {
+                Console.Clear();
+                Console.WriteLine("Press (1) to see all loan requests!");
+                Console.WriteLine("Press (2) to see all accepted loan requests!");
+                Console.WriteLine("Press (3) to grant/reject a loan request!");
+                Console.WriteLine("Press (4) to return!");
 
+                Console.Write("Select an option: ");
+
+                int key = stringUtils.ConvertToInt(Console.ReadLine());
+
+                if(key == 1)
+                {
+                    Console.Clear();
+                    Bank.ShowAllLoanRequests();
+                   
+                    Console.WriteLine("Press any key to continue..");
+                    Console.ReadKey();
+                }
+                else if(key == 2)
+                {
+                    Console.Clear() ;
+                    Bank.ShowAllGrantedLoans();
+
+
+                    Console.WriteLine("Press any key to continue..");
+                    Console.ReadKey();
+                }
+                else if(key == 3)
+                {
+                    //now here admin will accept loan request , thus the loan will be initialized with starting_Date
+                    ProcessingLoanRequest();
+                }
+                else if(key == 4)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Command!");
+                }
+            }
         }
 
+        public void ProcessingLoanRequest()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Press (1) to grant a loan!");
+                Console.WriteLine("Press (2) to reject a loan request!");
+                Console.WriteLine("Press (3) to return!");
+                Console.Write("Select an option: ");
+
+                int choice= stringUtils.ConvertToInt(Console.ReadLine());
+
+               
+
+               
+
+                if (choice==1)
+                {
+                    Console.Write("Give the loan ID: ");
+                    int loan_id = stringUtils.ConvertToInt(Console.ReadLine());
+                    Loan loan = Bank.FindLoan(loan_id);
+                    //granting a loan will require to change the status of isApproved to true and will have to assign starting_Date and interest_date;
+                    if(loan==null)
+                    {
+                        Console.WriteLine("No loan exists with this ID");
+                        continue;
+                    }
+                    loan.starting_date = Date.Now;
+                    loan.last_payment_date = Date.Now;
+                    loan.isApproved = true;
+
+                    db.AcceptLoanRequest("HomeLoan", loan);
+                    db.AcceptLoanRequest("EducationLoan", loan);
+
+                    db.LoadLoansToList("HomeLoan");
+                    db.LoadLoansToList("EducationLoan");
+                    Bank.LoanAllLoanList();
+                    Console.WriteLine("The loan ("+loan_id+") has been granted");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                }
+                else if(choice==2)
+                {
+                    //delete the loan entry from database
+                    Console.Write("Give the loan ID: ");
+                    int loan_id = stringUtils.ConvertToInt(Console.ReadLine());
+                    Loan loan = Bank.FindLoan(loan_id);
+                 
+                    if (loan == null)
+                    {
+                        Console.WriteLine("No loan exists with this ID");
+                        continue;
+                    }
+
+                    db.RejectingLoanRequest( "HomeLoan", loan);
+                    db.RejectingLoanRequest("EducationLoan", loan);
+                    db.LoadLoansToList("HomeLoan");
+                    db.LoadLoansToList("EducationLoan");
+                    Bank.LoanAllLoanList();
+                    Console.WriteLine($"Loan request with ID {loan_id} rejected and entry deleted successfully.");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+
+                }
+                else if(choice==3)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Command!");
+                }
+
+            }
+        }
 
         public void FreezeUnfreezeAccount()
         {

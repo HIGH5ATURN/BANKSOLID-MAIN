@@ -21,7 +21,8 @@ namespace BANKSOLID
                     Console.WriteLine("Press (1) to apply for Home Loan!");
                     Console.WriteLine("Press (2) to apply for Education Loan!");
                     Console.WriteLine("Press (3) to check on your loans!");
-                    Console.WriteLine("Press (4) to return!");
+                    Console.WriteLine("Press (4) to make payment for your loan!");
+                    Console.WriteLine("Press (5) to return!");
                     Console.Write("Select an option: ");
 
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
@@ -53,9 +54,57 @@ namespace BANKSOLID
                         Console.WriteLine("Press any key to Continue...");
                         Console.ReadKey();
                     }
-                    else if (key == 4)
+                    else if(key==4)
+                    {
+                        Console.Clear();
+                        Console.Write("Give the loan ID: ");
+                        //now we need to do transaction update on loan!!!! in DATABASE
+                        int loan_id = stringUtils.ConvertToInt(Console.ReadLine());
+
+                        Loan loan = Bank.FindLoan(loan_id);
+
+                        if(loan==null)
+                        {
+                            Console.WriteLine("Incorrect loan ID");
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            continue;
+                        }
+
+                        if (!loan.isApproved)
+                        {
+                            Console.WriteLine("Your loan is not approved yet!");
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            continue;
+                        }
+                        Console.Write("Give the amount you want to pay: ");
+
+                        double amount = stringUtils.ConvertToDouble(Console.ReadLine());
+
+                        loan.makePayment(amount);
+
+                        db.UpdateLoanTable("HomeLoan", loan);
+                        db.UpdateLoanTable("EducationLoan", loan);
+
+                        db.LoadLoansToList("HomeLoan");
+                        db.LoadLoansToList("EducationLoan");
+                        Bank.LoanAllLoanList();
+
+                        Console.WriteLine("You have paid :"+amount);
+                        Console.WriteLine("Remaining payable "+loan.loan_amount);
+
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+
+                    }
+                    else if (key == 5)
                     {
                         break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Command!");
                     }
                 }
             } 
