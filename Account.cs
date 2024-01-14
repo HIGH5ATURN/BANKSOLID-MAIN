@@ -38,5 +38,16 @@ namespace BANKSOLID
         {
             return "";
         }
+
+        public void ShowAccountInfo()
+        {
+            Console.WriteLine("Account Number: "+AccountNumber);
+            Console.WriteLine("Account Holder Name: " + AccountHolderName);
+            Console.WriteLine("Account Holder NID: "+AccountHolderNID);
+            Console.WriteLine("Account Balance: "+Balance);
+            Console.WriteLine("Opening Date(yyyy-mm-dd): "+OpeningDate.Year+"-"+OpeningDate.Month+"-"+OpeningDate.Day);
+
+
+        }
     }
 }
