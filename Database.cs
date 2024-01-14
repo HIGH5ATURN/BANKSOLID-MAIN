@@ -94,7 +94,9 @@ namespace BANKSOLID
 
                     Date date = stringUtils.ConvertToDate(reader["_Date"].ToString());
 
-                    Account account = new Account(ac_no, nid, name, Balance, date);
+                    bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
+
+                    Account account = new Account(ac_no, nid, name, Balance, date,isFreezed);
 
                     Bank.AllAccountList.Add(account);
 
@@ -221,7 +223,11 @@ namespace BANKSOLID
 
                     Date LastWithdrawDate = stringUtils.ConvertToDate(reader["_LastWithdrawDate"].ToString());
 
-                    SavingsAccount savingsAc = new SavingsAccount(ac_no, nid, name, Balance, date, last_interest_date, LastWithdrawDate);
+                    bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
+
+
+                    SavingsAccount savingsAc = new SavingsAccount(ac_no, nid, name, Balance, date, last_interest_date, LastWithdrawDate,isFreezed);
+                    
                     savingsAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
 
                     Bank.SavingsAccountList.Add(savingsAc);
@@ -434,7 +440,9 @@ namespace BANKSOLID
 
                     Date LastInterestDate = stringUtils.ConvertToDate(reader["_LastInterestDate"].ToString());
 
-                    CurrentAccount currentAccount = new CurrentAccount(ac_no, nid, name, balance, date, LastInterestDate);
+                    bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
+
+                    CurrentAccount currentAccount = new CurrentAccount(ac_no, nid, name, balance, date, LastInterestDate,isFreezed);
 
                     Bank.CurrentAccountList.Add(currentAccount);
 
@@ -599,7 +607,11 @@ namespace BANKSOLID
 
                     Date LastWithdrawDate = stringUtils.ConvertToDate(reader["_LastWithdrawDate"].ToString());
 
-                    IslamicAccount islamicAc = new IslamicAccount(ac_no, nid, name, Balance, date, LastWithdrawDate);
+                    bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
+
+                    
+                    IslamicAccount islamicAc = new IslamicAccount(ac_no, nid, name, Balance, date, LastWithdrawDate,isFreezed);
+
                     islamicAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
 
                     Bank.IslamicAccountList.Add(islamicAc);
@@ -737,6 +749,37 @@ namespace BANKSOLID
             }
         }
 
+
+        public void ActivationUpdateOnAccounts(string table,Account account)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE "+table+" SET isFreezed = ? WHERE AccountNumber = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@isFreezed", account.isFreezed);
+
+                        command.Parameters.AddWithValue("@AccountNumber", account.AccountNumber);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
        
 
     }
