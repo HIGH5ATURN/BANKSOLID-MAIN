@@ -44,7 +44,7 @@ namespace BANKSOLID
         }
 
 
-        public void makePayment(double payment)
+        public override void makePayment(double payment)
         {
             if (payment > loan_amount)
             {
@@ -62,6 +62,8 @@ namespace BANKSOLID
             }
 
         }
+
+       
 
         public CarLoan(int loan_id, double loan_amount, Date starting_date)
         {

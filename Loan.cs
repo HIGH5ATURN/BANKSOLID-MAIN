@@ -24,6 +24,7 @@ namespace BANKSOLID
 
 
         public abstract void getLoanDetails();
+        public abstract void makePayment(double payment);
 
     }
 }

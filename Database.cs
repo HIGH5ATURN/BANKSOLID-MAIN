@@ -780,7 +780,110 @@ namespace BANKSOLID
                 }
             }
         }
-       
+
+
+        public void AcceptLoanRequest(string table,Loan loan)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE " + table + " SET isApproved = ?,starting_date= ?,last_interest_date= ?,last_payment_date= ? WHERE LoanID = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@isFreezed", loan.isApproved);
+                        command.Parameters.AddWithValue("@starting_date",stringUtils.ConvertDateToString(loan.starting_date));
+                        command.Parameters.AddWithValue("@last_interest_date", stringUtils.ConvertDateToString(loan.last_payment_date));
+
+                        command.Parameters.AddWithValue("@last_payment_date", stringUtils.ConvertDateToString(loan.last_payment_date));
+
+                        command.Parameters.AddWithValue("@LoanID", loan.loan_id);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
+
+        public void RejectingLoanRequest(string table, Loan loan)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "Delete from "+table+" where LoanID = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+
+                        command.Parameters.AddWithValue("@LoanID", loan.loan_id);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+
+           
+        }
+
+        public void UpdateLoanTable(string table,Loan loan)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE " + table + " SET LoanAmount= ?, last_interest_date= ?,last_payment_date= ? WHERE LoanID = ?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+
+                        command.Parameters.AddWithValue("@LoanAmount", loan.loan_amount);
+
+                        command.Parameters.AddWithValue("@last_interest_date", stringUtils.ConvertDateToString(loan.last_payment_date));
+
+                        command.Parameters.AddWithValue("@last_payment_date", stringUtils.ConvertDateToString(loan.last_payment_date));
+
+                        command.Parameters.AddWithValue("@LoanID", loan.loan_id);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
 
     }
 }

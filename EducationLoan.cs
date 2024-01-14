@@ -52,8 +52,14 @@ namespace BANKSOLID
         }
 
 
-        public void makePayment(double payment)
+        public override void makePayment(double payment)
         {
+            if (!isApproved)
+            {
+                Console.WriteLine("Cant make payment, the loan is yet to be approved!");
+                return;
+            }
+
             if (payment > loan_amount)
             {
                 throw new LoanException("Payment is greater than Loan amount itself!");

@@ -205,5 +205,56 @@ namespace BANKSOLID
 
             return null;
         }
+
+        public static void ShowAllLoanRequests()
+        {
+            Console.WriteLine("---------------------------------------");
+            for (int i=0;i<AllLoanList.Count;i++)
+            {
+                if (!AllLoanList[i].isApproved)
+                {
+                    Console.WriteLine("Loan ID: " + AllLoanList[i].loan_id);
+                    Console.WriteLine("Customer NID: " + AllLoanList[i].customerNID);
+                    Console.WriteLine("Loan Amount: " + AllLoanList[i].loan_amount);
+                    Console.WriteLine("---------------------------------------");
+                }
+            }
+        }
+
+        public static void ShowAllGrantedLoans()
+        {
+            Console.WriteLine("---------------------------------------");
+            for (int i = 0; i < AllLoanList.Count; i++)
+            {
+                if (AllLoanList[i].isApproved)
+                {
+                    Console.WriteLine("Loan ID: " + AllLoanList[i].loan_id);
+                    Console.WriteLine("Customer NID: " + AllLoanList[i].customerNID);
+                    Console.WriteLine("Loan Amount: " + AllLoanList[i].loan_amount);
+                    Console.WriteLine("---------------------------------------");
+                }
+            }
+        }
+
+        public static Loan FindLoan(int loan_id)
+        {
+            for(int i=0;i<HomeLoanList.Count;i++)
+            {
+                if (HomeLoanList[i].loan_id==loan_id)
+                {
+                    return HomeLoanList[i];
+                }
+            }
+
+            for (int i = 0; i < EducationLoanList.Count; i++)
+            {
+                if (EducationLoanList[i].loan_id == loan_id)
+                {
+                    return EducationLoanList[i];
+                }
+            }
+
+            return null;
+        }
     }
 }
