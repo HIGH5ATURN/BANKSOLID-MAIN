@@ -120,5 +120,59 @@ namespace BANKSOLID
                 
             }
         }
+
+        public static void ShowAllCustomer()
+        {
+            Console.WriteLine("------------------------------------");
+            for (int i = 0;i<CustomerList.Count;i++)
+            {
+                Console.WriteLine("Customer Name: " + CustomerList[i].Name);
+                Console.WriteLine("Customer NID: " + CustomerList[i].NID);
+                Console.WriteLine("------------------------------------");
+            }
+            
+        }
+
+        public static void ShowCustomerByNID(int nid)
+        {
+            for (int i = 0; i < CustomerList.Count; i++)
+            {
+                if (CustomerList[i].NID == nid)
+                {
+                    Console.WriteLine("Customer Name: " + CustomerList[i].Name);
+                    Console.WriteLine("Customer NID: " + CustomerList[i].NID);
+                }
+            }
+        }
+
+        public static void ShowAllSavingsAccount()
+        {
+            Console.WriteLine("--------------------------");
+            for (int i=0;i<SavingsAccountList.Count;i++)
+            {
+                SavingsAccountList[i].ShowAccountInfo();
+                Console.WriteLine("--------------------------");
+            }
+        }
+
+        public static void ShowAllCurrentAccount()
+        {
+            Console.WriteLine("--------------------------");
+            for (int i = 0; i < CurrentAccountList.Count; i++)
+            {
+                CurrentAccountList[i].ShowAccountInfo();
+                Console.WriteLine("--------------------------");
+            }
+        }
+
+        public static void ShowAllIslamicAccount()
+        {
+            Console.WriteLine("--------------------------");
+            for (int i = 0; i < IslamicAccountList.Count; i++)
+            {
+                IslamicAccountList[i].ShowAccountInfo();
+                Console.WriteLine("--------------------------");
+            }
+        }
     }
 }

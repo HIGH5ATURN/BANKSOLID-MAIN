@@ -92,6 +92,11 @@ namespace BANKSOLID
             }
         }
 
+
+        public void printDate()
+        {
+            Console.WriteLine("(yyyy-mm-dd): "+Year+"-"+Month+"-"+Day);
+        }
         
 
     }

@@ -215,6 +215,7 @@ namespace BANKSOLID
                     double Balance = stringUtils.ConvertToDouble(reader["_Balance"].ToString());
 
                     Date date = stringUtils.ConvertToDate(reader["_Date"].ToString());
+                   
 
                     Date last_interest_date = stringUtils.ConvertToDate(reader["_LastInterestDate"].ToString());
 

@@ -310,7 +310,56 @@ namespace BANKSOLID
 
         public void AdminPanel()
         {
+            Admin admin = new Admin();
             Console.WriteLine("Under Construction!");
+            Console.WriteLine("what's the password?");
+            string pass=Console.ReadLine();
+
+            if(pass!="admin2341")
+            {
+                Console.WriteLine("Incorrect password");
+                Console.WriteLine("Press any key to continue..");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.Clear();
+            
+            while(true)
+            {
+                Console.Clear ();
+                Console.WriteLine("Press (1) to see All the customers!");
+                Console.WriteLine("Press (2) to go to accounts section!");
+                Console.WriteLine("Press (3) to go to loans section!");
+                Console.WriteLine("Press (4) to return!");
+                Console.Write("Select an option: ");
+                int key = stringUtils.ConvertToInt(Console.ReadLine());
+
+                if(key==1)
+                {
+                    //goes to customer section
+                    admin.CustomerSection();
+                   
+                }
+                else if(key==2)
+                {
+                    //accounts section
+                    admin.AccountSection();
+                 
+                }
+                else if(key==3)
+                {
+                    //loans section
+                    admin.LoanSection();
+                   
+                }
+                else if(key==4)
+                {
+                    break;
+                }
+            }
+
+
         }
 
         public void EnviromentSetup()
