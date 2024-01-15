@@ -15,17 +15,17 @@ namespace BANKSOLID
         OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
         OleDbCommand cmd;
 
-        public void SaveCustomerToDb(Customer customer)
+        public void SaveCustomerToDb(Customer customer,string encryptedPass)
         {
             try
             {
                 conn.Open();
-                string sql = "Insert into Customer(_NID,_uname,_pass) VALUES" + "(@nid,@name,@pass)";
+                string sql = "Insert into Customer(nationalID,_uname,passu) VALUES" + "(@nid,@name,@pass)";
 
                 cmd = new OleDbCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@nid", customer.NID);
                 cmd.Parameters.AddWithValue("@name", customer.Name);
-                cmd.Parameters.AddWithValue("@pass", customer.password);
+                cmd.Parameters.AddWithValue("@pass", encryptedPass);
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
@@ -36,6 +36,40 @@ namespace BANKSOLID
 
         }
 
+        public bool checkPass(int nid, string encryptedPass)
+        {
+            try
+            {
+                string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+                string query = "SELECT COUNT(*) FROM Customer WHERE nationalID = @NID AND passu = @HashedPass";
+
+                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                {
+                    connection.Open();
+
+                    using (OleDbCommand command = new OleDbCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NID", nid);
+                        command.Parameters.AddWithValue("@HashedPass", encryptedPass);
+
+                        int count = (int)command.ExecuteScalar();
+
+                        if (count > 0)
+                        {
+                            
+                            return true; // Password is verified
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return false; 
+        }
         public void SaveAccountToDb(Account account)
         {
             try
@@ -257,11 +291,11 @@ namespace BANKSOLID
 
                 while (reader.Read())
                 {
-                    int nid = stringUtils.ConvertToInt(reader["_NID"].ToString());
+                    int nid = stringUtils.ConvertToInt(reader["nationalID"].ToString());
 
                     string name = reader["_uname"].ToString();
 
-                    string password = reader["_pass"].ToString();
+                    string password = reader["passu"].ToString();
 
 
                     Customer temp = new Customer(name, nid, password);
