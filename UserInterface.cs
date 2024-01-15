@@ -286,19 +286,32 @@ namespace BANKSOLID
                     
                     else if(key==4)
                     {
+                        
+                        Database db = new Database();
                         //change password
                         Console.Write("Give your current password: ");
                         string currPass= Console.ReadLine();
 
+                        if(!db.checkPass(customer.NID, Encryption.EncryptPassword(currPass)))
+                        {
+                            Console.WriteLine("Incorrect current Password!");
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            continue;
+                        }
                         Console.Write("Give your new password: ");
 
                         string newPass= Console.ReadLine();
 
 
-                        Console.WriteLine("Under construction");
+                        db.UpdateCustomerPassword(customer.NID, Encryption.EncryptPassword(newPass));
 
-                        Console.WriteLine("Press any key to continue...");
-                        Console.ReadKey();
+                        db.LoadCurrentAccountToList();
+                        
+                       
+                      
+                        break;
+                       
 
                     }
                     else if(key==5)

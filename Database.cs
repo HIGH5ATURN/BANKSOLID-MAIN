@@ -353,44 +353,7 @@ namespace BANKSOLID
                 }
             }
         }
-        public void DepositOnSavingsTable(SavingsAccount s_account)
-        {
-
-            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
-
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    string updateQuery = "UPDATE SavingsAccount SET _Balance = ?,_withdrawCount= ? WHERE AccountNumber = ?";
-
-                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@Balance", s_account.Balance);
-                        command.Parameters.AddWithValue("@withdrawCount", s_account.getWithdrawCount());
-                        command.Parameters.AddWithValue("@AccountNumber", s_account.AccountNumber);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            Console.WriteLine("Operation Done Successfully!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Account not found or no update needed.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                }
-            }
-
-        }
+       
 
 
 
@@ -544,45 +507,7 @@ namespace BANKSOLID
 
 
 
-        public void DepositOnCurrentTable(CurrentAccount currentaccount)
-        {
-
-            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
-
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    string updateQuery = "UPDATE CurrentAccount SET _Balance = ? WHERE AccountNumber = ?";
-
-                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@Balance", currentaccount.Balance);
-
-                        command.Parameters.AddWithValue("@AccountNumber", currentaccount.AccountNumber);
-
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            Console.WriteLine("Operation Done Successfully!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Account not found or no update needed.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                }
-            }
-
-        }
+        
 
 
         public void SaveIslamicAccounttoDb(IslamicAccount islamicAccount)
@@ -905,6 +830,39 @@ namespace BANKSOLID
                         command.Parameters.AddWithValue("@last_payment_date", stringUtils.ConvertDateToString(loan.last_payment_date));
 
                         command.Parameters.AddWithValue("@LoanID", loan.loan_id);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
+
+
+        public void UpdateCustomerPassword(int nid,string newEncryptedPass)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE Customer SET passu=? where nationalID=?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+
+                        command.Parameters.AddWithValue("@passu", newEncryptedPass);
+                        command.Parameters.AddWithValue("@nationalID",nid);
+
 
 
                         int rowsAffected = command.ExecuteNonQuery();

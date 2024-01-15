@@ -106,85 +106,11 @@ namespace BANKSOLID
                 Console.WriteLine("Error : " + ex.Message);
             }
         }
-        public bool WithdrawOnSavingsAccount(int accountNumber, Customer customer, double amount,Date withdrawDate)
-        {
-            for (int i = 0; i < customer.savingsAccounts.Count; i++)
-            {
-                if (accountNumber == customer.savingsAccounts[i].AccountNumber)
-                {
-
-                  
-                    customer.savingsAccounts[i].Withdraw(amount, withdrawDate);
-
-                    db.TransactionUpdateOnSavingsTable(customer.savingsAccounts[i]);
-
-                    //just to be safe
-                    db.LoadAccountToList();
-                    db.LoadSavingsAccountToList();
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        
+       
 
 
-        public bool WithDrawOnCurrentAccount(int accountNumber, Customer customer, double amount,Date withdrawDate)
-        {
-
-            for(int i=0;i<customer.currentAccounts.Count;i++)
-            {
-
-                if (accountNumber == customer.currentAccounts[i].AccountNumber)
-                {
-
-
-                    customer.currentAccounts[i].Withdraw(amount,withdrawDate);
-
-
-                    db.TransactionUpdateOnCurrentTable(customer.currentAccounts[i]);
-
-
-                    db.LoadAccountToList();
-
-                    db.LoadCurrentAccountToList();
-
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-
-
-                    return true;
-                }
-
-            }
-
-
-            return false;
-
-        }
-        public bool WithdrawOnIslamicAccount(int accountNumber, Customer customer, double amount,Date withdrawDate)
-        {
-            for (int i = 0; i < customer.islamicAccounts.Count; i++)
-            {
-                if (accountNumber == customer.islamicAccounts[i].AccountNumber)
-                {
-
-
-                    customer.islamicAccounts[i].Withdraw(amount, withdrawDate);
-                    db.TransactionUpdateOnIslamicTable(customer.islamicAccounts[i]);
-
-                    db.LoadAccountToList();
-                    db.LoadIslamicAccountToList();
-                    Bank.LoadAccountListForRespectiveCustomer(customer);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
+       
+       
       
         
 
