@@ -15,10 +15,7 @@ namespace BANKSOLID
 
 
 
-        public void addInterest(ILoanInterest loantype)
-        {
-            loantype.AddInterest();
-        }
+
 
 
         //public void makePayment(ILoanInterest loantype, double amount)
