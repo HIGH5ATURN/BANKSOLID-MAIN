@@ -12,7 +12,7 @@ namespace BANKSOLID
         {
 
             UserInterface ui = new UserInterface();
-            Console.WriteLine("Welcome to the Bank Management System!");
+           
             ui.EnviromentSetup();
 
 
@@ -20,6 +20,8 @@ namespace BANKSOLID
             {
                 try
                 {
+                    Console.WriteLine("----Welcome to the Bank Management System----");
+                    Console.WriteLine();
                     Console.WriteLine("1]> Admin Panel\n");
                     Console.WriteLine("2]> Customer Panel\n");
                     Console.WriteLine("3]> Register As a Customer!\n");

@@ -18,6 +18,8 @@ namespace BANKSOLID
                 while (true)
                 {
                     Console.Clear();
+                    Console.WriteLine("-----------------------ALL-REGISTERED-CUSTOMER-----------------------");
+                    Console.WriteLine();
                     Console.WriteLine("Press (1) to see all customer!");
                     Console.WriteLine("Press (2) to search customers by their NID");
                     Console.WriteLine("Press (3) to return!");
@@ -61,6 +63,8 @@ namespace BANKSOLID
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine("-----------------------ALL-CREATED-ACCOUNT-----------------------");
+                Console.WriteLine();
                 Console.WriteLine("Press (1) to see all Savings Account!");
                 Console.WriteLine("Press (2) to see all Current Account!");
                 Console.WriteLine("Press (3) to see all Islamic Account!");
@@ -115,6 +119,8 @@ namespace BANKSOLID
             while(true)
             {
                 Console.Clear();
+                Console.WriteLine("-----------------------(ADMIN)LOAN-SECTION-----------------------");
+                Console.WriteLine();
                 Console.WriteLine("Press (1) to see all loan requests!");
                 Console.WriteLine("Press (2) to see all accepted loan requests!");
                 Console.WriteLine("Press (3) to grant/reject a loan request!");
@@ -162,6 +168,8 @@ namespace BANKSOLID
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine("-----------------------LOAN-PROCESSING-SECTION-----------------------");
+                Console.WriteLine();
                 Console.WriteLine("Press (1) to grant a loan!");
                 Console.WriteLine("Press (2) to reject a loan request!");
                 Console.WriteLine("Press (3) to return!");
@@ -240,7 +248,8 @@ namespace BANKSOLID
                 {
                     Console.Clear();
 
-
+                    Console.WriteLine("-----------------------ACCOUNT-CONTROL-PANEL-----------------------");
+                    Console.WriteLine();
                     Console.WriteLine("Press (1) to freeze the Account");
                     Console.WriteLine("Press (2) to unfreeze the Account");
                     Console.WriteLine("Press (3) to return!");
@@ -248,13 +257,13 @@ namespace BANKSOLID
                     Console.Write("select an option: ");
                     int choice = stringUtils.ConvertToInt(Console.ReadLine());
 
-                    Console.WriteLine("Give the account number: ");
-                    int Ac_no = stringUtils.ConvertToInt(Console.ReadLine());
+                 
 
 
                     if (choice == 1)
                     {
-
+                        Console.WriteLine("Give the account number: ");
+                        int Ac_no = stringUtils.ConvertToInt(Console.ReadLine());
 
                         Account account = Bank.FindAccount(Ac_no);
                         if (account == null)
@@ -283,6 +292,8 @@ namespace BANKSOLID
                     }
                     else if (choice == 2)
                     {
+                        Console.WriteLine("Give the account number: ");
+                        int Ac_no = stringUtils.ConvertToInt(Console.ReadLine());
                         Account account = Bank.FindAccount(Ac_no);
                         if (account == null)
                         {

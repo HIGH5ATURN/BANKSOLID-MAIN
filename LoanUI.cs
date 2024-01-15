@@ -17,7 +17,8 @@ namespace BANKSOLID
                 while (true)
                 {
                     Console.Clear();
-                    
+                    Console.WriteLine("-----------------------LOAN-SECTION-----------------------");
+                    Console.WriteLine();
                     Console.WriteLine("Press (1) to apply for Home Loan!");
                     Console.WriteLine("Press (2) to apply for Education Loan!");
                     Console.WriteLine("Press (3) to check on your loans!");
@@ -50,6 +51,8 @@ namespace BANKSOLID
                     else if(key==3)
                     {
                         Console.Clear() ;
+                        Console.WriteLine("-----------------------ALL-TAKEN-LOAN-----------------------");
+                        Console.WriteLine();
                         customerLoanHandler.ShowLoanInfo(customer);
                         Console.WriteLine("Press any key to Continue...");
                         Console.ReadKey();
@@ -57,6 +60,7 @@ namespace BANKSOLID
                     else if(key==4)
                     {
                         Console.Clear();
+
                         Console.Write("Give the loan ID: ");
                         //now we need to do transaction update on loan!!!! in DATABASE
                         int loan_id = stringUtils.ConvertToInt(Console.ReadLine());
@@ -115,7 +119,7 @@ namespace BANKSOLID
         }
 
 
-
+        
       
     }
 }

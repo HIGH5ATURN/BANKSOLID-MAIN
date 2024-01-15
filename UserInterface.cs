@@ -29,7 +29,7 @@ namespace BANKSOLID
 
                 Database db = new Database();
 
-                db.SaveCustomerToDb(customer);
+                db.SaveCustomerToDb(customer,Encryption.EncryptPassword(customer.password));
                 db.LoadCustomerToBankList();
                 Console.WriteLine("created customer successfully!");
             }
@@ -41,9 +41,11 @@ namespace BANKSOLID
 
         public void CustomerPanel()
         {
+            Database db = new Database();
             try
             {
-                Console.WriteLine("Please Log In!");
+                Console.WriteLine("-----------------------LOG-IN-----------------------");
+                Console.WriteLine();
 
                 Console.Write("Enter NID: ");
                 int nid = stringUtils.ConvertToInt(Console.ReadLine());
@@ -53,13 +55,16 @@ namespace BANKSOLID
 
                 bool loggedIn = false;
                 Customer customer = null;
-
+                if(db.checkPass(nid,Encryption.EncryptPassword(password)))
+                {
+                    loggedIn = true;
+                }
                 for (int i = 0; i < Bank.CustomerList.Count; i++)
                 {
-                    if (nid == Bank.CustomerList[i].NID && password == Bank.CustomerList[i].password)
+                    if (nid == Bank.CustomerList[i].NID)
                     {
                         customer = Bank.CustomerList[i];
-                        loggedIn = true; break;
+                         break;
                     }
                 }
 
@@ -95,7 +100,9 @@ namespace BANKSOLID
             try
             {
                     Console.Clear();
-                    CustomerAccountCreator customerAccountCreator = new CustomerAccountCreator();
+                Console.WriteLine("-----------------------CUSTOMER-ACCOUNT-CREATION-----------------------");
+                Console.WriteLine();
+                CustomerAccountCreator customerAccountCreator = new CustomerAccountCreator();
                 
                   
                     Console.WriteLine("If You want to open an Account please :");
@@ -146,6 +153,8 @@ namespace BANKSOLID
                     CustomerAccountHandler customerAccountHandler = new CustomerAccountHandler();
 
                     customerAccountHandler.ShowAccountData(customer);
+                    Console.WriteLine("-----------------------ACCOUNT-OPERATIONS-----------------------");
+                    Console.WriteLine();
                     Console.WriteLine("Press (1) to deposit money in your Bank Account!");
                     Console.WriteLine("Press (2) to withdraw money from your Bank Account!");
                     Console.WriteLine("Press (3) to transfer money to another Bank Account!");
@@ -238,6 +247,8 @@ namespace BANKSOLID
                 {
                     // need to show customer info hereeee
                     Console.Clear ();
+                    Console.WriteLine("-----------------------CUSTOMER-PANEL-----------------------");
+                    Console.WriteLine();
                     Console.WriteLine("Press (1) for Account Creation!");
                     Console.WriteLine("Press (2) to check your accounts and do transactions!");
                     Console.WriteLine("Press (3) to go to loan section!");
@@ -311,7 +322,7 @@ namespace BANKSOLID
         public void AdminPanel()
         {
             Admin admin = new Admin();
-            Console.WriteLine("Under Construction!");
+            
             Console.WriteLine("what's the password?");
             string pass=Console.ReadLine();
 
@@ -328,6 +339,8 @@ namespace BANKSOLID
             while(true)
             {
                 Console.Clear ();
+                Console.WriteLine("-----------------------ADMIN-PANEL-----------------------");
+                Console.WriteLine();
                 Console.WriteLine("Press (1) to see All the customers!");
                 Console.WriteLine("Press (2) to go to accounts section!");
                 Console.WriteLine("Press (3) to go to loans section!");

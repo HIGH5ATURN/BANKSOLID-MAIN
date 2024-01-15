@@ -208,6 +208,17 @@ namespace BANKSOLID
 
         public static void ShowAllLoanRequests()
         {
+            bool isEmpty = true;
+            for (int i = 0; i < AllLoanList.Count; i++)
+            {
+                if (!AllLoanList[i].isApproved)
+                {
+                    isEmpty= false;break;
+                }
+            }
+            if (isEmpty) {
+                Console.WriteLine("NO pending Loan Request!");
+                return; }
             Console.WriteLine("---------------------------------------");
             for (int i=0;i<AllLoanList.Count;i++)
             {

@@ -72,7 +72,12 @@ namespace BANKSOLID
             {
                 AddInterest();
                 loan_amount -= payment;
+                if (loan_amount == 0)
+                {
+                    Database db = new Database();
 
+                    db.RejectingLoanRequest("HomeLoan", this);
+                }
                 last_payment_date = Date.Now;
             }
 
