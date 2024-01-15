@@ -77,6 +77,9 @@ namespace BANKSOLID
                     Database db = new Database();
 
                     db.RejectingLoanRequest("HomeLoan",this);
+
+                    db.LoadLoansToList("HomeLoan");
+
                 }
                 last_payment_date = Date.Now;
                 
