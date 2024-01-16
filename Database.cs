@@ -1075,5 +1075,69 @@ namespace BANKSOLID
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public string FetchAdminPass()
+        {
+            string pass="";
+            try
+            {
+                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                conn.Open();
+                string sql = "Select * from AdminPassword where UID=@id";
+
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", 1);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+
+                     pass = reader["passu"].ToString();
+                }
+
+                
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return pass;
+        }
+
+        public void UpdateAdminPass(string newEncryptedPass)
+        {
+            string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string updateQuery = "UPDATE AdminPassword SET passu=? where UID=?";
+
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
+                    {
+
+                        command.Parameters.AddWithValue("@password", newEncryptedPass);
+                        command.Parameters.AddWithValue("@ID", 1);
+
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
     }
 }
