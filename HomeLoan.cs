@@ -23,8 +23,15 @@ namespace BANKSOLID
             {
                 Console.WriteLine("Your Loan was approved!");
             }
-            Console.WriteLine("Loan taken on(yyyy-mm-dd): " + starting_date.Year+"-"+starting_date.Month+"-"+starting_date.Day);
-            Console.WriteLine("Last payed on(yyyy-mm-dd): " + last_payment_date.Year + "-" + last_payment_date.Month + "-" + last_payment_date.Day);
+            if (starting_date != null)
+            {
+                Console.WriteLine("Loan taken on: " + starting_date.Year + "-" + starting_date.Month + "-" + starting_date.Day);
+            }
+
+            if (starting_date != null)
+            {
+                Console.WriteLine("Loan taken on: " + last_payment_date.Year + "-" + last_payment_date.Month + "-" + last_payment_date.Day);
+            }
             Console.WriteLine();
         }
 
