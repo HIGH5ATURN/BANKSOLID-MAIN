@@ -253,7 +253,8 @@ namespace BANKSOLID
                     Console.WriteLine("Press (2) to check your accounts and do transactions!");
                     Console.WriteLine("Press (3) to go to loan section!");
                     Console.WriteLine("Press (4) to change your password!");
-                    Console.WriteLine("Press (5) to return!");
+                    Console.WriteLine("Press (5) to check your transaction History!");
+                    Console.WriteLine("Press (6) to return!");
                     Console.Write("Select an option: ");
                     int key = stringUtils.ConvertToInt(Console.ReadLine());
                     if (key == 1)
@@ -315,6 +316,57 @@ namespace BANKSOLID
 
                     }
                     else if(key==5)
+                    {
+                        
+                        while(true)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Press (1) to see deposit history!");
+                            Console.WriteLine("Press (2) to see withdraw history!");
+                            Console.WriteLine("Press (3) to see transfer history!");
+                            Console.WriteLine("Press (4) to return!");
+                            Console.Write("Select an option: ");
+
+                            int opt = stringUtils.ConvertToInt(Console.ReadLine());
+
+                            if(opt == 1)
+                            {
+                                Console.WriteLine("Give the account Number :");
+                                int acNo = stringUtils.ConvertToInt(Console.ReadLine());
+                                Bank.ShowAllDepositHistoryOfthisAccount(acNo);
+                                Console.WriteLine("Press any key to continue...");
+                                Console.ReadKey();
+                            }
+                            else if(opt==2)
+                            {
+                                Console.WriteLine("Give the account Number :");
+                                int acNo = stringUtils.ConvertToInt(Console.ReadLine());
+                                Bank.ShowAllWithdrawHistoryOfthisAccount(acNo);
+                                Console.WriteLine("Press any key to continue...");
+                                Console.ReadKey();
+                            }
+                            else if(opt==3)
+                            {
+                                //Console.WriteLine("Give the account Number :");
+                                //int acNo = stringUtils.ConvertToInt(Console.ReadLine());
+                                //Bank.ShowAllDepositHistoryOfthisAccount(acNo);
+                                //Console.WriteLine("Press any key to continue...");
+                                //Console.ReadKey();
+                            }
+                            else if(opt==4)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid Command!");
+                            }
+
+                        }
+                        
+                       
+                    }
+                    else if(key==6)
                     {
                         break;
                     }
@@ -401,6 +453,10 @@ namespace BANKSOLID
             database.LoadLoansToList("HomeLoan");
             database.LoadLoansToList("EducationLoan");
             Bank.LoanAllLoanList();
+
+            database.LoadDepositHistoryToBankList();
+            database.LoadWithdrawHistoryToBankList();
+           
         }
     }
 }

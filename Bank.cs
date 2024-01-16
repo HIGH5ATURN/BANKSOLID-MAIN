@@ -25,6 +25,10 @@ namespace BANKSOLID
         public static vector<EducationLoan> EducationLoanList = new vector<EducationLoan>();
 
         
+        public static vector<DepositHistory> depositHistoryList = new vector<DepositHistory>();
+
+        public static vector<WithdrawHistory> WithdrawHistoryList = new vector<WithdrawHistory>();
+
         public static void LoadAccountListForRespectiveCustomer(Customer customer)
         {
             customer.savingsAccounts.Clear();
@@ -266,6 +270,32 @@ namespace BANKSOLID
             }
 
             return null;
+        }
+
+        public static void ShowAllDepositHistoryOfthisAccount(int AccountNo)
+        {
+            Console.WriteLine("---------------------------------------");
+            for (int i=0;i<depositHistoryList.Count;i++)
+            {
+                if (depositHistoryList[i].AccountNumber == AccountNo)
+                {
+                    depositHistoryList[i].ShowAllInfo();
+                    Console.WriteLine("---------------------------------------");
+                }
+            }
+        }
+
+        public static void ShowAllWithdrawHistoryOfthisAccount(int AccountNo)
+        {
+            Console.WriteLine("---------------------------------------");
+            for (int i = 0; i < WithdrawHistoryList.Count; i++)
+            {
+                if (WithdrawHistoryList[i].AccountNumber == AccountNo)
+                {
+                    WithdrawHistoryList[i].ShowAllInfo();
+                    Console.WriteLine("---------------------------------------");
+                }
+            }
         }
     }
 }
