@@ -336,7 +336,25 @@ namespace BANKSOLID
             }
         }
 
+        public void ChangeAdminPass(string realPass)
+        {
+            Console.Clear();
+            Console.Write("Give current Password: ");
 
+            string currPass = Console.ReadLine();
+            if (Encryption.EncryptPassword(currPass) != realPass)
+            {
+                Console.WriteLine("Invalid Current Password!");
+                return;
+            }
+            Console.Write("Give new Password: ");
+
+            string newPass = Console.ReadLine();
+
+            db.UpdateAdminPass(Encryption.EncryptPassword(newPass));
+            Console.WriteLine("Password has been successfully updated!");
+          
+        }
         public void AlldatabaseMethodCalls(Account account)
         {
             db.ActivationUpdateOnAccounts("Accounts", account);

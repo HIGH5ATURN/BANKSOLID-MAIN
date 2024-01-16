@@ -387,11 +387,13 @@ namespace BANKSOLID
         public void AdminPanel()
         {
             Admin admin = new Admin();
-            
+            Database db = new Database();
             Console.WriteLine("what's the password?");
             string pass=Console.ReadLine();
 
-            if(pass!="admin2341")
+            string realPass = db.FetchAdminPass();
+            
+            if (Encryption.EncryptPassword(pass)!=realPass)
             {
                 Console.WriteLine("Incorrect password");
                 Console.WriteLine("Press any key to continue..");
@@ -409,7 +411,8 @@ namespace BANKSOLID
                 Console.WriteLine("Press (1) to see All the customers!");
                 Console.WriteLine("Press (2) to go to accounts section!");
                 Console.WriteLine("Press (3) to go to loans section!");
-                Console.WriteLine("Press (4) to return!");
+                Console.WriteLine("Press (4) to change admin password!");
+                Console.WriteLine("Press (5) to return!");
                 Console.Write("Select an option: ");
                 int key = stringUtils.ConvertToInt(Console.ReadLine());
 
@@ -432,6 +435,11 @@ namespace BANKSOLID
                    
                 }
                 else if(key==4)
+                {
+                    admin.ChangeAdminPass(realPass);
+                    break;
+                }
+                else if(key==5)
                 {
                     break;
                 }
