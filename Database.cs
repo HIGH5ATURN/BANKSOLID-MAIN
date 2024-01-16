@@ -877,5 +877,137 @@ namespace BANKSOLID
             }
         }
 
+        public void AddDepositHistory(Customer customer,int accountNumber,double amount, Date date)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "Insert into DepositHistory(AccountNumber,_AccountHolderNID,DepositedAmount,DepositDate) VALUES" + "(@acno,@nid,@amount,@date)";
+
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@acno", accountNumber);
+                cmd.Parameters.AddWithValue("@nid", customer.NID);
+                cmd.Parameters.AddWithValue("@amount", amount);
+                cmd.Parameters.AddWithValue("@date",stringUtils.ConvertDateToString(date));  
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void LoadDepositHistoryToBankList()
+        {
+            Bank.depositHistoryList.Clear();
+
+            try
+            {
+                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                conn.Open();
+                string sql = "Select * from DepositHistory";
+
+                cmd = new OleDbCommand(sql, conn);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
+
+                   
+
+                    int nid = stringUtils.ConvertToInt(reader["_AccountHolderNID"].ToString());
+
+                    double amount = stringUtils.ConvertToDouble(reader["DepositedAmount"].ToString());
+
+                    Date date = stringUtils.ConvertToDate(reader["DepositDate"].ToString());
+
+
+
+                    int uid = stringUtils.ConvertToInt(reader["UID"].ToString());
+
+
+
+
+                    DepositHistory depositHistory = new DepositHistory(uid,ac_no,nid,amount,date);
+
+                    Bank.depositHistoryList.Add(depositHistory);
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void AddWithdrawHistory(Customer customer, int accountNumber, double amount, Date date)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "Insert into WithdrawHistory(AccountNumber,_AccountHolderNID,WithdrawnAmount,WithdrawDate) VALUES" + "(@acno,@nid,@amount,@date)";
+
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@acno", accountNumber);
+                cmd.Parameters.AddWithValue("@nid", customer.NID);
+                cmd.Parameters.AddWithValue("@amount", amount);
+                cmd.Parameters.AddWithValue("@date", stringUtils.ConvertDateToString(date));
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public void LoadWithdrawHistoryToBankList()
+        {
+            Bank.WithdrawHistoryList.Clear();
+
+            try
+            {
+                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                conn.Open();
+                string sql = "Select * from WithdrawHistory";
+
+                cmd = new OleDbCommand(sql, conn);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
+
+
+
+                    int nid = stringUtils.ConvertToInt(reader["_AccountHolderNID"].ToString());
+
+                    double amount = stringUtils.ConvertToDouble(reader["WithdrawnAmount"].ToString());
+
+                    Date date = stringUtils.ConvertToDate(reader["WithdrawDate"].ToString());
+
+
+
+                    int uid = stringUtils.ConvertToInt(reader["UID"].ToString());
+
+
+
+                    //change this
+                    WithdrawHistory withdrawhistory = new WithdrawHistory(uid, ac_no, nid, amount, date);
+
+                    Bank.WithdrawHistoryList.Add(withdrawhistory);
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

@@ -437,24 +437,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\labib\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Hp\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Academics\\3rd Semester\\BankSolid Final Update\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+      "projectUniqueName": "C:\\Users\\Hp\\Desktop\\Banksolid\\BANKSOLID-MAIN\\BANKSOLID.csproj",
       "projectName": "BANKSOLID",
-      "projectPath": "E:\\Academics\\3rd Semester\\BankSolid Final Update\\BANKSOLID-MAIN\\BANKSOLID.csproj",
-      "packagesPath": "C:\\Users\\labib\\.nuget\\packages\\",
-      "outputPath": "E:\\Academics\\3rd Semester\\BankSolid Final Update\\BANKSOLID-MAIN\\obj\\",
+      "projectPath": "C:\\Users\\Hp\\Desktop\\Banksolid\\BANKSOLID-MAIN\\BANKSOLID.csproj",
+      "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Hp\\Desktop\\Banksolid\\BANKSOLID-MAIN\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\labib\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -501,7 +496,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

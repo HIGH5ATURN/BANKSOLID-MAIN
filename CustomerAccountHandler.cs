@@ -44,8 +44,10 @@ namespace BANKSOLID
 
                     db.TransactionUpdateOnIslamicTable(islamicAccount);
                 }
+                
 
-
+                db.AddDepositHistory(customer,accountNumber,amount,Date.Now);
+                db.LoadDepositHistoryToBankList();
                 db.LoadAccountToList();
                 db.LoadSavingsAccountToList();
                 db.LoadCurrentAccountToList();
@@ -95,6 +97,8 @@ namespace BANKSOLID
                 }
 
 
+                db.AddWithdrawHistory(customer, accountNumber, amount, Date.Now);
+                db.LoadWithdrawHistoryToBankList();
                 db.LoadAccountToList();
                 db.LoadSavingsAccountToList();
                 db.LoadCurrentAccountToList();
