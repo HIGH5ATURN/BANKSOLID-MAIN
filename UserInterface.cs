@@ -347,11 +347,11 @@ namespace BANKSOLID
                             }
                             else if(opt==3)
                             {
-                                //Console.WriteLine("Give the account Number :");
-                                //int acNo = stringUtils.ConvertToInt(Console.ReadLine());
-                                //Bank.ShowAllDepositHistoryOfthisAccount(acNo);
-                                //Console.WriteLine("Press any key to continue...");
-                                //Console.ReadKey();
+                                Console.WriteLine("Give the account Number :");
+                                int acNo = stringUtils.ConvertToInt(Console.ReadLine());
+                                Bank.ShowAllTransferHistoryOfthisAccount(acNo);
+                                Console.WriteLine("Press any key to continue...");
+                                Console.ReadKey();
                             }
                             else if(opt==4)
                             {
@@ -456,7 +456,8 @@ namespace BANKSOLID
 
             database.LoadDepositHistoryToBankList();
             database.LoadWithdrawHistoryToBankList();
-           
+            database.LoadTransferHistoryToBankList();
+            
         }
     }
 }

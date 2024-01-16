@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BANKSOLID
 {
-    public class WithdrawHistory
+    public class WithdrawHistory: ItransactionHistory
     {
         public int UID { get; set; }
         public int AccountNumber { get; set; }

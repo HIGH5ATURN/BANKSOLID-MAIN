@@ -226,6 +226,10 @@ namespace BANKSOLID
 
                     db.TransactionUpdateOnIslamicTable(islamicAccount);
                 }
+                
+                //now write the transfer history to database here !!!
+                db.AddTransferHistory(accountNumber,recipient_ac_no,customer.NID,amount,Date.Now);
+                db.LoadTransferHistoryToBankList();
 
                 //just to be safe
                 db.LoadAccountToList();
