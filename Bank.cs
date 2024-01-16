@@ -29,6 +29,8 @@ namespace BANKSOLID
 
         public static vector<WithdrawHistory> WithdrawHistoryList = new vector<WithdrawHistory>();
 
+        public static vector<TransferHistory> transferHistoryList = new vector<TransferHistory>();
+
         public static void LoadAccountListForRespectiveCustomer(Customer customer)
         {
             customer.savingsAccounts.Clear();
@@ -291,6 +293,19 @@ namespace BANKSOLID
             for (int i = 0; i < WithdrawHistoryList.Count; i++)
             {
                 if (WithdrawHistoryList[i].AccountNumber == AccountNo)
+                {
+                    WithdrawHistoryList[i].ShowAllInfo();
+                    Console.WriteLine("---------------------------------------");
+                }
+            }
+        }
+
+        public static void ShowAllTransferHistoryOfthisAccount(int AccountNo)
+        {
+            Console.WriteLine("---------------------------------------");
+            for (int i = 0; i < transferHistoryList.Count; i++)
+            {
+                if (transferHistoryList[i].giverAccountNumber == AccountNo)
                 {
                     WithdrawHistoryList[i].ShowAllInfo();
                     Console.WriteLine("---------------------------------------");

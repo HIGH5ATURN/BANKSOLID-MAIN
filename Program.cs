@@ -41,7 +41,7 @@ namespace BANKSOLID
                             break;
                         case 2:
                             Console.Clear();
-                            Console.WriteLine("You are in the Customer Panel");
+                            
                             ui.CustomerPanel();
                             // Implement Customer Panel UI
                             break;

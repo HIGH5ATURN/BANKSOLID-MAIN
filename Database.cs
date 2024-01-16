@@ -15,7 +15,7 @@ namespace BANKSOLID
         OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
         OleDbCommand cmd;
 
-        public void SaveCustomerToDb(Customer customer,string encryptedPass)
+        public void SaveCustomerToDb(Customer customer, string encryptedPass)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace BANKSOLID
 
                         if (count > 0)
                         {
-                            
+
                             return true; // Password is verified
 
                         }
@@ -68,7 +68,7 @@ namespace BANKSOLID
                 Console.WriteLine(ex.Message);
             }
 
-            return false; 
+            return false;
         }
         public void SaveAccountToDb(Account account)
         {
@@ -130,7 +130,7 @@ namespace BANKSOLID
 
                     bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
 
-                    Account account = new Account(ac_no, nid, name, Balance, date,isFreezed);
+                    Account account = new Account(ac_no, nid, name, Balance, date, isFreezed);
 
                     Bank.AllAccountList.Add(account);
 
@@ -251,7 +251,7 @@ namespace BANKSOLID
                     double Balance = stringUtils.ConvertToDouble(reader["_Balance"].ToString());
 
                     Date date = stringUtils.ConvertToDate(reader["_Date"].ToString());
-                   
+
 
                     Date last_interest_date = stringUtils.ConvertToDate(reader["_LastInterestDate"].ToString());
 
@@ -260,8 +260,8 @@ namespace BANKSOLID
                     bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
 
 
-                    SavingsAccount savingsAc = new SavingsAccount(ac_no, nid, name, Balance, date, last_interest_date, LastWithdrawDate,isFreezed);
-                    
+                    SavingsAccount savingsAc = new SavingsAccount(ac_no, nid, name, Balance, date, last_interest_date, LastWithdrawDate, isFreezed);
+
                     savingsAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
 
                     Bank.SavingsAccountList.Add(savingsAc);
@@ -353,7 +353,7 @@ namespace BANKSOLID
                 }
             }
         }
-       
+
 
 
 
@@ -439,7 +439,7 @@ namespace BANKSOLID
 
                     bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
 
-                    CurrentAccount currentAccount = new CurrentAccount(ac_no, nid, name, balance, date, LastInterestDate,isFreezed);
+                    CurrentAccount currentAccount = new CurrentAccount(ac_no, nid, name, balance, date, LastInterestDate, isFreezed);
 
                     Bank.CurrentAccountList.Add(currentAccount);
 
@@ -507,7 +507,7 @@ namespace BANKSOLID
 
 
 
-        
+
 
 
         public void SaveIslamicAccounttoDb(IslamicAccount islamicAccount)
@@ -568,8 +568,8 @@ namespace BANKSOLID
 
                     bool isFreezed = Convert.ToBoolean(reader["isFreezed"]);
 
-                    
-                    IslamicAccount islamicAc = new IslamicAccount(ac_no, nid, name, Balance, date, LastWithdrawDate,isFreezed);
+
+                    IslamicAccount islamicAc = new IslamicAccount(ac_no, nid, name, Balance, date, LastWithdrawDate, isFreezed);
 
                     islamicAc.setWithdrawalCount(stringUtils.ConvertToInt(reader["_withdrawCount"].ToString()));
 
@@ -628,12 +628,12 @@ namespace BANKSOLID
             }
         }
 
-        public void SaveLoantoDB(Loan loan,int customerNID,string loantype)
+        public void SaveLoantoDB(Loan loan, int customerNID, string loantype)
         {
             try
             {
                 conn.Open();
-                string sql = "Insert into "+loantype+"(CustomerNID,LoanAmount,IsApproved) VALUES" + "(@nid,@amount,@isApproved)";
+                string sql = "Insert into " + loantype + "(CustomerNID,LoanAmount,IsApproved) VALUES" + "(@nid,@amount,@isApproved)";
 
                 cmd = new OleDbCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@nid", customerNID);
@@ -654,7 +654,7 @@ namespace BANKSOLID
             {
                 Bank.HomeLoanList.Clear();
             }
-            else if(table=="EducationLoan")
+            else if (table == "EducationLoan")
             {
                 Bank.EducationLoanList.Clear();
             }
@@ -666,7 +666,7 @@ namespace BANKSOLID
                 OleDbCommand newCmd;
 
                 newConn.Open();
-                string sql = "Select * from "+table;
+                string sql = "Select * from " + table;
 
                 newCmd = new OleDbCommand(sql, newConn);
 
@@ -676,11 +676,11 @@ namespace BANKSOLID
                 {
                     int loanID = stringUtils.ConvertToInt(reader["LoanID"].ToString());
 
-                    int CustomerNID =stringUtils.ConvertToInt(reader["CustomerNID"].ToString());
+                    int CustomerNID = stringUtils.ConvertToInt(reader["CustomerNID"].ToString());
 
                     double LoanAmount = stringUtils.ConvertToDouble(reader["LoanAmount"].ToString());
 
-                    bool IsApproved =Convert.ToBoolean(reader["IsApproved"]);
+                    bool IsApproved = Convert.ToBoolean(reader["IsApproved"]);
 
                     Date starting_date = stringUtils.ConvertToDate(reader["starting_date"].ToString());
 
@@ -693,7 +693,7 @@ namespace BANKSOLID
 
                         Bank.HomeLoanList.Add(homeLoan);
                     }
-                    else if(table=="EducationLoan")
+                    else if (table == "EducationLoan")
                     {
                         EducationLoan educationloan = new EducationLoan(loanID, CustomerNID, LoanAmount, IsApproved, starting_date, last_payment_date, last_interest_Date);
                         Bank.EducationLoanList.Add(educationloan);
@@ -709,7 +709,7 @@ namespace BANKSOLID
         }
 
 
-        public void ActivationUpdateOnAccounts(string table,Account account)
+        public void ActivationUpdateOnAccounts(string table, Account account)
         {
             string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
 
@@ -719,7 +719,7 @@ namespace BANKSOLID
                 {
                     connection.Open();
 
-                    string updateQuery = "UPDATE "+table+" SET isFreezed = ? WHERE AccountNumber = ?";
+                    string updateQuery = "UPDATE " + table + " SET isFreezed = ? WHERE AccountNumber = ?";
 
                     using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
                     {
@@ -741,7 +741,7 @@ namespace BANKSOLID
         }
 
 
-        public void AcceptLoanRequest(string table,Loan loan)
+        public void AcceptLoanRequest(string table, Loan loan)
         {
             string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
 
@@ -756,7 +756,7 @@ namespace BANKSOLID
                     using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
                     {
                         command.Parameters.AddWithValue("@isFreezed", loan.isApproved);
-                        command.Parameters.AddWithValue("@starting_date",stringUtils.ConvertDateToString(loan.starting_date));
+                        command.Parameters.AddWithValue("@starting_date", stringUtils.ConvertDateToString(loan.starting_date));
                         command.Parameters.AddWithValue("@last_interest_date", stringUtils.ConvertDateToString(loan.last_payment_date));
 
                         command.Parameters.AddWithValue("@last_payment_date", stringUtils.ConvertDateToString(loan.last_payment_date));
@@ -786,7 +786,7 @@ namespace BANKSOLID
                 {
                     connection.Open();
 
-                    string updateQuery = "Delete from "+table+" where LoanID = ?";
+                    string updateQuery = "Delete from " + table + " where LoanID = ?";
 
                     using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
                     {
@@ -796,7 +796,7 @@ namespace BANKSOLID
 
                         int rowsAffected = command.ExecuteNonQuery();
 
-                        
+
                     }
                 }
                 catch (Exception ex)
@@ -805,10 +805,10 @@ namespace BANKSOLID
                 }
             }
 
-           
+
         }
 
-        public void UpdateLoanTable(string table,Loan loan)
+        public void UpdateLoanTable(string table, Loan loan)
         {
             string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
 
@@ -845,7 +845,7 @@ namespace BANKSOLID
         }
 
 
-        public void UpdateCustomerPassword(int nid,string newEncryptedPass)
+        public void UpdateCustomerPassword(int nid, string newEncryptedPass)
         {
             string connectionString = "Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb";
 
@@ -861,7 +861,7 @@ namespace BANKSOLID
                     {
 
                         command.Parameters.AddWithValue("@passu", newEncryptedPass);
-                        command.Parameters.AddWithValue("@nationalID",nid);
+                        command.Parameters.AddWithValue("@nationalID", nid);
 
 
 
@@ -877,7 +877,7 @@ namespace BANKSOLID
             }
         }
 
-        public void AddDepositHistory(Customer customer,int accountNumber,double amount, Date date)
+        public void AddDepositHistory(Customer customer, int accountNumber, double amount, Date date)
         {
             try
             {
@@ -888,7 +888,7 @@ namespace BANKSOLID
                 cmd.Parameters.AddWithValue("@acno", accountNumber);
                 cmd.Parameters.AddWithValue("@nid", customer.NID);
                 cmd.Parameters.AddWithValue("@amount", amount);
-                cmd.Parameters.AddWithValue("@date",stringUtils.ConvertDateToString(date));  
+                cmd.Parameters.AddWithValue("@date", stringUtils.ConvertDateToString(date));
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
@@ -916,7 +916,7 @@ namespace BANKSOLID
                 {
                     int ac_no = stringUtils.ConvertToInt(reader["AccountNumber"].ToString());
 
-                   
+
 
                     int nid = stringUtils.ConvertToInt(reader["_AccountHolderNID"].ToString());
 
@@ -931,7 +931,7 @@ namespace BANKSOLID
 
 
 
-                    DepositHistory depositHistory = new DepositHistory(uid,ac_no,nid,amount,date);
+                    DepositHistory depositHistory = new DepositHistory(uid, ac_no, nid, amount, date);
 
                     Bank.depositHistoryList.Add(depositHistory);
                 }
@@ -1000,6 +1000,72 @@ namespace BANKSOLID
                     WithdrawHistory withdrawhistory = new WithdrawHistory(uid, ac_no, nid, amount, date);
 
                     Bank.WithdrawHistoryList.Add(withdrawhistory);
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
+        public void AddTransferHistory(int giver_AcNo, int reciever_AcNo, int giverNid, double transferAmount, Date transferDate)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "Insert into TransferHistory(giverAccountNumber,recieverAccountNumber,giverNID,TransferAmount,TransferDate) VALUES" + "(@giveracno,@recieverAcno,@giverNID,@transferAmount,@transferDate)";
+
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@giveracno", giver_AcNo);
+                cmd.Parameters.AddWithValue("@recieverAcno", reciever_AcNo);
+                cmd.Parameters.AddWithValue("@giverNID", giverNid);
+                cmd.Parameters.AddWithValue("@transferAmount", transferAmount);
+                cmd.Parameters.AddWithValue("transferDate", stringUtils.ConvertDateToString(transferDate));
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void LoadTransferHistoryToBankList()
+        {
+            Bank.transferHistoryList.Clear();
+
+            try
+            {
+                conn = new OleDbConnection("Provider=Microsoft.ACE.OleDb.16.0; Data Source =Bank.accdb");
+                conn.Open();
+                string sql = "Select * from TransferHistory";
+
+                cmd = new OleDbCommand(sql, conn);
+
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int uid = stringUtils.ConvertToInt(reader["UID"].ToString());
+
+                    int ac_no = stringUtils.ConvertToInt(reader["giverAccountNumber"].ToString());
+
+
+                    int recieverAcno = stringUtils.ConvertToInt(reader["recieverAccountNumber"].ToString());
+
+                    int nid = stringUtils.ConvertToInt(reader["giverNID"].ToString());
+
+                    double amount = stringUtils.ConvertToDouble(reader["TransferAmount"].ToString());
+
+                    Date date = stringUtils.ConvertToDate(reader["TransferDate"].ToString());
+
+                    //change this
+                    TransferHistory transferhistory = new TransferHistory(uid, ac_no, recieverAcno, nid,amount, date);
+
+                    Bank.transferHistoryList.Add(transferhistory);
                 }
 
                 conn.Close();
