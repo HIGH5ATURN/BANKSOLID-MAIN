@@ -337,14 +337,7 @@ namespace BANKSOLID
 
                         int rowsAffected = command.ExecuteNonQuery();
 
-                        if (rowsAffected > 0)
-                        {
-                            Console.WriteLine("Operation Done Successfully!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Account not found or no update needed.");
-                        }
+                      
                     }
                 }
                 catch (Exception ex)
