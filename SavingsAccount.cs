@@ -63,7 +63,7 @@ namespace BANKSOLID
             if (amount >= 0)
             {
                 Balance += amount;
-
+                Console.WriteLine($"Successfully deposited: {amount}; New Balance: {Balance};");
             }
             else
             {
