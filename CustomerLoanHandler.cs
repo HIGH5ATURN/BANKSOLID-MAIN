@@ -16,7 +16,9 @@ namespace BANKSOLID
 
             if (loanAmount < 50000)
             {
-                Console.WriteLine("Home loan starts from 50000 bdt!");
+                Console.WriteLine("Application Failed! Home loan starts from 50000 bdt!");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
                 return;
             }
 
@@ -38,7 +40,9 @@ namespace BANKSOLID
             double loanAmount = stringUtils.ConvertToDouble(Console.ReadLine());
             if (loanAmount < 10000)
             {
-                Console.WriteLine("Home loan starts from 10000 bdt!");
+                Console.WriteLine("Application Failed! Education loan starts from 10000 bdt!");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
                 return;
             }
 

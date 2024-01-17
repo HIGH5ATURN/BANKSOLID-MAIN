@@ -190,6 +190,15 @@ namespace BANKSOLID
                     if(loan==null)
                     {
                         Console.WriteLine("No loan exists with this ID");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                        continue;
+                    }
+                    if(loan.isApproved)
+                    {
+                        Console.WriteLine("This loan is already approved!");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
                         continue;
                     }
                     loan.starting_date = Date.Now;
@@ -216,8 +225,21 @@ namespace BANKSOLID
                     if (loan == null)
                     {
                         Console.WriteLine("No loan exists with this ID");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
                         continue;
                     }
+
+                    if (loan.isApproved)
+                    {
+                        Console.WriteLine("This loan is already approved!");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                        continue;
+                    }
+                    loan.starting_date = Date.Now;
+                    loan.last_payment_date = Date.Now;
+                    loan.isApproved = true;
 
                     db.RejectingLoanRequest( "HomeLoan", loan);
                     db.RejectingLoanRequest("EducationLoan", loan);
